@@ -9,6 +9,7 @@ storage/
 /vendor
 .env
 .env.backup
+.htaccess
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
