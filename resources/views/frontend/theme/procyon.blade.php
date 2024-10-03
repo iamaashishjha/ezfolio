@@ -73,7 +73,8 @@
         }
     </style>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
+
 
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -419,7 +420,7 @@
                     <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form" >
                         @csrf
                         <div class="g-recaptcha" data-sitekey="6LeUsFYqAAAAAOvfeK7CexYbmdkRYi53acc36xYi"></div>
-      <br/>
+                    <br/>
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
                         </div>
@@ -433,7 +434,11 @@
                             <textarea id="body" name="body" cols="30" rows="7" class="form-control" placeholder="Body"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                            <button class="g-recaptcha" 
+        data-sitekey="6LeUsFYqAAAAAOvfeK7CexYbmdkRYi53acc36xYi" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>
+                            {{-- <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5"> --}}
                         </div>
                     </form>
                 </div>
@@ -499,6 +504,13 @@
     <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
     <script src="{{ asset('assets/themes/procyon/js/main.js') }}"></script>
     <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function onSubmit(token) {
+          document.getElementById("demo-form").submit();
+        }
+      </script>
     <script>
         $(function() {
             $('.lazy').lazy();
