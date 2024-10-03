@@ -22,7 +22,7 @@
             {!!$portfolioConfig['script']['header']!!}
         </script>
     @endif
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta property="og:title" content="{{$portfolioConfig['seo']['title']}}"/>
@@ -63,7 +63,7 @@
             border-color: rgba({{$accentColorRGB}}, .5) !important;
             box-shadow: none;
         }
-        
+
         .border-primary {
             border-color: var(--z-accent-color) !important;
         }
@@ -78,8 +78,11 @@
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="#"><span>{{substr($about->name, 0, 1)}}</span>{{substr($about->name, 1)}}</a>
-            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
+{{--            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">--}}
+{{--                <span class="oi oi-menu"></span> Menu--}}
+{{--            </button>--}}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
@@ -360,9 +363,9 @@
                     <h2 class="mb-4">Projects</h2>
                 </div>
             </div>
-            <div 
-                id="react-project-root" 
-                data-accentcolor="{{$accentColor}}" 
+            <div
+                id="react-project-root"
+                data-accentcolor="{{$accentColor}}"
                 data-demomode="{{$demoMode}}"
             />
             <div class="mb-5"></div>
@@ -378,7 +381,7 @@
                     <h2 class="mb-4">Contact Me</h2>
                 </div>
             </div>
-    
+
             <div class="row no-gutters block-9">
                 <div class="col-md-6 order-md-last d-flex">
                     <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form" >
@@ -444,7 +447,7 @@
         <div class="text-center text-muted"><p>©{{ now()->year }} All rights reserved.</p></div>
     </footer>
     @else
-    
+
     @endif
 
 
@@ -471,7 +474,7 @@
                     $(this).remove();
                 });
             }
-            
+
             if ($('#typed-strings').length) {
                 @if($about->taglines)
                     var typedStrings = new Typed('#typed-strings', {
@@ -544,7 +547,7 @@
                     });
                 }
             });
-            
+
             function showNotification(message = 'Something went wrong', type = 'error', sticky = false) {
                 iziToast.show({
                     title: '',
@@ -559,7 +562,7 @@
                     messageColor: type === 'success' ? '#00ffb8' : '#ffafb4',
                     icon: type === 'success' ? 'fas fa-check' : 'fas fa-times-circle'
                 });
-            }    
+            }
         });
     </script>
     @if (!empty($portfolioConfig['script']['footer']) && $portfolioConfig['script']['footer'] != '')

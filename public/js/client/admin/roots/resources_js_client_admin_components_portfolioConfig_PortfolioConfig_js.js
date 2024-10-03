@@ -28339,89 +28339,6 @@ Checkbox.defaultProps = {
 
 /***/ }),
 
-/***/ "./node_modules/rc-dialog/es/DialogWrap.js":
-/*!*************************************************!*\
-  !*** ./node_modules/rc-dialog/es/DialogWrap.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rc-util/es/PortalWrapper */ "./node_modules/rc-util/es/PortalWrapper.js");
-/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dialog */ "./node_modules/rc-dialog/es/Dialog/index.js");
-
-
-
-
- // fix issue #10656
-
-/*
- * getContainer remarks
- * Custom container should not be return, because in the Portal component, it will remove the
- * return container element here, if the custom container is the only child of it's component,
- * like issue #10656, It will has a conflict with removeChild method in react-dom.
- * So here should add a child (div element) to custom container.
- * */
-
-var DialogWrap = function DialogWrap(props) {
-  var visible = props.visible,
-      getContainer = props.getContainer,
-      forceRender = props.forceRender,
-      _props$destroyOnClose = props.destroyOnClose,
-      destroyOnClose = _props$destroyOnClose === void 0 ? false : _props$destroyOnClose,
-      _afterClose = props.afterClose;
-
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_2__.useState(visible),
-      _React$useState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_React$useState, 2),
-      animatedVisible = _React$useState2[0],
-      setAnimatedVisible = _React$useState2[1];
-
-  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(function () {
-    if (visible) {
-      setAnimatedVisible(true);
-    }
-  }, [visible]); // 渲染在当前 dom 里；
-
-  if (getContainer === false) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
-      getOpenCount: function getOpenCount() {
-        return 2;
-      } // 不对 body 做任何操作。。
-
-    }));
-  } // Destroy on close will remove wrapped div
-
-
-  if (!forceRender && destroyOnClose && !animatedVisible) {
-    return null;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    visible: visible,
-    forceRender: forceRender,
-    getContainer: getContainer
-  }, function (childProps) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
-      destroyOnClose: destroyOnClose,
-      afterClose: function afterClose() {
-        _afterClose === null || _afterClose === void 0 ? void 0 : _afterClose();
-        setAnimatedVisible(false);
-      }
-    }, childProps));
-  });
-};
-
-DialogWrap.displayName = 'Dialog';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DialogWrap);
-
-/***/ }),
-
 /***/ "./node_modules/rc-dialog/es/Dialog/Content/MemoChildren.js":
 /*!******************************************************************!*\
   !*** ./node_modules/rc-dialog/es/Dialog/Content/MemoChildren.js ***!
@@ -28897,6 +28814,89 @@ function Dialog(props) {
     motionName: (0,_util__WEBPACK_IMPORTED_MODULE_9__.getMotionName)(prefixCls, transitionName, animation)
   }))));
 }
+
+/***/ }),
+
+/***/ "./node_modules/rc-dialog/es/DialogWrap.js":
+/*!*************************************************!*\
+  !*** ./node_modules/rc-dialog/es/DialogWrap.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rc-util/es/PortalWrapper */ "./node_modules/rc-util/es/PortalWrapper.js");
+/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dialog */ "./node_modules/rc-dialog/es/Dialog/index.js");
+
+
+
+
+ // fix issue #10656
+
+/*
+ * getContainer remarks
+ * Custom container should not be return, because in the Portal component, it will remove the
+ * return container element here, if the custom container is the only child of it's component,
+ * like issue #10656, It will has a conflict with removeChild method in react-dom.
+ * So here should add a child (div element) to custom container.
+ * */
+
+var DialogWrap = function DialogWrap(props) {
+  var visible = props.visible,
+      getContainer = props.getContainer,
+      forceRender = props.forceRender,
+      _props$destroyOnClose = props.destroyOnClose,
+      destroyOnClose = _props$destroyOnClose === void 0 ? false : _props$destroyOnClose,
+      _afterClose = props.afterClose;
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_2__.useState(visible),
+      _React$useState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_React$useState, 2),
+      animatedVisible = _React$useState2[0],
+      setAnimatedVisible = _React$useState2[1];
+
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(function () {
+    if (visible) {
+      setAnimatedVisible(true);
+    }
+  }, [visible]); // 渲染在当前 dom 里；
+
+  if (getContainer === false) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      getOpenCount: function getOpenCount() {
+        return 2;
+      } // 不对 body 做任何操作。。
+
+    }));
+  } // Destroy on close will remove wrapped div
+
+
+  if (!forceRender && destroyOnClose && !animatedVisible) {
+    return null;
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    visible: visible,
+    forceRender: forceRender,
+    getContainer: getContainer
+  }, function (childProps) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      destroyOnClose: destroyOnClose,
+      afterClose: function afterClose() {
+        _afterClose === null || _afterClose === void 0 ? void 0 : _afterClose();
+        setAnimatedVisible(false);
+      }
+    }, childProps));
+  });
+};
+
+DialogWrap.displayName = 'Dialog';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DialogWrap);
 
 /***/ }),
 
