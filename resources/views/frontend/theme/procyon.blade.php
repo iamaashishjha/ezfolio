@@ -72,18 +72,49 @@
             color: {{$accentColor.' !important'}};
         }
     </style>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     @include('common.preloader2')
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+    {{-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="#"><span>{{substr($about->name, 0, 1)}}</span>{{substr($about->name, 1)}}</a>
-{{--            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">--}}
-{{--                <span class="oi oi-menu"></span> Menu--}}
-{{--            </button>--}}
+           <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span> Menu
+           </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                    <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    @if ($portfolioConfig['visibility']['about'])
+                        <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] || $portfolioConfig['visibility']['skills'])
+                        <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['services'])
+                        <li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['projects'])
+                        <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['contact'])
+                        <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav> --}}
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target fixed-top" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"><span>{{substr($about->name, 0, 1)}}</span>{{substr($about->name, 1)}}</a>
+            {{-- <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> Menu
+            </button> --}}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+              </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
                     <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
@@ -106,6 +137,7 @@
             </div>
         </div>
     </nav>
+    
     <section class="hero-wrap js-fullheight" id="hero" style="background-image: url('{{asset($about->cover)}}');">
         <div class="overlay"></div>
         <div class="container">
@@ -386,6 +418,8 @@
                 <div class="col-md-6 order-md-last d-flex">
                     <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form" >
                         @csrf
+                        <div class="g-recaptcha" data-sitekey="6LeUsFYqAAAAAOvfeK7CexYbmdkRYi53acc36xYi"></div>
+      <br/>
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
                         </div>
