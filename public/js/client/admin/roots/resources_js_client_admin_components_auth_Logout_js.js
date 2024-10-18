@@ -23,7 +23,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var Logout = function Logout() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -33,7 +32,6 @@ var Logout = function Logout() {
     to: _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_2__["default"].web.admin.login
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Logout);
 
 /***/ })

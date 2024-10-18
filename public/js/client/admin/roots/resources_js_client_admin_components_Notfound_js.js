@@ -19,21 +19,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/helpers/Routes */ "./resources/js/client/common/helpers/Routes.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject;
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
+function _taggedTemplateLiteral(e, t) { return t || (t = e.slice(0)), Object.freeze(Object.defineProperties(e, { raw: { value: Object.freeze(t) } })); }
 
 
 
 
- // Create a Wrapper component that'll render an <section> tag with some styles
 
+
+// Create a Wrapper component that'll render an <section> tag with some styles
 
 var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    margin-top: 30px;\n"])));
+
 /**
  * Display not found page
  */
-
 var NotFound = function NotFound() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Wrapper, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -50,7 +49,6 @@ var NotFound = function NotFound() {
     })
   });
 };
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (NotFound);
 
 /***/ })

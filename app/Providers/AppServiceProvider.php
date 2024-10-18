@@ -2,36 +2,37 @@
 
 namespace App\Providers;
 
+use Str;
+use URL;
+use Config;
+use Schema;
 use App\Models\Experience;
+use App\Rules\GoogleReCaptcha;
 use App\Services\AboutService;
 use App\Services\AdminService;
-use App\Services\Contracts\AboutInterface;
-use App\Services\Contracts\AdminInterface;
-use App\Services\Contracts\EducationInterface;
-use App\Services\Contracts\ExperienceInterface;
-use App\Services\Contracts\FrontendInterface;
-use App\Services\Contracts\MessageInterface;
-use App\Services\Contracts\PortfolioConfigInterface;
-use App\Services\Contracts\ProjectInterface;
-use App\Services\Contracts\ServiceInterface;
-use App\Services\Contracts\SettingInterface;
-use App\Services\Contracts\SkillInterface;
-use App\Services\Contracts\VisitorInterface;
-use App\Services\EducationService;
-use App\Services\ExperienceService;
-use App\Services\FrontendService;
+use App\Services\SkillService;
 use App\Services\MessageService;
-use App\Services\PortfolioConfigService;
 use App\Services\ProjectService;
 use App\Services\ServiceService;
 use App\Services\SettingService;
-use App\Services\SkillService;
 use App\Services\VisitorService;
-use Config;
+use App\Services\FrontendService;
+use App\Services\EducationService;
+use App\Services\ExperienceService;
 use Illuminate\Support\ServiceProvider;
-use Schema;
-use Str;
-use URL;
+use App\Services\PortfolioConfigService;
+use App\Services\Contracts\AboutInterface;
+use App\Services\Contracts\AdminInterface;
+use App\Services\Contracts\SkillInterface;
+use App\Services\Contracts\MessageInterface;
+use App\Services\Contracts\ProjectInterface;
+use App\Services\Contracts\ServiceInterface;
+use App\Services\Contracts\SettingInterface;
+use App\Services\Contracts\VisitorInterface;
+use App\Services\Contracts\FrontendInterface;
+use App\Services\Contracts\EducationInterface;
+use App\Services\Contracts\ExperienceInterface;
+use App\Services\Contracts\PortfolioConfigInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -72,5 +73,16 @@ class AppServiceProvider extends ServiceProvider
         }
         
         Schema::defaultStringLength(191);
+
+        $this->app->validator->extend('google_recaptcha', function ($attribute, $value, $parameters, $validator) {
+            $rule = new GoogleReCaptcha;
+
+            // Validate reCAPTCHA
+            $rule->validate($attribute, $value, function ($message) use ($validator, $attribute) {
+                $validator->errors()->add($attribute, $message);
+            });
+            // Return true to success
+            return true;
+        });
     }
 }
