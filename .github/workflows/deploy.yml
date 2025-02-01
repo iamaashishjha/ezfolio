@@ -29,6 +29,5 @@ jobs:
             php artisan migrate --force
             php artisan cache:clear
             php artisan config:clear
-            systemctl restart nginx
-            systemctl restart php-fpm
+            systemctl restart apache2
           EOF
