@@ -81,11 +81,6 @@ return [
             ],
         ],
 
-        'syslog' => [
-            'driver' => 'syslog',
-            'level' => env('LOG_LEVEL', 'debug'),
-        ],
-
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
@@ -98,6 +93,18 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+
+        'syslog' => [
+            'driver'  => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'handler' => Monolog\Handler\SyslogUdpHandler::class,
+            'handler_with' => [
+                'host' => env('GS_SYSLOG_HOST', '159.65.169.61'),
+                'port' => env('GS_SYSLOG_PORT', '514'),
+                'ident' => env('APP_NAME', 'PORTFOLIO')
+            ],
         ],
     ],
 
