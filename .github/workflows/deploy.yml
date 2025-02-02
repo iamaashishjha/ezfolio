@@ -18,12 +18,12 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 159.65.169.61 >> ~/.ssh/known_hosts
+          ssh-keyscan -H secrets.SERVER_IP >> ~/.ssh/known_hosts
 
       - name: Deploy to Server
         run: |
-          ssh root@159.65.169.61 << 'EOF'
-            cd /var/www/aashishjha.com.np/public_html
+          ssh secrets.USER_NAME@secrets.SERVER_IP << 'EOF'
+            cd secrets.DIRECTORY
             git pull origin main
             composer install --no-dev --optimize-autoloader
             php artisan migrate --force
