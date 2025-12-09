@@ -265,7 +265,7 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
                                 <span class="date">{{$experience->period}}</span>
                                 <h2>{{$experience->position}}</h2>
                                 <span class="position">{{$experience->company}}</span>
-                                <p>{{$experience->details}}</p>
+                                <p>{!! $experience->details !!}</p>
                             </div>
                         </div>
                         @endforeach

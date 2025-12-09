@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => explode(',', env('LOG_STACK', 'single')),
             'ignore_exceptions' => false,
         ],
 
@@ -95,15 +95,13 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
-
-        'syslog' => [
+        'rsyslog' => [
             'driver'  => 'monolog',
-            'level' => env('LOG_LEVEL', 'debug'),
             'handler' => Monolog\Handler\SyslogUdpHandler::class,
             'handler_with' => [
-                'host' => env('GS_SYSLOG_HOST', '159.65.169.61'),
-                'port' => env('GS_SYSLOG_PORT', '514'),
-                'ident' => env('APP_NAME', 'PORTFOLIO')
+                'host' => env('RSYSLOG_HOST', '127.0.0.1'),
+                'port' => env('RSYSLOG_PORT', '514'),
+                'ident' => env('APP_NAME', 'LUXEGO')
             ],
         ],
     ],
