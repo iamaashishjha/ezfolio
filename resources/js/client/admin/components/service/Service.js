@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import HTTP from '../../../common/helpers/HTTP';
 import Utils from '../../../common/helpers/Utils';
 import Routes from '../../../common/helpers/Routes';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const StyledDrawer = styled(Drawer)`
     .ant-drawer-content-wrapper {
@@ -20,14 +22,17 @@ const Service = (props) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState((typeof props.loading !== 'undefined') ? props.loading : false);
     const [componentLoading, setComponentLoading] = useState((typeof props.componentLoading !== 'undefined') ? props.componentLoading : false);
+    const [detailsValue, setDetailsValue] = useState('');
 
     useEffect(() => {
+        const initialDetails = props.itemToEdit ? props.itemToEdit.details : '';
         form.setFieldsValue({
             id: props.itemToEdit ? props.itemToEdit.id : '', 
             title: props.itemToEdit ? props.itemToEdit.title : '', 
             icon: props.itemToEdit ? props.itemToEdit.icon : '',
-            details: props.itemToEdit ? props.itemToEdit.details : ''
+            details: initialDetails
         });
+        setDetailsValue(initialDetails);
     }, [props.itemToEdit])
 
     useEffect(() => {
@@ -72,6 +77,7 @@ const Service = (props) => {
             .then(response => {
                 Utils.handleSuccessResponse(response, () => {
                     form.resetFields();
+                    setDetailsValue('');
                     Utils.showNotification(response.data.message, 'success');
                     props.submitCallback();
                 })
@@ -155,7 +161,28 @@ const Service = (props) => {
                             },
                         ]}
                     >
-                        <Input.TextArea rows={4} placeholder="Enter Details"/>
+                        <ReactQuill
+                            theme="snow"
+                            value={detailsValue}
+                            placeholder="Enter Details"
+                            modules={{
+                                toolbar: [
+                                    ['bold', 'italic', 'underline', 'strike'],
+                                    [{ header: [1, 2, 3, false] }],
+                                    [{ list: 'ordered' }, { list: 'bullet' }],
+                                    ['blockquote', 'link'],
+                                    ['clean']
+                                ],
+                            }}
+                            formats={[
+                                'header', 'bold', 'italic', 'underline',
+                                'strike', 'list', 'bullet', 'blockquote', 'link'
+                            ]}
+                            onChange={(content) => {
+                                setDetailsValue(content);
+                                form.setFieldsValue({ details: content });
+                            }}
+                        />
                     </Form.Item>
                 </Form>
             </Spin>

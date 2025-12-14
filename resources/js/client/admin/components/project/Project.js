@@ -7,6 +7,8 @@ import Utils from '../../../common/helpers/Utils';
 import Routes from '../../../common/helpers/Routes';
 import FileUploaderFormInput from '../uploader/FileUploaderFormInput';
 import { PlusOutlined } from '@ant-design/icons';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const { Option } = Select;
 
@@ -27,6 +29,7 @@ const Project = (props) => {
     const [previewVisible, setPreviewVisible] = useState(false);
     const [imageFileList, setImageFileList] = useState([]);
     const [previewImage, setPreviewImage] = useState('');
+    const [detailsValue, setDetailsValue] = useState('');
 
     useEffect(() => {
         if (props.itemToEdit) {
@@ -50,14 +53,16 @@ const Project = (props) => {
             });
         }
 
+        const initialDetails = props.itemToEdit ? props.itemToEdit.details : '';
         form.setFieldsValue({
             id: props.itemToEdit ? props.itemToEdit.id : '', 
             title: props.itemToEdit ? props.itemToEdit.title : '', 
             thumbnail: props.itemToEdit ? props.itemToEdit.thumbnail : '',
-            details: props.itemToEdit ? props.itemToEdit.details : '',
+            details: initialDetails,
             link: props.itemToEdit ? props.itemToEdit.link : '',
             categories: props.itemToEdit ? JSON.parse(props.itemToEdit.categories) : []
         });
+        setDetailsValue(initialDetails);
     }, [props.itemToEdit])
 
     useEffect(() => {
@@ -127,6 +132,7 @@ const Project = (props) => {
             .then(response => {
                 Utils.handleSuccessResponse(response, () => {
                     form.resetFields();
+                    setDetailsValue('');
                     Utils.showNotification(response.data.message, 'success');
                     props.submitCallback();
                 })
@@ -317,11 +323,29 @@ const Project = (props) => {
                     >
                         <Input placeholder="Enter Link"/>
                     </Form.Item>
-                    <Form.Item 
-                        name="details" 
-                        label="Details"
-                    >
-                        <Input.TextArea rows={4} placeholder="Enter Details"/>
+                    <Form.Item name="details" label="Details">
+                        <ReactQuill
+                            theme="snow"
+                            value={detailsValue}
+                            placeholder="Enter Details"
+                            modules={{
+                                toolbar: [
+                                    ['bold', 'italic', 'underline', 'strike'],
+                                    [{ header: [1, 2, 3, false] }],
+                                    [{ list: 'ordered' }, { list: 'bullet' }],
+                                    ['blockquote', 'link'],
+                                    ['clean']
+                                ],
+                            }}
+                            formats={[
+                                'header', 'bold', 'italic', 'underline',
+                                'strike', 'list', 'bullet', 'blockquote', 'link'
+                            ]}
+                            onChange={(content) => {
+                                setDetailsValue(content);
+                                form.setFieldsValue({ details: content });
+                            }}
+                        />
                     </Form.Item>
                 </Form>
                 <Modal

@@ -92827,13 +92827,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject;
-function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) { n[e] = r[e]; } return n; }
-function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0) { ; } } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
-function _taggedTemplateLiteral(e, t) { return t || (t = e.slice(0)), Object.freeze(Object.defineProperties(e, { raw: { value: Object.freeze(t) } })); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
 
 
 
@@ -92861,83 +92870,98 @@ var imageStyle = {
   opacity: '0.8'
 };
 var WallpaperLoading = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    background: ghostwhite;\n    width: 100%;\n    height: ", "px;\n    align-items: center;\n    justify-content: center;\n    -webkit-box-align: center;\n    display: inline-flex;\n"])), imageHeight);
+
 var Dashboard = function Dashboard() {
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useHistory)();
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState2 = _slicedToArray(_useState, 2),
-    wallpaper = _useState2[0],
-    setWallpaper = _useState2[1];
+      _useState2 = _slicedToArray(_useState, 2),
+      wallpaper = _useState2[0],
+      setWallpaper = _useState2[1];
+
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_7__.useSelector)(function (state) {
-      return state.globalState;
-    }),
-    demoMode = _useSelector.demoMode;
+    return state.globalState;
+  }),
+      demoMode = _useSelector.demoMode;
+
   var todayStartDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().startOf('day')).format('YYYY-MM-DD HH:mm:ss');
   var todayEndDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().endOf('day')).format('YYYY-MM-DD HH:mm:ss');
   var thisWeekStartDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().startOf('week').startOf('day')).format('YYYY-MM-DD HH:mm:ss');
   var thisWeekEndDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().endOf('week').endOf('day')).format('YYYY-MM-DD HH:mm:ss');
   var thisMonthStartDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().startOf('month').startOf('day')).format('YYYY-MM-DD HH:mm:ss');
   var thisMonthEndDateUtc = moment__WEBPACK_IMPORTED_MODULE_1___default().utc(moment__WEBPACK_IMPORTED_MODULE_1___default()().endOf('month').endOf('day')).format('YYYY-MM-DD HH:mm:ss');
+
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
-    _useState4 = _slicedToArray(_useState3, 2),
-    loading = _useState4[0],
-    setLoading = _useState4[1];
+      _useState4 = _slicedToArray(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0,
-      today: 0,
-      thisWeek: 0,
-      thisMonth: 0,
-      trend: []
-    }),
-    _useState6 = _slicedToArray(_useState5, 2),
-    visitorData = _useState6[0],
-    setVisitorData = _useState6[1];
+    total: 0,
+    today: 0,
+    thisWeek: 0,
+    thisMonth: 0,
+    trend: []
+  }),
+      _useState6 = _slicedToArray(_useState5, 2),
+      visitorData = _useState6[0],
+      setVisitorData = _useState6[1];
+
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0,
-      today: 0,
-      thisWeek: 0,
-      thisMonth: 0
-    }),
-    _useState8 = _slicedToArray(_useState7, 2),
-    messageData = _useState8[0],
-    setMessageData = _useState8[1];
+    total: 0,
+    today: 0,
+    thisWeek: 0,
+    thisMonth: 0
+  }),
+      _useState8 = _slicedToArray(_useState7, 2),
+      messageData = _useState8[0],
+      setMessageData = _useState8[1];
+
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0
-    }),
-    _useState10 = _slicedToArray(_useState9, 2),
-    skillData = _useState10[0],
-    setSkillData = _useState10[1];
+    total: 0
+  }),
+      _useState10 = _slicedToArray(_useState9, 2),
+      skillData = _useState10[0],
+      setSkillData = _useState10[1];
+
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0
-    }),
-    _useState12 = _slicedToArray(_useState11, 2),
-    educationData = _useState12[0],
-    setEducationData = _useState12[1];
+    total: 0
+  }),
+      _useState12 = _slicedToArray(_useState11, 2),
+      educationData = _useState12[0],
+      setEducationData = _useState12[1];
+
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0
-    }),
-    _useState14 = _slicedToArray(_useState13, 2),
-    experienceData = _useState14[0],
-    setExperienceData = _useState14[1];
+    total: 0
+  }),
+      _useState14 = _slicedToArray(_useState13, 2),
+      experienceData = _useState14[0],
+      setExperienceData = _useState14[1];
+
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0
-    }),
-    _useState16 = _slicedToArray(_useState15, 2),
-    projectData = _useState16[0],
-    setProjectData = _useState16[1];
+    total: 0
+  }),
+      _useState16 = _slicedToArray(_useState15, 2),
+      projectData = _useState16[0],
+      setProjectData = _useState16[1];
+
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-      total: 0
-    }),
-    _useState18 = _slicedToArray(_useState17, 2),
-    servicesData = _useState18[0],
-    setServicesData = _useState18[1];
+    total: 0
+  }),
+      _useState18 = _slicedToArray(_useState17, 2),
+      servicesData = _useState18[0],
+      setServicesData = _useState18[1];
+
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
-    _useState20 = _slicedToArray(_useState19, 2),
-    currentTemplate = _useState20[0],
-    setCurrentTemplate = _useState20[1];
+      _useState20 = _slicedToArray(_useState19, 2),
+      currentTemplate = _useState20[0],
+      setCurrentTemplate = _useState20[1];
+
   var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
-    _useState22 = _slicedToArray(_useState21, 2),
-    colors = _useState22[0],
-    setColors = _useState22[1];
+      _useState22 = _slicedToArray(_useState21, 2),
+      colors = _useState22[0],
+      setColors = _useState22[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setColors({
       skill: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].randomHexColor(),
@@ -92950,6 +92974,7 @@ var Dashboard = function Dashboard() {
     });
     loadData();
     getWallpaper();
+
     if (demoMode) {
       antd__WEBPACK_IMPORTED_MODULE_12__["default"].open({
         message: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
@@ -92993,6 +93018,7 @@ var Dashboard = function Dashboard() {
       });
     }
   }, []);
+
   var getWallpaper = function getWallpaper() {
     setWallpaper(null);
     reddit_image_fetcher__WEBPACK_IMPORTED_MODULE_6__.fetch({
@@ -93003,8 +93029,10 @@ var Dashboard = function Dashboard() {
       }
     });
   };
+
   var loadData = function loadData() {
     var _loading = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
     setLoading(_loading);
     _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_2__["default"].get(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_3__["default"].api.admin.stats, {
       params: {
@@ -93018,62 +93046,59 @@ var Dashboard = function Dashboard() {
     }).then(function (response) {
       _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].handleSuccessResponse(response, function () {
         var result = response.data.payload;
+
         if (result) {
           //visitors
           var trendArray = [];
           result.visitors.trend.forEach(function (element) {
             trendArray.push(parseInt(element.count));
           });
+
           if (trendArray.length === 0) {
             trendArray = [0, 0];
           } else if (trendArray.length === 1) {
             trendArray.unshift(0);
           }
+
           setVisitorData({
             total: result.visitors.total,
             today: result.visitors.totalToday,
             thisWeek: result.visitors.totalThisWeek,
             thisMonth: result.visitors.totalThisMonth,
             trend: trendArray
-          });
+          }); //message
 
-          //message
           setMessageData({
             total: result.message.total,
             today: result.message.totalToday,
             thisWeek: result.message.totalThisWeek,
             thisMonth: result.message.totalThisMonth
-          });
+          }); //skills
 
-          //skills
           setSkillData({
             total: result.skills.total
-          });
+          }); //education
 
-          //education
           setEducationData({
             total: result.educations.total
-          });
+          }); //experience
 
-          //experience
           setExperienceData({
             total: result.experiences.total
-          });
+          }); //project
 
-          //project
           setProjectData({
             total: result.projects.total
-          });
+          }); //service
 
-          //service
           setServicesData({
             total: result.services.total
-          });
+          }); //template
 
-          //template
           var filteredArray = _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].templates.filter(function (template) {
             return template.id === result.currentTemplate;
           });
+
           if (filteredArray.length) {
             setCurrentTemplate(filteredArray[0]);
           }
@@ -93085,6 +93110,7 @@ var Dashboard = function Dashboard() {
       setLoading(false);
     });
   };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       gutter: 24,
@@ -93542,6 +93568,7 @@ var Dashboard = function Dashboard() {
     })
   });
 };
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.memo(Dashboard));
 
 /***/ }),
@@ -93567,7 +93594,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject;
-function _taggedTemplateLiteral(e, t) { return t || (t = e.slice(0)), Object.freeze(Object.defineProperties(e, { raw: { value: Object.freeze(t) } })); }
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
 
 
 
@@ -93577,18 +93607,20 @@ function _taggedTemplateLiteral(e, t) { return t || (t = e.slice(0)), Object.fre
 
 var Text = antd__WEBPACK_IMPORTED_MODULE_3__["default"].Text;
 var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_4__["default"].div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\ncursor: pointer;\n\n.icon-wrapper {\n    font-size: 40px;\n    float: left;\n}\n\n.stat-content {\n    width: 100%;\n    padding-left: 60px;\n\n    .stat-title {\n        line-height: 16px;\n        font-size: 16px;\n        margin-bottom: 8px;\n        height: 16px;\n        white-space: nowrap;\n    }\n\n    .stat-number {\n        line-height: 32px;\n        font-size: 24px;\n        height: 32px;\n        margin-bottom: 0;\n        white-space: nowrap;\n    }\n}\n"])));
+
 var StatCard = function StatCard(_ref) {
   var icon = _ref.icon,
-    color = _ref.color,
-    title = _ref.title,
-    number = _ref.number,
-    _ref$loading = _ref.loading,
-    loading = _ref$loading === void 0 ? false : _ref$loading,
-    _ref$link = _ref.link,
-    link = _ref$link === void 0 ? false : _ref$link,
-    _ref$isCard = _ref.isCard,
-    isCard = _ref$isCard === void 0 ? true : _ref$isCard;
+      color = _ref.color,
+      title = _ref.title,
+      number = _ref.number,
+      _ref$loading = _ref.loading,
+      loading = _ref$loading === void 0 ? false : _ref$loading,
+      _ref$link = _ref.link,
+      link = _ref$link === void 0 ? false : _ref$link,
+      _ref$isCard = _ref.isCard,
+      isCard = _ref$isCard === void 0 ? true : _ref$isCard;
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useHistory)();
+
   var children = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(Wrapper, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("span", {
       className: "icon-wrapper",
@@ -93622,6 +93654,7 @@ var StatCard = function StatCard(_ref) {
       })]
     })]
   });
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: isCard ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(antd__WEBPACK_IMPORTED_MODULE_6__["default"], {
       onClick: function onClick() {
@@ -93641,6 +93674,7 @@ var StatCard = function StatCard(_ref) {
     }) : children
   });
 };
+
 StatCard.propTypes = {
   isCard: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
   link: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().string),
@@ -123313,89 +123347,6 @@ module.exports.getPerplexity = function (pdf) {
 
 /***/ }),
 
-/***/ "./node_modules/rc-dialog/es/DialogWrap.js":
-/*!*************************************************!*\
-  !*** ./node_modules/rc-dialog/es/DialogWrap.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
-/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rc-util/es/PortalWrapper */ "./node_modules/rc-util/es/PortalWrapper.js");
-/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dialog */ "./node_modules/rc-dialog/es/Dialog/index.js");
-
-
-
-
- // fix issue #10656
-
-/*
- * getContainer remarks
- * Custom container should not be return, because in the Portal component, it will remove the
- * return container element here, if the custom container is the only child of it's component,
- * like issue #10656, It will has a conflict with removeChild method in react-dom.
- * So here should add a child (div element) to custom container.
- * */
-
-var DialogWrap = function DialogWrap(props) {
-  var visible = props.visible,
-      getContainer = props.getContainer,
-      forceRender = props.forceRender,
-      _props$destroyOnClose = props.destroyOnClose,
-      destroyOnClose = _props$destroyOnClose === void 0 ? false : _props$destroyOnClose,
-      _afterClose = props.afterClose;
-
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_2__.useState(visible),
-      _React$useState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_React$useState, 2),
-      animatedVisible = _React$useState2[0],
-      setAnimatedVisible = _React$useState2[1];
-
-  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(function () {
-    if (visible) {
-      setAnimatedVisible(true);
-    }
-  }, [visible]); // 渲染在当前 dom 里；
-
-  if (getContainer === false) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
-      getOpenCount: function getOpenCount() {
-        return 2;
-      } // 不对 body 做任何操作。。
-
-    }));
-  } // Destroy on close will remove wrapped div
-
-
-  if (!forceRender && destroyOnClose && !animatedVisible) {
-    return null;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    visible: visible,
-    forceRender: forceRender,
-    getContainer: getContainer
-  }, function (childProps) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
-      destroyOnClose: destroyOnClose,
-      afterClose: function afterClose() {
-        _afterClose === null || _afterClose === void 0 ? void 0 : _afterClose();
-        setAnimatedVisible(false);
-      }
-    }, childProps));
-  });
-};
-
-DialogWrap.displayName = 'Dialog';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DialogWrap);
-
-/***/ }),
-
 /***/ "./node_modules/rc-dialog/es/Dialog/Content/MemoChildren.js":
 /*!******************************************************************!*\
   !*** ./node_modules/rc-dialog/es/Dialog/Content/MemoChildren.js ***!
@@ -123871,6 +123822,89 @@ function Dialog(props) {
     motionName: (0,_util__WEBPACK_IMPORTED_MODULE_9__.getMotionName)(prefixCls, transitionName, animation)
   }))));
 }
+
+/***/ }),
+
+/***/ "./node_modules/rc-dialog/es/DialogWrap.js":
+/*!*************************************************!*\
+  !*** ./node_modules/rc-dialog/es/DialogWrap.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rc-util/es/PortalWrapper */ "./node_modules/rc-util/es/PortalWrapper.js");
+/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Dialog */ "./node_modules/rc-dialog/es/Dialog/index.js");
+
+
+
+
+ // fix issue #10656
+
+/*
+ * getContainer remarks
+ * Custom container should not be return, because in the Portal component, it will remove the
+ * return container element here, if the custom container is the only child of it's component,
+ * like issue #10656, It will has a conflict with removeChild method in react-dom.
+ * So here should add a child (div element) to custom container.
+ * */
+
+var DialogWrap = function DialogWrap(props) {
+  var visible = props.visible,
+      getContainer = props.getContainer,
+      forceRender = props.forceRender,
+      _props$destroyOnClose = props.destroyOnClose,
+      destroyOnClose = _props$destroyOnClose === void 0 ? false : _props$destroyOnClose,
+      _afterClose = props.afterClose;
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_2__.useState(visible),
+      _React$useState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_React$useState, 2),
+      animatedVisible = _React$useState2[0],
+      setAnimatedVisible = _React$useState2[1];
+
+  react__WEBPACK_IMPORTED_MODULE_2__.useEffect(function () {
+    if (visible) {
+      setAnimatedVisible(true);
+    }
+  }, [visible]); // 渲染在当前 dom 里；
+
+  if (getContainer === false) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      getOpenCount: function getOpenCount() {
+        return 2;
+      } // 不对 body 做任何操作。。
+
+    }));
+  } // Destroy on close will remove wrapped div
+
+
+  if (!forceRender && destroyOnClose && !animatedVisible) {
+    return null;
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(rc_util_es_PortalWrapper__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    visible: visible,
+    forceRender: forceRender,
+    getContainer: getContainer
+  }, function (childProps) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_Dialog__WEBPACK_IMPORTED_MODULE_4__["default"], (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      destroyOnClose: destroyOnClose,
+      afterClose: function afterClose() {
+        _afterClose === null || _afterClose === void 0 ? void 0 : _afterClose();
+        setAnimatedVisible(false);
+      }
+    }, childProps));
+  });
+};
+
+DialogWrap.displayName = 'Dialog';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DialogWrap);
 
 /***/ }),
 

@@ -157,7 +157,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <p>{{ $about->description }}</p>
+                        @if ($about->description)
+                        <div class="pb-2 text-muted">
+                            {!! $about->description !!}
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -213,7 +217,7 @@
                                 <h4>{{$experience->position ? $experience->position : ''}}</h4>
                                 <h5>{{$experience->period ? $experience->period : ''}}</h5>
                                 <p class="font-weight-bold text-muted">{{$experience->company ? $experience->company : ''}}</p>
-                                <p>{{$experience->details ? $experience->details : ''}}</p>
+                                {!! $experience->details ? '<p>'.$experience->details.'</p>' : '' !!} 
                             </div>
                         @endforeach
                     @endif

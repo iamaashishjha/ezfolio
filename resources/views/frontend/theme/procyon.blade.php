@@ -159,7 +159,11 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
                     <div class="row justify-content-start pb-3">
                         <div class="col-md-12 heading-section">
                             <h2 class="mb-4">About Me</h2>
-                            <p>{{ $about->description }}</p>
+                            @if ($about->description)
+                            <div class="pb-2 text-muted">
+                                {!! $about->description !!}
+                            </div>
+                            @endif
                             <ul class="about-info mt-4 px-md-0 px-2">
                                 <li class="d-flex"><span>Name:</span> <span>{{ $about->name }}</span></li>
                                 @if ($about->email && $about->email !== '')
@@ -206,7 +210,7 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
                 @endif
             </div>
         </div>
-    </section>
+    </section>x
     @endif
 
     @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] ||

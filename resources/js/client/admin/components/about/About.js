@@ -10,6 +10,8 @@ import QueueAnim from 'rc-queue-anim';
 import SocialLinkPopup from './SocialLinkPopup';
 import { DownloadOutlined } from '@ant-design/icons';
 import PageWrapper from '../layout/PageWrapper';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const pulseAnimation = keyframes`
 0%,
@@ -193,7 +195,9 @@ const About = () => {
         } else if (input === 'address') {
             addressInput.current.focus();
         } else if (input === 'description') {
-            descriptionInput.current.focus();
+            if (descriptionInput.current) {
+                descriptionInput.current.focus();
+            }
         } else if (input === 'taglines') {
             setFocusTaglines(true);
             taglinesInput.current.focus();
@@ -539,7 +543,29 @@ const About = () => {
                                     }
                                 ]}
                             >
-                                <Input.TextArea rows="4" ref={descriptionInput} placeholder="Description"/>
+                                <ReactQuill
+                                    ref={descriptionInput}
+                                    theme="snow"
+                                    value={description}
+                                    placeholder="Description"
+                                    modules={{
+                                        toolbar: [
+                                            ['bold', 'italic', 'underline', 'strike'],
+                                            [{ header: [1, 2, 3, false] }],
+                                            [{ list: 'ordered' }, { list: 'bullet' }],
+                                            ['blockquote', 'link'],
+                                            ['clean']
+                                        ]
+                                    }}
+                                    formats={[
+                                        'header', 'bold', 'italic', 'underline',
+                                        'strike', 'list', 'bullet', 'blockquote', 'link'
+                                    ]}
+                                    onChange={(content) => {
+                                        setDescription(content);
+                                        form.setFieldsValue({ description: content });
+                                    }}
+                                />
                             </Form.Item>
                             <AnimatedDiv animate={focusTaglines} ref={taglinesInput} tabIndex="-1">
                                 <Form.Item

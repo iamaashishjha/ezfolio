@@ -133,7 +133,11 @@
                             <a href="{{$about->cv}}" class="btn btn-light btn-sm" download>Download CV</a>
                         </div>
                     @endif
-                    <p class="lead mb-5">{{ $about->description }}</p>
+                    @if ($about->description)
+                    <div class="pb-2 text-muted">
+                        {!! $about->description !!}
+                    </div>
+                    @endif
                         @if ($about->social_links)
                         <div class="social-icons" data-aos="zoom-in">
                             @foreach (json_decode($about->social_links) as $social)
