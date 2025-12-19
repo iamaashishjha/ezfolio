@@ -15,7 +15,7 @@ COPY webpack.mix.js ./
 COPY resources resources
 COPY public public
 
-RUN npm ci
+RUN NODE_ENV=development npm ci
 RUN npm run prod
 
 FROM php:8.1-fpm-alpine AS app
