@@ -20,6 +20,12 @@ COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
 FROM base AS vendor
 COPY composer.json composer.lock ./
+COPY artisan ./
+COPY bootstrap ./bootstrap
+COPY app ./app
+COPY config ./config
+COPY database ./database
+COPY routes ./routes
 RUN composer install \
     --no-dev \
     --prefer-dist \
