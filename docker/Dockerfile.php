@@ -36,6 +36,7 @@ RUN npm ci
 COPY webpack.mix.js ./
 COPY resources ./resources
 COPY public ./public
+COPY .eslintrc.js ./
 RUN npm run production
 
 FROM base
