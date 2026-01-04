@@ -101,5 +101,9 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
+          request_pty: true
+          # IMPORTANT: allow slow pulls
+          timeout: 120s               # SSH connection timeout
+          command_timeout: 60m        # script runtime timeout
           script: |
             /opt/infra/auto-deployment.sh ezfolio up
