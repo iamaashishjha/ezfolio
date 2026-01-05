@@ -31,7 +31,6 @@ FROM base AS vendor
 
 COPY composer.json composer.lock ./
 
-# Install vendors without running Laravel scripts (package:discover etc.)
 RUN composer install \
       --no-dev \
       --prefer-dist \
@@ -43,22 +42,31 @@ RUN composer install \
 
 
 # ------------------------------
-# Node assets stage
+# Node assets stage (Debian, not Alpine)
 # ------------------------------
-FROM node:18-alpine AS assets
+FROM node:18-bullseye-slim AS assets
 
 WORKDIR /var/www/html
 
-RUN apk add --no-cache make g++ python3
+# Build tools for native deps when needed
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      python3 make g++ \
+  && rm -rf /var/lib/apt/lists/*
 
+# Prevent webpack/terser OOM
+ENV NODE_OPTIONS=--max_old_space_size=4096
+ENV CI=true
+
+# Install deps with cache-friendly layering
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --no-audit --no-fund
 
+# Copy only what's needed for build
 COPY webpack.mix.js ./
 COPY resources ./resources
 COPY public ./public
 
-# Some builds need these present (optional, but harmless)
+# Some builds expect these files
 COPY artisan ./
 COPY .eslintrc.js ./
 
@@ -79,16 +87,13 @@ COPY . .
 COPY --from=vendor /var/www/html/vendor ./vendor
 COPY --from=assets /var/www/html/public ./public
 
-# Laravel required dirs
+# Laravel required dirs + perms
 RUN mkdir -p \
       storage/framework/cache \
       storage/framework/sessions \
       storage/framework/views \
       bootstrap/cache \
   && chmod -R 775 storage bootstrap/cache
-
-# (Optional) run discover here ONLY if you really want it at build time
-# RUN php artisan package:discover --ansi || true
 
 # Git safe directory (optional)
 RUN git config --global --add safe.directory /var/www/html || true
