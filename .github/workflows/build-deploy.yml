@@ -20,7 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set image tags
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_GITHUB_TOKEN }}
+
+      # Optional but nice: normalize tag for branches and tags
+      - name: Set image tag
         id: vars
         shell: bash
         run: |
@@ -30,65 +38,31 @@ jobs:
             TAG="${GITHUB_REF_NAME}"            # branch name
             TAG="${TAG//\//-}"                  # replace / with -
           fi
-          SHA_TAG="sha-${GITHUB_SHA}"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "sha_tag=$SHA_TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.PAT_GITHUB_TOKEN }}
-
-      # -------------------------
-      # Build & push PHP image
-      # -------------------------
       - name: Build & push PHP image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/Dockerfile.php
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/ezfolio-php:${{ steps.vars.outputs.tag }}
-            ghcr.io/${{ github.repository_owner }}/ezfolio-php:${{ steps.vars.outputs.sha_tag }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Tag & push PHP latest (main/tags only)
-        if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
         run: |
           IMAGE="ghcr.io/${{ github.repository_owner }}/ezfolio-php"
-          docker pull "$IMAGE:${{ steps.vars.outputs.sha_tag }}"
-          docker tag  "$IMAGE:${{ steps.vars.outputs.sha_tag }}" "$IMAGE:latest"
-          docker push "$IMAGE:latest"
+          docker build -f docker/Dockerfile.php -t "$IMAGE:${{ steps.vars.outputs.tag }}" -t "$IMAGE:${{ github.sha }}" .
+          docker push "$IMAGE:${{ steps.vars.outputs.tag }}"
+          docker push "$IMAGE:${{ github.sha }}"
+          # Only main + tags get latest
+          if [[ "${GITHUB_REF_NAME}" == "main" || "${GITHUB_REF}" == refs/tags/* ]]; then
+            docker tag "$IMAGE:${{ github.sha }}" "$IMAGE:latest"
+            docker push "$IMAGE:latest"
+          fi
 
-      # -------------------------
-      # Build & push Nginx image
-      # -------------------------
       - name: Build & push Nginx image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/Dockerfile.nginx
-          push: true
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/ezfolio-nginx:${{ steps.vars.outputs.tag }}
-            ghcr.io/${{ github.repository_owner }}/ezfolio-nginx:${{ steps.vars.outputs.sha_tag }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
-      - name: Tag & push Nginx latest (main/tags only)
-        if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
         run: |
           IMAGE="ghcr.io/${{ github.repository_owner }}/ezfolio-nginx"
-          docker pull "$IMAGE:${{ steps.vars.outputs.sha_tag }}"
-          docker tag  "$IMAGE:${{ steps.vars.outputs.sha_tag }}" "$IMAGE:latest"
-          docker push "$IMAGE:latest"
+          docker build -f docker/Dockerfile.nginx -t "$IMAGE:${{ steps.vars.outputs.tag }}" -t "$IMAGE:${{ github.sha }}" .
+          docker push "$IMAGE:${{ steps.vars.outputs.tag }}"
+          docker push "$IMAGE:${{ github.sha }}"
+          # Only main + tags get latest
+          if [[ "${GITHUB_REF_NAME}" == "main" || "${GITHUB_REF}" == refs/tags/* ]]; then
+            docker tag "$IMAGE:${{ github.sha }}" "$IMAGE:latest"
+            docker push "$IMAGE:latest"
+          fi
 
   deploy:
     needs: build_push
@@ -101,9 +75,5 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
-          request_pty: true
-          # IMPORTANT: allow slow pulls
-          timeout: 120s               # SSH connection timeout
-          command_timeout: 60m        # script runtime timeout
           script: |
             /opt/infra/auto-deployment.sh ezfolio up
