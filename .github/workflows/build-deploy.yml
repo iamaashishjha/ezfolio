@@ -14,9 +14,6 @@ permissions:
 jobs:
   build_push:
     runs-on: ubuntu-latest
-    outputs:
-      image_tag: ${{ steps.vars.outputs.tag }}
-      sha_tag: ${{ steps.vars.outputs.sha_tag }}
     steps:
       - uses: actions/checkout@v4
 
