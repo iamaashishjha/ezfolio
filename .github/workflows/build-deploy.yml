@@ -101,10 +101,10 @@ jobs:
       - name: SSH deploy (pull + up)
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
+          host: ${{ vars.DEPLOY_HOST }}
+          username: ${{ vars.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           timeout: 60s
           command_timeout: 45m
           script: |
-            /opt/infra/auto-deployment.sh ezfolio up
+            ${{ vars.DEPLOY_SCRIPT_PATH }}/auto-deployment.sh ezfolio up
