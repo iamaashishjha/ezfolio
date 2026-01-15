@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use Str;
-use URL;
-use Config;
-use Schema;
 use App\Models\Experience;
 use App\Rules\GoogleReCaptcha;
 use App\Services\AboutService;
@@ -19,6 +15,8 @@ use App\Services\VisitorService;
 use App\Services\FrontendService;
 use App\Services\EducationService;
 use App\Services\ExperienceService;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Services\PortfolioConfigService;
 use App\Services\Contracts\AboutInterface;
