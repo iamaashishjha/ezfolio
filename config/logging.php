@@ -43,13 +43,13 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
@@ -92,7 +92,7 @@ return [
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
         ],
 
         'rsyslog' => [
@@ -101,7 +101,7 @@ return [
             'handler_with' => [
                 'host' => env('RSYSLOG_HOST', '127.0.0.1'),
                 'port' => env('RSYSLOG_PORT', '514'),
-                'ident' => env('APP_NAME', 'EZFOLIO')
+                'ident' => \Illuminate\Support\Str::upper(config('app.name'))
             ],
         ],
     ],
