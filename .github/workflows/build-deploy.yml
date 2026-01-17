@@ -107,4 +107,4 @@ jobs:
           timeout: 60s
           command_timeout: 45m
           script: |
-            ${{ vars.DEPLOY_SCRIPT_PATH }}/auto-deployment.sh ezfolio up
+            ${{ vars.DEPLOY_SCRIPT_PATH }}/infra-auto-deploy ezfolio up
