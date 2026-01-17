@@ -101,7 +101,7 @@ return [
             'handler_with' => [
                 'host' => env('RSYSLOG_HOST', '127.0.0.1'),
                 'port' => env('RSYSLOG_PORT', '514'),
-                'ident' => env('APP_NAME', 'LUXEGO')
+                'ident' => env('APP_NAME', 'EZFOLIO')
             ],
         ],
     ],
