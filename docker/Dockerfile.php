@@ -15,6 +15,7 @@ RUN apk add --no-cache \
     && docker-php-ext-install \
         pdo pdo_mysql \
         intl mbstring zip opcache gd \
+        sockets \
         calendar \
     && apk del .build-deps
 
