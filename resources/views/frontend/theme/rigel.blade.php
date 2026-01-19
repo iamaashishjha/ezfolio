@@ -27,24 +27,24 @@
     <meta name="description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}"/>
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image:secure_url" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
 
     <title>{{$about->name}}</title>
 
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -107,7 +107,7 @@
     </header><!-- End Header -->
 
     <!-- ======= hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{asset($about->cover)}}');">
+    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{secure_asset($about->cover)}}');">
         <div class="container" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <h1>{{ $about->name }}</h1>
             <p><span class="typed"></span></p>
@@ -139,7 +139,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 text-center">
-                        <img data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="">
+                        <img data-src="{{secure_asset($about->avatar)}}" src="{{secure_asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="">
                     </div>
                     <div class="col-lg-8 pt-4 pt-lg-0 content my-lg-auto">
                         <div class="row">
@@ -407,21 +407,21 @@
     @include('common.preloader2')
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/waypoints/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/isotope-layout/isotope.pkgd.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/typed/typed.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/aos/aos.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{ asset('assets/themes/rigel/js/main.js') }}"></script>
+    <script src="{{ secure_asset('assets/themes/rigel/js/main.js') }}"></script>
 
-    <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="{{ secure_asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
             $('.lazy').lazy();

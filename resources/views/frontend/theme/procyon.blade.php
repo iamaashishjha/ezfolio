@@ -31,19 +31,19 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
     <meta name="description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image:secure_url" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
     <title>{{$about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ Utils::getFavicon() }}">
 
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/procyon/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/procyon/css/custom.css') }}" rel="stylesheet">
     {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
 </head>
 
@@ -117,7 +117,7 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
         </div>
     </nav>
 
-    <section class="hero-wrap js-fullheight" id="hero" style="background-image: url('{{asset($about->cover)}}');">
+    <section class="hero-wrap js-fullheight" id="hero" style="background-image: url('{{secure_asset($about->cover)}}');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
@@ -152,7 +152,7 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
                     <div class="img-about img d-flex align-items-stretch">
                         <div class="overlay"></div>
                         <img class="img d-flex align-self-stretch align-items-center mx-auto my-auto lazy rounded-circle"
-                            data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" />
+                            data-src="{{secure_asset($about->avatar)}}" src="{{secure_asset('assets/common/img/lazyloader.gif')}}" />
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 pl-md-5 py-5">
@@ -475,20 +475,20 @@ $accentColorRGB = Utils::getRgbValue($accentColor);
     @endif
 
 
-    <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery-migrate/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/waypoints/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.stellar/jquery.stellar.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/scrollax/scrollax.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
-    <script src="{{ asset('assets/themes/procyon/js/main.js') }}"></script>
-    <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery-migrate/jquery-migrate.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/typed/typed.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/waypoints/jquery.waypoints.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.stellar/jquery.stellar.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/aos/aos.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/scrollax/scrollax.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/themes/procyon/js/main.js') }}"></script>
+    <script src="{{ secure_asset('js/client/frontend/roots/projects.js') }}"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
 
     <script>

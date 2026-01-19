@@ -35,17 +35,17 @@
     <meta name="description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}"/>
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image:secure_url" content="{{secure_asset($portfolioConfig['seo']['image'])}}" />
     <title>{{$about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/themes/vega/css/styles.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/themes/vega/css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/themes/vega/css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/themes/vega/css/custom.css') }}" rel="stylesheet" />
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -83,7 +83,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">{{ $about->name }}</span>
-            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="" /></span>
+            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{secure_asset($about->avatar)}}" src="{{secure_asset('assets/common/img/lazyloader.gif')}}" alt="" /></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -369,18 +369,18 @@
         @endif
     </div>
     <!-- Bootstrap core JS-->
-    <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Third party plugin JS-->
-    <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/typed/typed.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/aos/aos.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('assets/themes/vega/js/scripts.js') }}"></script>
-    <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="{{ secure_asset('assets/themes/vega/js/scripts.js') }}"></script>
+    <script src="{{ secure_asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
             if ($('#szn-preloader').length) {
