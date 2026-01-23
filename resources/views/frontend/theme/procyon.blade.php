@@ -11,6 +11,28 @@
 @php
     $accentColor = $portfolioConfig['accentColor'];
     $accentColorRGB = Utils::getRgbValue($accentColor);
+    $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
+    $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
+    $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $linkedinUrl = null;
+    if (!empty($about->social_links)) {
+        foreach (json_decode($about->social_links) as $social) {
+            if (
+                (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
+                (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
+            ) {
+                $linkedinUrl = $social->link;
+                break;
+            }
+        }
+    }
+    $aboutHighlights = [
+        'Microservices & REST APIs',
+        'DB Optimization (MySQL/Postgres)',
+        'Caching (Redis)',
+        'Security best practices',
+        'Laravel/Lumen + Node.js',
+    ];
 @endphp
 
 <!DOCTYPE html>
@@ -30,9 +52,16 @@
     <meta name="description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}"/>
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
     <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <title>{{$about->name}}</title>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{$portfolioConfig['seo']['title']}}" />
+    <meta name="twitter:description" content="{{$portfolioConfig['seo']['description']}}" />
+    <meta name="twitter:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <link rel="canonical" href="{{ url()->current() }}" />
+    <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
 
     <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
@@ -109,8 +138,8 @@
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
                 <div class="col-lg-8 col-md-6 d-flex align-items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                     <div class="text text-center">
-                        <h1>{{$about->name}}</h1>
-                        <h2>
+                        <h1 class="mb-2">{{$about->name}} <span class="hero-role">— Backend Software Engineer</span></h1>
+                        <h2 class="mb-3">
                             <span id="typed-strings"></span>
                             {{-- <span
                             class="txt-rotate"
@@ -118,6 +147,15 @@
                             data-rotate='{!! json_encode(json_decode($about->taglines)) !!}'>
                             </span> --}}
                         </h2>
+                        <p class="hero-subtitle">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
+                        <div class="hero-actions">
+                            @if ($portfolioConfig['visibility']['cv'])
+                                <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>Download Resume</a>
+                            @endif
+                            @if ($portfolioConfig['visibility']['projects'])
+                                <a href="#projects-section" class="btn btn-light py-3 px-4">View Projects</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,14 +176,23 @@
                 <div class="col-md-6 col-lg-6 d-flex mt-5 mt-lg-0">
                     <div class="img-about img d-flex align-items-stretch">
                         <div class="overlay"></div>
-                        <img class="img d-flex align-self-stretch align-items-center mx-auto my-auto lazy rounded-circle" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}"/>
+                        <img class="img d-flex align-self-stretch align-items-center mx-auto my-auto lazy rounded-circle" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}"/>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 pl-md-5 py-5">
                     <div class="row justify-content-start pb-3">
                         <div class="col-md-12 heading-section">
                             <h2 class="mb-4">About Me</h2>
-                            <p>{{ $about->description }}</p>
+                            @if ($about->description)
+                            <div class="pb-2 text-muted">
+                                {!! $about->description !!}
+                            </div>
+                            @endif
+                            <div class="about-highlights">
+                                @foreach ($aboutHighlights as $highlight)
+                                    <span class="about-highlight">{{$highlight}}</span>
+                                @endforeach
+                            </div>
                             <ul class="about-info mt-4 px-md-0 px-2">
                                 <li class="d-flex"><span>Name:</span> <span>{{ $about->name }}</span></li>
                                 @if ($about->email && $about->email !== '')
@@ -163,7 +210,7 @@
                     @if ($portfolioConfig['visibility']['cv'])
                     <div class="counter-wrap d-flex mt-md-3" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <div class="text">
-                            <p><a href="{{$about->cv}}" class="btn btn-primary py-3 px-3" download>Download CV</a></p>
+                            <p><a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-3" download>Download Resume (PDF)</a></p>
                         </div>
                     </div>
                     @endif
@@ -178,7 +225,7 @@
                     @foreach (json_decode($about->social_links) as $social)
                         <div class="col-6 col-md-4 col-lg-2 mb-lg-4" data-aos="zoom-in">
                             <div class="align-self-stretch box text-center p-3 shadow">
-                                <a href="{{$social->link}}" target="_blank">
+                                <a href="{{$social->link}}" target="_blank" rel="noreferrer" aria-label="{{$social->title}}">
                                     <div class="icon d-flex align-items-center justify-content-center">
                                         <span class="{{$social->iconClass}}"></span>
                                     </div>
@@ -198,6 +245,20 @@
     @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] || $portfolioConfig['visibility']['skills'])
     <section class="ftco-section ftco-no-pb" id="resume-section">
         <div class="container">
+            @if ($portfolioConfig['visibility']['cv'])
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-10 heading-section text-center">
+                    <h2 class="mb-3">Resume</h2>
+                    <p class="text-muted">Download the PDF or DOCX version for recruiters.</p>
+                    <div class="resume-actions">
+                        <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>Download Resume (PDF)</a>
+                        @if ($hasResumeDocx)
+                            <a href="{{ $resumeDocx }}" class="btn btn-light py-3 px-4" download>Download Resume (DOCX)</a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-3">
                     <nav id="navi">
@@ -249,7 +310,9 @@
                                         <span class="date">{{$experience->period}}</span>
                                         <h2>{{$experience->position}}</h2>
                                         <span class="position">{{$experience->company}}</span>
-                                        <p>{{$experience->details}}</p>
+                                        @if ($experience->details)
+                                        <div class="experience-details">{!! $experience->details !!}</div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -259,59 +322,80 @@
                     @if ($portfolioConfig['visibility']['skills'])
                     <div id="page-3" class= "page three">
                         <h2 class="heading">Skills</h2>
-                        @if ((int)$portfolioConfig['visibility']['skillProficiency'])
-                            @if (!empty($skills))
-                                <div class="row progress-circle mb-5">
-                                    @foreach ($skills as $key => $skill)
-                                        @if ($key < 3)
-                                            <div class="col-lg-4 mb-4" data-aos="zoom-in">
-                                                <div class="bg-white rounded-lg shadow p-4 z-hover">
-                                                    <h2 class="h5 font-weight-bold text-center mb-4">{{$skill->name}}</h2>
-                                                    <div class="progress mx-auto mb-4" data-value='{{$skill->proficiency}}'>
-                                                        <span class="progress-left">
-                                                            <span class="progress-bar border-primary"></span>
-                                                        </span>
-                                                        <span class="progress-right">
-                                                            <span class="progress-bar border-primary"></span>
-                                                        </span>
-                                                        <div class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-                                                            <div class="h2 font-weight-bold">{{$skill->proficiency}}<sup class="small">%</sup></div>
+                        @php
+                            $skillsCollection = collect($skills ?? []);
+                            $skillGroups = [
+                                'Backend' => ['laravel', 'lumen', 'php', 'node.js', 'express.js', 'rest apis', 'microservices'],
+                                'Databases & Caching' => ['mysql', 'postgresql', 'mongodb', 'redis', 'elasticsearch'],
+                                'Frontend' => ['javascript', 'react.js', 'vue.js', 'html', 'css'],
+                                'Tools' => ['docker', 'ci/cd', 'git', 'nginx', 'aws'],
+                            ];
+                            $groupKeys = collect($skillGroups)->flatten()->all();
+                            $otherSkills = $skillsCollection->filter(function ($skill) use ($groupKeys) {
+                                return !in_array(strtolower($skill->name), $groupKeys);
+                            });
+                        @endphp
+                        @foreach ($skillGroups as $groupName => $groupSkills)
+                            @php
+                                $groupItems = $skillsCollection->filter(function ($skill) use ($groupSkills) {
+                                    return in_array(strtolower($skill->name), $groupSkills);
+                                });
+                            @endphp
+                            @if ($groupItems->count())
+                                <div class="skill-group">
+                                    <h3 class="skill-group-title">{{$groupName}}</h3>
+                                    <div class="row">
+                                        @foreach ($groupItems as $skill)
+                                            @if ((int)$portfolioConfig['visibility']['skillProficiency'])
+                                                <div class="col-md-6">
+                                                    <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                                        <h3>{{$skill->name}}</h3>
+                                                        <div class="progress">
+                                                            <div class="progress-bar color-1" role="progressbar" aria-valuenow="{{$skill->proficiency}}"
+                                                                aria-valuemin="0" aria-valuemax="100" style="width:{{$skill->proficiency}}%">
+                                                                <span>{{$skill->proficiency}}%</span>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            @else
+                                                <div class="col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
+                                                    <div class="bg-white rounded-lg shadow p-3 z-hover text-center">
+                                                        <h2 class="h6 font-weight-bold mb-0">{{$skill->name}}</h2>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                        @if ($otherSkills->count())
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Other</h3>
+                                <div class="row">
+                                    @foreach ($otherSkills as $skill)
+                                        @if ((int)$portfolioConfig['visibility']['skillProficiency'])
+                                            <div class="col-md-6">
+                                                <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                                    <h3>{{$skill->name}}</h3>
+                                                    <div class="progress">
+                                                        <div class="progress-bar color-1" role="progressbar" aria-valuenow="{{$skill->proficiency}}"
+                                                            aria-valuemin="0" aria-valuemax="100" style="width:{{$skill->proficiency}}%">
+                                                            <span>{{$skill->proficiency}}%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
+                                                <div class="bg-white rounded-lg shadow p-3 z-hover text-center">
+                                                    <h2 class="h6 font-weight-bold mb-0">{{$skill->name}}</h2>
                                                 </div>
                                             </div>
                                         @endif
                                     @endforeach
                                 </div>
-                            @endif
-                            @if (!empty($skills))
-                            <div class="row">
-                                @foreach ($skills as $key => $skill)
-                                    @if ($key >= 3)
-                                        <div class="col-md-6">
-                                            <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                                <h3>{{$skill->name}}</h3>
-                                                <div class="progress">
-                                                    <div class="progress-bar color-1" role="progressbar" aria-valuenow="{{$skill->proficiency}}"
-                                                    aria-valuemin="0" aria-valuemax="100" style="width:{{$skill->proficiency}}%">
-                                                    <span>{{$skill->proficiency}}%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </div>
-                            @endif
-                        @else
-                            <div class="row progress-circle mb-5">
-                                @foreach ($skills as $key => $skill)
-                                    <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in">
-                                        <div class="bg-white rounded-lg shadow p-4 z-hover">
-                                            <h2 class="h5 font-weight-bold text-center">{{$skill->name}}</h2>
-                                        </div>
-                                    </div>
-                                @endforeach
                             </div>
                         @endif
                     </div>
@@ -383,17 +467,21 @@
                 <div class="col-md-6 order-md-last d-flex">
                     <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form" >
                         @csrf
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name">
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Your Email">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" aria-label="Your Name">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Your Email" aria-label="Your Email">
                         </div>
                         <div class="form-group">
-                            <textarea id="body" name="body" cols="30" rows="7" class="form-control" placeholder="Body"></textarea>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" aria-label="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="body" name="body" cols="30" rows="7" class="form-control" placeholder="Body" aria-label="Message"></textarea>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
@@ -411,23 +499,22 @@
                                 <p class="mb-0"><strong>Email</strong></p>
                                 <p class="pb-2 text-muted">{{$about->email }}</p>
                             @endif
+                            @if ($linkedinUrl)
+                                <p class="mb-0"><strong>LinkedIn</strong></p>
+                                <p class="pb-2 text-muted"><a href="{{$linkedinUrl}}" target="_blank" rel="noreferrer">{{$linkedinUrl}}</a></p>
+                            @endif
                             @if ($about->phone)
                                 <p class="mb-0"><strong>Phone</strong></p>
                                 <p class="pb-2 text-muted">{{$about->phone }}</p>
                             @endif
                             @if ($portfolioConfig['visibility']['cv'])
-                                <p class="mb-0"><strong>CV</strong></p>
-                                <div>
-                                    <a href="{{$about->cv}}" class="text-muted" download>
-                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.1" viewBox="0 0 16 16" height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M13.156 9.211c-0.213-0.21-0.686-0.321-1.406-0.331-0.487-0.005-1.073 0.038-1.69 0.124-0.276-0.159-0.561-0.333-0.784-0.542-0.601-0.561-1.103-1.34-1.415-2.197 0.020-0.080 0.038-0.15 0.054-0.222 0 0 0.339-1.923 0.249-2.573-0.012-0.089-0.020-0.115-0.044-0.184l-0.029-0.076c-0.092-0.212-0.273-0.437-0.556-0.425l-0.171-0.005c-0.316 0-0.573 0.161-0.64 0.403-0.205 0.757 0.007 1.889 0.39 3.355l-0.098 0.239c-0.275 0.67-0.619 1.345-0.923 1.94l-0.040 0.077c-0.32 0.626-0.61 1.157-0.873 1.607l-0.271 0.144c-0.020 0.010-0.485 0.257-0.594 0.323-0.926 0.553-1.539 1.18-1.641 1.678-0.032 0.159-0.008 0.362 0.156 0.456l0.263 0.132c0.114 0.057 0.234 0.086 0.357 0.086 0.659 0 1.425-0.821 2.48-2.662 1.218-0.396 2.604-0.726 3.819-0.908 0.926 0.521 2.065 0.883 2.783 0.883 0.128 0 0.238-0.012 0.327-0.036 0.138-0.037 0.254-0.115 0.325-0.222 0.139-0.21 0.168-0.499 0.13-0.795-0.011-0.088-0.081-0.196-0.157-0.271zM3.307 12.72c0.12-0.329 0.596-0.979 1.3-1.556 0.044-0.036 0.153-0.138 0.253-0.233-0.736 1.174-1.229 1.642-1.553 1.788zM7.476 3.12c0.212 0 0.333 0.534 0.343 1.035s-0.107 0.853-0.252 1.113c-0.12-0.385-0.179-0.992-0.179-1.389 0 0-0.009-0.759 0.088-0.759v0zM6.232 9.961c0.148-0.264 0.301-0.543 0.458-0.839 0.383-0.724 0.624-1.29 0.804-1.755 0.358 0.651 0.804 1.205 1.328 1.649 0.065 0.055 0.135 0.111 0.207 0.166-1.066 0.211-1.987 0.467-2.798 0.779v0zM12.952 9.901c-0.065 0.041-0.251 0.064-0.37 0.064-0.386 0-0.864-0.176-1.533-0.464 0.257-0.019 0.493-0.029 0.705-0.029 0.387 0 0.502-0.002 0.88 0.095s0.383 0.293 0.318 0.333v0z">
-                                            </path>
-                                            <path
-                                                d="M14.341 3.579c-0.347-0.473-0.831-1.027-1.362-1.558s-1.085-1.015-1.558-1.362c-0.806-0.591-1.197-0.659-1.421-0.659h-7.75c-0.689 0-1.25 0.561-1.25 1.25v13.5c0 0.689 0.561 1.25 1.25 1.25h11.5c0.689 0 1.25-0.561 1.25-1.25v-9.75c0-0.224-0.068-0.615-0.659-1.421v0zM12.271 2.729c0.48 0.48 0.856 0.912 1.134 1.271h-2.406v-2.405c0.359 0.278 0.792 0.654 1.271 1.134v0zM14 14.75c0 0.136-0.114 0.25-0.25 0.25h-11.5c-0.135 0-0.25-0.114-0.25-0.25v-13.5c0-0.135 0.115-0.25 0.25-0.25 0 0 7.749-0 7.75 0v3.5c0 0.276 0.224 0.5 0.5 0.5h3.5v9.75z">
-                                            </path>
-                                        </svg>
-                                    </a>
+                                <p class="mb-0"><strong>Resume</strong></p>
+                                <div class="resume-links">
+                                    <a href="{{ $resumePdf }}" class="text-muted" download>PDF</a>
+                                    @if ($hasResumeDocx)
+                                        <span class="text-muted">·</span>
+                                        <a href="{{ $resumeDocx }}" class="text-muted" download>DOCX</a>
+                                    @endif
                                 </div>
                             @endif
                         </div>

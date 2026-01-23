@@ -164,24 +164,24 @@ class PortfolioSeeder extends Seeder
             //meta title
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_TITLE,
-                'setting_value' => '',
-                'default_value' => '',
+                'setting_value' => 'Aashish Jha — Backend Software Engineer',
+                'default_value' => 'Aashish Jha — Backend Software Engineer',
             ];
             $portfolioConfig->insertOrUpdate($data);
 
             //meta author
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_AUTHOR,
-                'setting_value' => '',
-                'default_value' => '',
+                'setting_value' => 'Aashish Jha',
+                'default_value' => 'Aashish Jha',
             ];
             $portfolioConfig->insertOrUpdate($data);
 
             //meta description
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_DESCRIPTION,
-                'setting_value' => '',
-                'default_value' => '',
+                'setting_value' => 'Backend software engineer building scalable APIs, microservices, and data platforms with Laravel, Lumen, Node.js, and modern databases.',
+                'default_value' => 'Backend software engineer building scalable APIs, microservices, and data platforms with Laravel, Lumen, Node.js, and modern databases.',
             ];
             $portfolioConfig->insertOrUpdate($data);
 
@@ -204,8 +204,8 @@ class PortfolioSeeder extends Seeder
             }
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_IMAGE,
-                'setting_value' => '',
-                'default_value' => '',
+                'setting_value' => 'assets/common/img/cover/default.png',
+                'default_value' => 'assets/common/img/cover/default.png',
             ];
             $portfolioConfig->insertOrUpdate($data);
 
@@ -277,22 +277,28 @@ class PortfolioSeeder extends Seeder
                     }
                     if (is_dir('public/assets/common/default/cv/')) {
                         copy('public/assets/common/default/cv/default.pdf', $dir.'/default.pdf');
+                        if (file_exists('public/assets/common/default/cv/default.docx')) {
+                            copy('public/assets/common/default/cv/default.docx', $dir.'/default.docx');
+                        }
                     } else {
                         copy('assets/common/default/cv/default.pdf', $dir.'/default.pdf');
+                        if (file_exists('assets/common/default/cv/default.docx')) {
+                            copy('assets/common/default/cv/default.docx', $dir.'/default.docx');
+                        }
                     }
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
                 }
                 
                 $data = [
-                    'name' => 'John Doe',
-                    'email' => 'johndoe@example.com',
+                    'name' => 'Aashish Jha',
+                    'email' => 'aashish.jha@example.com',
                     'avatar' => 'assets/common/img/avatar/default.png',
                     'cover' => 'assets/common/img/cover/default.png',
-                    'phone' => '12025550191',
-                    'address' => '1609 Nuzum Court, Cheektowaga, NY 14225',
-                    'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non corporis assumenda maiores. Impedit quia necessitatibus adipisci sit quibusdam aspernatur mollitia, deleniti, id, molestiae a accusantium modi sint expedita aliquam labore.',
-                    'taglines' => ["I am Software Engineer", "I am Web Developer", "I am Full Stack Engineer"],
+                    'phone' => null,
+                    'address' => 'Remote',
+                    'description' => '<p>Backend software engineer focused on building API-first platforms, scalable microservices, and data-heavy systems. I design secure Laravel/Lumen and Node.js services, optimize MySQL/PostgreSQL queries, and use Redis caching and queues to improve latency, throughput, and reliability.</p>',
+                    'taglines' => ['Backend Software Engineer', 'Microservices & API Design', 'Laravel/Lumen + Node.js', 'Database Performance & Caching'],
                     'social_links' => [
                         [
                             'title' => 'LinkedIn',
@@ -300,19 +306,14 @@ class PortfolioSeeder extends Seeder
                             'link' => 'https://www.linkedin.com'
                         ],
                         [
-                            'title' => 'Github',
+                            'title' => 'GitHub',
                             'iconClass' => 'fab fa-github',
                             'link' => 'https://github.com'
                         ],
                         [
-                            'title' => 'Twitter',
-                            'iconClass' => 'fab fa-twitter',
-                            'link' => 'https://twitter.com'
-                        ],
-                        [
                             'title' => 'Mail',
                             'iconClass' => 'far fa-envelope',
-                            'link' => 'mailto:johndoe@example.com'
+                            'link' => 'mailto:aashish.jha@example.com'
                         ],
                     ],
                     'seederCV' => 'assets/common/cv/default.pdf',
@@ -351,37 +352,43 @@ class PortfolioSeeder extends Seeder
             try {
                 $data = [
                     'name' => 'Laravel',
-                    'proficiency' => '100'
+                    'proficiency' => '92'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Lumen',
+                    'proficiency' => '88'
                 ];
                 $skill->store($data);
 
                 $data = [
                     'name' => 'PHP',
-                    'proficiency' => '100'
-                ];
-                $skill->store($data);
-
-                $data = [
-                    'name' => 'JavaScript',
-                    'proficiency' => '95'
-                ];
-                $skill->store($data);
-
-                $data = [
-                    'name' => 'React.js',
-                    'proficiency' => '95'
-                ];
-                $skill->store($data);
-
-                $data = [
-                    'name' => 'Vue.js',
                     'proficiency' => '90'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'jQuery',
+                    'name' => 'Node.js',
+                    'proficiency' => '85'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Express.js',
+                    'proficiency' => '80'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'REST APIs',
                     'proficiency' => '90'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Microservices',
+                    'proficiency' => '88'
                 ];
                 $skill->store($data);
 
@@ -392,14 +399,62 @@ class PortfolioSeeder extends Seeder
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'CSS',
-                    'proficiency' => '90'
+                    'name' => 'PostgreSQL',
+                    'proficiency' => '88'
                 ];
                 $skill->store($data);
 
                 $data = [
-                    'name' => 'Node.js',
+                    'name' => 'MongoDB',
                     'proficiency' => '80'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Redis',
+                    'proficiency' => '85'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'JavaScript',
+                    'proficiency' => '78'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'React.js',
+                    'proficiency' => '72'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Vue.js',
+                    'proficiency' => '70'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Docker',
+                    'proficiency' => '85'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'CI/CD',
+                    'proficiency' => '80'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Git',
+                    'proficiency' => '85'
+                ];
+                $skill->store($data);
+
+                $data = [
+                    'name' => 'Nginx',
+                    'proficiency' => '78'
                 ];
                 $skill->store($data);
             } catch (\Throwable $th) {
@@ -409,26 +464,26 @@ class PortfolioSeeder extends Seeder
             //experience table seed
             try {
                 $data = [
-                    'company' => 'ABC LIMITED',
-                    'period' => '2019-Present',
-                    'position' => 'Senior Software Engineer',
-                    'details' => $faker->text()
+                    'company' => 'NimbusPay',
+                    'period' => '2021-Present',
+                    'position' => 'Senior Backend Engineer',
+                    'details' => '<ul><li>Led migration from a monolith to Laravel/Lumen microservices with versioned APIs and shared contracts.</li><li>Improved API response time by X% and reduced p95 latency by Y ms through query tuning and Redis caching.</li><li>Implemented JWT auth, rate limiting, and audit logging to meet security and compliance requirements.</li></ul>'
                 ];
                 $experience->store($data);
 
                 $data = [
-                    'company' => 'ABC LIMITED',
+                    'company' => 'DataVista Analytics',
+                    'period' => '2019-2021',
+                    'position' => 'Backend Engineer',
+                    'details' => '<ul><li>Built a reporting and analytics service with Node.js and PostgreSQL for multi-tenant dashboards.</li><li>Designed ETL jobs and materialized views to cut report generation time by X%.</li><li>Containerized services with Docker and standardized CI/CD pipelines.</li></ul>'
+                ];
+                $experience->store($data);
+
+                $data = [
+                    'company' => 'CloudStream Media',
                     'period' => '2017-2019',
-                    'position' => 'Software Engineer',
-                    'details' => $faker->text()
-                ];
-                $experience->store($data);
-
-                $data = [
-                    'company' => 'XYZ LIMITED',
-                    'period' => '2015-2017',
-                    'position' => 'Junior Software Engineer',
-                    'details' => $faker->text()
+                    'position' => 'Software Engineer (Backend)',
+                    'details' => '<ul><li>Integrated media ingestion workflows and webhook-based processing pipelines.</li><li>Delivered scalable REST APIs for media metadata, access control, and search.</li><li>Instrumented monitoring to improve uptime to X% with faster incident response.</li></ul>'
                 ];
                 $experience->store($data);
             } catch (\Throwable $th) {
@@ -457,10 +512,14 @@ class PortfolioSeeder extends Seeder
                 }
 
                 $data = [
-                    'title' => 'Demo Project 1',
-                    'categories' => ['personal'],
-                    'link' => 'https://www.youtube.com',
-                    'details' => $faker->text(),
+                    'title' => 'Auth & API Gateway Service',
+                    'categories' => ['microservices', 'api', 'security'],
+                    'link' => null,
+                    'details' => 'Problem: Multiple services needed consistent auth, rate limiting, and request validation.'."\n".
+                        'Solution: Built an API gateway and auth service with JWT, policy enforcement, and request throttling.'."\n".
+                        'Tech Stack: Laravel, Lumen, Redis, MySQL, Nginx, Docker.'."\n".
+                        'Role: Designed service contracts, implemented gateway middleware, and owned deployment pipeline.'."\n".
+                        'Impact: Reduced auth errors by X% and improved p95 latency by Y ms.',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_1_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_1_1.png',
@@ -478,10 +537,14 @@ class PortfolioSeeder extends Seeder
                 $project->store($data);
 
                 $data = [
-                    'title' => 'Demo Project 2',
-                    'categories' => ['professional'],
-                    'link' => 'https://www.facebook.com',
-                    'details' => $faker->text(),
+                    'title' => 'Reporting & Analytics Service',
+                    'categories' => ['microservices', 'analytics', 'backend'],
+                    'link' => null,
+                    'details' => 'Problem: Business teams needed faster, self-serve reporting across large datasets.'."\n".
+                        'Solution: Built a dedicated analytics service with pre-aggregations and incremental ETL.'."\n".
+                        'Tech Stack: Node.js, PostgreSQL, Redis, Docker, AWS.'."\n".
+                        'Role: Implemented data pipelines, query optimization, and API endpoints.'."\n".
+                        'Impact: Cut report generation time by X% and reduced query cost by Y%.',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_2_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_2_1.png',
@@ -500,10 +563,14 @@ class PortfolioSeeder extends Seeder
                 $project->store($data);
 
                 $data = [
-                    'title' => 'Demo Project 3',
-                    'categories' => ['personal'],
-                    'link' => 'https://www.linkedin.com',
-                    'details' => $faker->text(),
+                    'title' => 'Media Ingestion & Streaming Integration',
+                    'categories' => ['microservices', 'integration', 'media'],
+                    'link' => null,
+                    'details' => 'Problem: Media uploads and processing were slow and error-prone across services.'."\n".
+                        'Solution: Introduced an ingestion microservice with async processing and webhook callbacks.'."\n".
+                        'Tech Stack: Laravel, Node.js, Redis, S3-compatible storage, Docker.'."\n".
+                        'Role: Built ingestion APIs, queue workers, and monitoring dashboards.'."\n".
+                        'Impact: Improved processing throughput by X% and reduced failure rate by Y%.',
                     'seeder_thumbnail' => 'assets/common/img/projects/demo_project_3_1.png',
                     'seeder_images' => [
                         'assets/common/img/projects/demo_project_3_1.png',
@@ -527,23 +594,23 @@ class PortfolioSeeder extends Seeder
             //service table seed
             try {
                 $data = [
-                    'title' => 'Web Development',
+                    'title' => 'API Development',
                     'icon' => 'fas fa-code',
-                    'details' => $faker->text()
+                    'details' => 'Designing secure, versioned REST APIs with clear contracts and performance budgets.'
                 ];
                 $service->store($data);
 
                 $data = [
-                    'title' => 'UI/UX Design',
-                    'icon' => 'fas fa-basketball-ball',
-                    'details' => $faker->text()
+                    'title' => 'Microservices Architecture',
+                    'icon' => 'fas fa-project-diagram',
+                    'details' => 'Breaking monoliths into resilient services with event-driven communication.'
                 ];
                 $service->store($data);
 
                 $data = [
-                    'title' => 'Security',
-                    'icon' => 'fas fa-shield-alt',
-                    'details' => $faker->text()
+                    'title' => 'Performance Optimization',
+                    'icon' => 'fas fa-tachometer-alt',
+                    'details' => 'Profiling queries, caching hot paths, and tuning infrastructure for low latency.'
                 ];
                 $service->store($data);
             } catch (\Throwable $th) {

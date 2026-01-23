@@ -78,3 +78,67 @@
 .social-icon-block .box {
     border-radius: 2px;
 }
+
+.hero-role {
+    color: var(--z-accent-color);
+    font-weight: 600;
+}
+
+.hero-subtitle {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.hero-actions,
+.resume-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.about-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 8px;
+}
+
+.about-highlight {
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #1f2933;
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.skill-group-title {
+    margin: 20px 0 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2b2b2b;
+}
+
+.resume-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-field {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.experience-details ul {
+    padding-left: 18px;
+    margin-bottom: 0;
+}

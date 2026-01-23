@@ -29,6 +29,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/{path?}', ['App\Http\Controllers\Admin\AdminController', 'app'])->where('path', '.*')->name('admin.app');
 });
 
+Route::get('/sitemap.xml', function () {
+    return response()
+        ->view('frontend.sitemap')
+        ->header('Content-Type', 'text/xml');
+})->name('sitemap');
 
 #region [frontend]
 

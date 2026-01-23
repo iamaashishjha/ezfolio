@@ -18,6 +18,36 @@ const thumbnailStyle = {
     objectFit: 'cover'
 }
 
+const parseProjectDetails = (details = '') => {
+    const summary = { other: [] };
+    if (!details) {
+        return summary;
+    }
+    const lines = details
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+
+    lines.forEach((line) => {
+        const lower = line.toLowerCase();
+        if (lower.startsWith('problem:')) {
+            summary.problem = line.replace(/^problem:\s*/i, '');
+        } else if (lower.startsWith('solution:')) {
+            summary.solution = line.replace(/^solution:\s*/i, '');
+        } else if (lower.startsWith('tech stack:') || lower.startsWith('stack:')) {
+            summary.stack = line.replace(/^(tech stack|stack):\s*/i, '');
+        } else if (lower.startsWith('role:') || lower.startsWith('my role:')) {
+            summary.role = line.replace(/^(role|my role):\s*/i, '');
+        } else if (lower.startsWith('impact:')) {
+            summary.impact = line.replace(/^impact:\s*/i, '');
+        } else {
+            summary.other.push(line);
+        }
+    });
+
+    return summary;
+};
+
 function App() {
     const [loading, setLoading] = useState(true);
     const [modalVisible, setModalVisible] = useState(false);
@@ -118,51 +148,85 @@ function App() {
                         <Col span={24} className="text-center">
                             <Row justify='center' gutter={32}>
                                 {
-                                    data.filter(project => selectedCategory === null || (selectedCategory !== null && JSON.parse(project.categories).includes(selectedCategory))).map((item, index) => (
-                                        <Col
-                                            key={index}
-                                            xl={6}
-                                            lg={6}
-                                            md={12}
-                                            sm={24}
-                                            xs={24}
-                                            data-aos="fade-up" 
-                                            data-aos-anchor-placement="top-bottom"
-                                            style={{marginBottom: '24px'}}
-                                        >
-                                            <Card
-                                                onClick={() => {
-                                                    setSelectedProject(item);
-                                                    setModalVisible(true);
-                                                }}
-                                                loading={loading}
-                                                bodyStyle={{padding: '14px'}}
-                                                hoverable
-                                                className={'z-hover z-shadow'}
-                                                bordered={false}
-                                                cover={
-                                                    <div style={{opacity: '0.7'}}>
+                                    data.filter(project => selectedCategory === null || (selectedCategory !== null && JSON.parse(project.categories).includes(selectedCategory))).map((item, index) => {
+                                        const summary = parseProjectDetails(item.details || '');
+
+                                        return (
+                                            <Col
+                                                key={index}
+                                                xl={6}
+                                                lg={6}
+                                                md={12}
+                                                sm={24}
+                                                xs={24}
+                                                data-aos="fade-up" 
+                                                data-aos-anchor-placement="top-bottom"
+                                                style={{marginBottom: '24px'}}
+                                            >
+                                                <Card
+                                                    onClick={() => {
+                                                        setSelectedProject(item);
+                                                        setModalVisible(true);
+                                                    }}
+                                                    loading={loading}
+                                                    bodyStyle={{padding: '14px'}}
+                                                    hoverable
+                                                    className={'z-hover z-shadow'}
+                                                    bordered={false}
+                                                    cover={
+                                                        <div style={{opacity: '0.7'}}>
                                                         <Image
                                                             width='100%'
                                                             src={Utils.backend + '/' + item.thumbnail}
                                                             style={thumbnailStyle}
                                                             preview={false}
                                                             placeholder={true}
+                                                            alt={`${item.title} thumbnail`}
                                                         />
-                                                    </div>
-                                                }
-                                                actions={[
-                                                    <React.Fragment key="view">
-                                                        See Details
-                                                    </React.Fragment>
-                                                ]}
-                                            >
-                                                <Card.Meta
-                                                    title={item.title}
-                                                />
-                                            </Card>
-                                        </Col>
-                                    ))
+                                                        </div>
+                                                    }
+                                                    actions={[
+                                                        <React.Fragment key="view">
+                                                            See Details
+                                                        </React.Fragment>
+                                                    ]}
+                                                >
+                                                    <Card.Meta
+                                                        title={item.title}
+                                                        description={
+                                                            <div className="project-summary">
+                                                                {summary.problem && (
+                                                                    <div className="project-summary-item">
+                                                                        <span className="project-summary-label">Problem:</span> {summary.problem}
+                                                                    </div>
+                                                                )}
+                                                                {summary.solution && (
+                                                                    <div className="project-summary-item">
+                                                                        <span className="project-summary-label">Solution:</span> {summary.solution}
+                                                                    </div>
+                                                                )}
+                                                                {summary.stack && (
+                                                                    <div className="project-summary-item">
+                                                                        <span className="project-summary-label">Tech:</span> {summary.stack}
+                                                                    </div>
+                                                                )}
+                                                                {summary.role && (
+                                                                    <div className="project-summary-item">
+                                                                        <span className="project-summary-label">Role:</span> {summary.role}
+                                                                    </div>
+                                                                )}
+                                                                {summary.impact && (
+                                                                    <div className="project-summary-item">
+                                                                        <span className="project-summary-label">Impact:</span> {summary.impact}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        }
+                                                    />
+                                                </Card>
+                                            </Col>
+                                        );
+                                    })
                                 }
                             </Row>
                         </Col>

@@ -8,6 +8,7 @@ use App\Services\Contracts\MessageInterface;
 use CoreConstants;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GeneralController extends Controller
 {
@@ -47,7 +48,29 @@ class GeneralController extends Controller
      */
     public function store(Request $request)
     {
-        $result = resolve(MessageInterface::class)->store($request->all());
+        if ($request->filled('website')) {
+            return response()->json([
+                'message' => [
+                    'website' => ['Spam detected.']
+                ],
+            ], 422);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:120',
+            'email' => 'required|email',
+            'subject' => 'required|string|max:150',
+            'body' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors(),
+            ], 422);
+        }
+
+        $payload = $request->only('name', 'email', 'subject', 'body');
+        $result = resolve(MessageInterface::class)->store($payload);
 
         return response()->json($result, !empty($result['status']) ? $result['status'] : CoreConstants::STATUS_CODE_SUCCESS);
     }
