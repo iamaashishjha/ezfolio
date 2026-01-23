@@ -12,6 +12,7 @@ npm-debug.log
 yarn-error.log
 _ide_helper.php
 .phpstorm.meta.php
+.act/
 storage/installed
 public/js/client
 public/assets/common/img/logo/*
