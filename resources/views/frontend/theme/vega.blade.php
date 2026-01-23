@@ -21,17 +21,46 @@
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
     $linkedinUrl = null;
+    $schemaSameAs = [];
     if (!empty($about->social_links)) {
         foreach (json_decode($about->social_links) as $social) {
+            if (!empty($social->link)) {
+                $schemaSameAs[] = $social->link;
+            }
             if (
-                (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
-                (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
+                !$linkedinUrl &&
+                (
+                    (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
+                    (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
+                )
             ) {
                 $linkedinUrl = $social->link;
-                break;
             }
         }
     }
+    $schemaSameAs = array_values(array_unique(array_filter($schemaSameAs)));
+    $baseUrl = url('/');
+    $personSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Person',
+        'name' => $about->name,
+        'jobTitle' => 'Backend Software Engineer',
+        'url' => $baseUrl,
+        'image' => asset($about->avatar),
+    ];
+    if (!empty($about->email)) {
+        $personSchema['email'] = 'mailto:' . $about->email;
+    }
+    if (!empty($schemaSameAs)) {
+        $personSchema['sameAs'] = $schemaSameAs;
+    }
+    $websiteSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $portfolioConfig['seo']['title'] ?: $about->name,
+        'url' => $baseUrl,
+        'description' => $portfolioConfig['seo']['description'],
+    ];
 @endphp
 
 <!DOCTYPE html>
@@ -61,6 +90,9 @@
     <link rel="canonical" href="{{ url()->current() }}" />
     <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="{{ asset($about->avatar) }}">
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
@@ -98,14 +130,21 @@
             background-color: {{$accentColor.' !important'}};
         }
     </style>
+    <script type="application/ld+json">
+        {!! json_encode($personSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
+    <script type="application/ld+json">
+        {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
 </head>
 <body id="page-top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     @include('common.preloader2')
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">{{ $about->name }}</span>
-            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" /></span>
+            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async" /></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -135,7 +174,7 @@
         </div>
     </nav>
     <!-- Page Content-->
-    <div class="container-fluid p-0">
+    <main id="main-content" class="container-fluid p-0">
         @if ($portfolioConfig['visibility']['about'])
             <!-- About-->
             <section class="resume-section" id="about">
@@ -172,7 +211,7 @@
                         @if ($about->social_links)
                         <div class="social-icons" data-aos="zoom-in">
                             @foreach (json_decode($about->social_links) as $social)
-                                <a class="social-icon" href="{{$social->link}}" target="_blank" rel="noreferrer" aria-label="{{$social->title}}">
+                                <a class="social-icon" href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}">
                                     <i class="{{$social->iconClass}}"></i>
                                 </a>
                             @endforeach
@@ -443,7 +482,7 @@
                                     @endif
                                     @if ($linkedinUrl)
                                         <p class="mb-0"><strong>LinkedIn</strong></p>
-                                        <p class="pb-2 text-muted"><a href="{{$linkedinUrl}}" target="_blank" rel="noreferrer">{{$linkedinUrl}}</a></p>
+                                        <p class="pb-2 text-muted"><a href="{{$linkedinUrl}}" target="_blank" rel="noopener noreferrer">{{$linkedinUrl}}</a></p>
                                     @endif
                                     @if ($about->phone)
                                         <p class="mb-0"><strong>Phone</strong></p>
@@ -472,13 +511,20 @@
                 <div class="text-center text-muted"><p>©{{ now()->year }} All rights reserved.</p></div>
             </footer>
         @endif
+    </main>
+    @if ($portfolioConfig['visibility']['cv'])
+    <div class="mobile-resume-cta d-lg-none">
+        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume</a>
     </div>
+    @endif
     <!-- Bootstrap core JS-->
     <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Third party plugin JS-->
     <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
+    @if($about->taglines)
+        <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
+    @endif
     <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
     <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>

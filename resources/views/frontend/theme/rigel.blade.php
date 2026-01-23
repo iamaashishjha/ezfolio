@@ -13,17 +13,46 @@
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
     $linkedinUrl = null;
+    $schemaSameAs = [];
     if (!empty($about->social_links)) {
         foreach (json_decode($about->social_links) as $social) {
+            if (!empty($social->link)) {
+                $schemaSameAs[] = $social->link;
+            }
             if (
-                (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
-                (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
+                !$linkedinUrl &&
+                (
+                    (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
+                    (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
+                )
             ) {
                 $linkedinUrl = $social->link;
-                break;
             }
         }
     }
+    $schemaSameAs = array_values(array_unique(array_filter($schemaSameAs)));
+    $baseUrl = url('/');
+    $personSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Person',
+        'name' => $about->name,
+        'jobTitle' => 'Backend Software Engineer',
+        'url' => $baseUrl,
+        'image' => asset($about->avatar),
+    ];
+    if (!empty($about->email)) {
+        $personSchema['email'] = 'mailto:' . $about->email;
+    }
+    if (!empty($schemaSameAs)) {
+        $personSchema['sameAs'] = $schemaSameAs;
+    }
+    $websiteSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $portfolioConfig['seo']['title'] ?: $about->name,
+        'url' => $baseUrl,
+        'description' => $portfolioConfig['seo']['description'],
+    ];
 @endphp
 
 <!DOCTYPE html>
@@ -55,6 +84,7 @@
     <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
 
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
+    <link rel="preload" as="image" href="{{ asset($about->cover) }}">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -92,11 +122,18 @@
             color: {{$accentColor.' !important'}};
         }
     </style>
+    <script type="application/ld+json">
+        {!! json_encode($personSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
+    <script type="application/ld+json">
+        {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    </script>
 </head>
 
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- ======= Mobile nav toggle button ======= -->
-    <button type="button" class="mobile-nav-toggle d-xl-none"><i class="fas fa-bars"></i></button>
+    <button type="button" class="mobile-nav-toggle d-xl-none" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
 
     <!-- ======= Header ======= -->
     <header id="header" class="d-flex flex-column justify-content-center">
@@ -145,7 +182,7 @@
             @if ($about->social_links)
                 <div class="social-links">
                     @foreach (json_decode($about->social_links) as $social)
-                        <a href="{{$social->link}}" target="_blank" rel="noreferrer" class="social-icon" aria-label="{{$social->title}}">
+                        <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="{{$social->title}}">
                             <i class="{{$social->iconClass}}"></i>
                         </a>
                     @endforeach
@@ -165,7 +202,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 text-center">
-                        <img data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="Portrait of {{$about->name}}">
+                        <img data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async">
                     </div>
                     <div class="col-lg-8 pt-4 pt-lg-0 content my-lg-auto">
                         <div class="row">
@@ -425,7 +462,7 @@
                                 <div class="email">
                                     <i class='bx bxl-linkedin-square'></i>
                                     <h4>LinkedIn:</h4>
-                                    <p><a href="{{$linkedinUrl}}" target="_blank" rel="noreferrer">{{$linkedinUrl}}</a></p>
+                                    <p><a href="{{$linkedinUrl}}" target="_blank" rel="noopener noreferrer">{{$linkedinUrl}}</a></p>
                                 </div>
                             @endif
                             @if ($about->address && $about->address !== '')
@@ -492,7 +529,7 @@
             @if ($about->social_links)
                 <div class="social-links">
                     @foreach (json_decode($about->social_links) as $social)
-                        <a href="{{$social->link}}" target="_blank" rel="noreferrer" class="social-icon" aria-label="{{$social->title}}">
+                        <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="{{$social->title}}">
                             <i class="{{$social->iconClass}}"></i>
                         </a>
                     @endforeach
@@ -525,14 +562,22 @@
     </footer><!-- End Footer -->
     @endif
 
-    <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
+    @if ($portfolioConfig['visibility']['cv'])
+    <div class="mobile-resume-cta d-lg-none">
+        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume</a>
+    </div>
+    @endif
+
+    <a href="#" class="back-to-top" aria-label="Back to top"><i class="bx bx-up-arrow-alt"></i></a>
     @include('common.preloader2')
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
+    @if($about->taglines)
+        <script src="{{ asset('assets/common/lib/typed/typed.js') }}"></script>
+    @endif
     <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/waypoints/jquery.waypoints.min.js') }}"></script>
