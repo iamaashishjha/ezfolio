@@ -87,16 +87,16 @@
     <link rel="preload" as="image" href="{{ asset($about->cover) }}">
 
     <!-- Vendor CSS Files -->
-    <link href="{{ asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet"/>
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -166,7 +166,7 @@
     </header><!-- End Header -->
 
     <!-- ======= hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{asset($about->cover)}}');">
+    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{secure_asset($about->cover)}}');">
         <div class="container" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <h1 class="mb-2">{{ $about->name }} <span class="hero-role">— Backend Software Engineer</span></h1>
             <p class="hero-subtitle mb-3">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
@@ -586,9 +586,9 @@
     <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{ asset('assets/themes/rigel/js/main.js') }}"></script>
+    <script src="{{ secure_asset('assets/themes/rigel/js/main.js') }}"></script>
 
-    <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="{{ secure_asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
             $('.lazy').lazy();

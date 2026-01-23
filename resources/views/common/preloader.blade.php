@@ -7,7 +7,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background-image: url("{{asset('/assets/common/img/preloading.gif')}}");
+            background-image: url("{{secure_asset('/assets/common/img/preloading.gif')}}");
             background-repeat: no-repeat;
             background-color: #FFF;
             background-position: center;

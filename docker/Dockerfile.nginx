@@ -1,0 +1,10 @@
+FROM nginx:1.27-alpine
+
+WORKDIR /var/www/html
+
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Only what nginx needs
+COPY public ./public
+
+EXPOSE 80

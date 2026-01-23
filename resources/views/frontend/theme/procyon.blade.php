@@ -59,20 +59,21 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @include('common.googleAnalytics')
     @if (!empty($portfolioConfig['script']['header']) && $portfolioConfig['script']['header'] != '')
-        <script>
-            {!!$portfolioConfig['script']['header']!!}
-        </script>
+    <script>
+        {!!$portfolioConfig['script']['header']!!}
+    </script>
     @endif
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="{{$portfolioConfig['seo']['title']}}"/>
-    <meta property="title" content="{{$portfolioConfig['seo']['title']}}"/>
+    <meta property="og:title" content="{{$portfolioConfig['seo']['title']}}" />
+    <meta property="title" content="{{$portfolioConfig['seo']['title']}}" />
     <meta name="description" content="{{$portfolioConfig['seo']['description']}}" />
-    <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}"/>
+    <meta property="og:description" content="{{$portfolioConfig['seo']['description']}}" />
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
@@ -87,11 +88,11 @@
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
     <link rel="preload" as="image" href="{{ asset($about->cover) }}">
 
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/themes/procyon/css/custom.css') }}" rel="stylesheet">
@@ -131,32 +132,72 @@
         {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
     </script>
 </head>
+
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
     <a class="skip-link" href="#main-content">Skip to content</a>
     @include('common.preloader2')
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+    {{-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target"
+        id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="#"><span>{{substr($about->name, 0, 1)}}</span>{{substr($about->name, 1)}}</a>
-            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse"
+                data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> Menu
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
                     <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
                     @if ($portfolioConfig['visibility']['about'])
-                        <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
+                    <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
                     @endif
-                    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] || $portfolioConfig['visibility']['skills'])
-                        <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
+                    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] ||
+                    $portfolioConfig['visibility']['skills'])
+                    <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
                     @endif
                     @if ($portfolioConfig['visibility']['services'])
-                        <li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
+                    <li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
                     @endif
                     @if ($portfolioConfig['visibility']['projects'])
-                        <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+                    <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
                     @endif
                     @if ($portfolioConfig['visibility']['contact'])
-                        <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
+                    <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav> --}}
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target fixed-top"
+        id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#"><span>{{substr($about->name, 0, 1)}}</span>{{substr($about->name, 1)}}</a>
+            {{-- <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button"
+                data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> Menu
+            </button> --}}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                    <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    @if ($portfolioConfig['visibility']['about'])
+                    <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] ||
+                    $portfolioConfig['visibility']['skills'])
+                    <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['services'])
+                    <li class="nav-item"><a href="#services-section" class="nav-link"><span>Services</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['projects'])
+                    <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['contact'])
+                    <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
                     @endif
                 </ul>
             </div>
@@ -167,15 +208,14 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
-                <div class="col-lg-8 col-md-6 d-flex align-items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                <div class="col-lg-8 col-md-6 d-flex align-items-center" data-aos="fade-up"
+                    data-aos-anchor-placement="top-bottom">
                     <div class="text text-center">
                         <h1 class="mb-2">{{$about->name}} <span class="hero-role">— Backend Software Engineer</span></h1>
                         <h2 class="mb-3">
                             <span id="typed-strings"></span>
-                            {{-- <span
-                            class="txt-rotate"
-                            data-period="2000"
-                            data-rotate='{!! json_encode(json_decode($about->taglines)) !!}'>
+                            {{-- <span class="txt-rotate" data-period="2000"
+                                data-rotate='{!! json_encode(json_decode($about->taglines)) !!}'>
                             </span> --}}
                         </h2>
                         <p class="hero-subtitle">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
@@ -265,15 +305,21 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                    @endforeach
+                            <div>
+                                <p class="mb-0">{{$social->title}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
                 @endif
             </div>
         </div>
-    </section>
+    </section>x
     @endif
 
-    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] || $portfolioConfig['visibility']['skills'])
+    @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] ||
+    $portfolioConfig['visibility']['skills'])
     <section class="ftco-section ftco-no-pb" id="resume-section">
         <div class="container">
             @if ($portfolioConfig['visibility']['cv'])
@@ -308,28 +354,29 @@
                 </div>
                 <div class="col-md-9">
                     @if ($portfolioConfig['visibility']['education'])
-                    <div id="page-1" class= "page one">
+                    <div id="page-1" class="page one">
                         <h2 class="heading">Education</h2>
                         @if ($education)
-                            @foreach ($education as $value)
-                                <div class="resume-wrap d-flex" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <span class="fas fa-book-open"></span>
-                                    </div>
-                                    <div class="text pl-3">
-                                        <span class="date">{{$value->period}}</span>
-                                        <h2>{{$value->degree}}</h2>
-                                        <span class="position">{{$value->institution}}</span>
-                                        <p class="mb-0">{{$value->cgpa && $value->cgpa !== '' ? 'CGPA: '.$value->cgpa : '' }}</p>
-                                        <p>{{$value->thesis && $value->thesis !== '' ? 'Thesis: '.$value->thesis : '' }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
+                        @foreach ($education as $value)
+                        <div class="resume-wrap d-flex" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="fas fa-book-open"></span>
+                            </div>
+                            <div class="text pl-3">
+                                <span class="date">{{$value->period}}</span>
+                                <h2>{{$value->degree}}</h2>
+                                <span class="position">{{$value->institution}}</span>
+                                <p class="mb-0">{{$value->cgpa && $value->cgpa !== '' ? 'CGPA: '.$value->cgpa : '' }}
+                                </p>
+                                <p>{{$value->thesis && $value->thesis !== '' ? 'Thesis: '.$value->thesis : '' }}</p>
+                            </div>
+                        </div>
+                        @endforeach
                         @endif
                     </div>
                     @endif
                     @if ($portfolioConfig['visibility']['experiences'])
-                    <div id="page-2" class= "page two">
+                    <div id="page-2" class="page two">
                         <h2 class="heading">Experience</h2>
                         @if ($experiences)
                             @foreach ($experiences as $experience)
@@ -351,7 +398,7 @@
                     </div>
                     @endif
                     @if ($portfolioConfig['visibility']['skills'])
-                    <div id="page-3" class= "page three">
+                    <div id="page-3" class="page three">
                         <h2 class="heading">Skills</h2>
                         @php
                             $skillsCollection = collect($skills ?? []);
@@ -429,10 +476,44 @@
                                 </div>
                             </div>
                         @endif
+                        @endforeach
+                    </div>
+                    @endif
+                    @if (!empty($skills))
+                    <div class="row">
+                        @foreach ($skills as $key => $skill)
+                        @if ($key >= 3)
+                        <div class="col-md-6">
+                            <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                <h3>{{$skill->name}}</h3>
+                                <div class="progress">
+                                    <div class="progress-bar color-1" role="progressbar"
+                                        aria-valuenow="{{$skill->proficiency}}" aria-valuemin="0" aria-valuemax="100"
+                                        style="width:{{$skill->proficiency}}%">
+                                        <span>{{$skill->proficiency}}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                    @endif
+                    @else
+                    <div class="row progress-circle mb-5">
+                        @foreach ($skills as $key => $skill)
+                        <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in">
+                            <div class="bg-white rounded-lg shadow p-4 z-hover">
+                                <h2 class="h5 font-weight-bold text-center">{{$skill->name}}</h2>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                     @endif
                 </div>
+                @endif
             </div>
+        </div>
         </div>
     </section>
     @endif
@@ -448,19 +529,19 @@
             </div>
             <div class="row">
                 @if (!empty($services))
-                    @foreach ($services as $service)
-                        <div class="col-md-4 text-center d-flex" data-aos="zoom-in">
-                            <div class="services-1 shadow z-hover">
-                                <span class="icon">
-                                    <i class="{{$service->icon}}"></i>
-                                </span>
-                                <div class="desc">
-                                    <h3 class="mb-5">{{$service->title}}</h3>
-                                    <p>{{$service->details}}</p>
-                                </div>
-                            </div>
+                @foreach ($services as $service)
+                <div class="col-md-4 text-center d-flex" data-aos="zoom-in">
+                    <div class="services-1 shadow z-hover">
+                        <span class="icon">
+                            <i class="{{$service->icon}}"></i>
+                        </span>
+                        <div class="desc">
+                            <h3 class="mb-5">{{$service->title}}</h3>
+                            <p>{{$service->details}}</p>
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+                @endforeach
                 @endif
             </div>
         </div>
@@ -475,11 +556,7 @@
                     <h2 class="mb-4">Projects</h2>
                 </div>
             </div>
-            <div 
-                id="react-project-root" 
-                data-accentcolor="{{$accentColor}}" 
-                data-demomode="{{$demoMode}}"
-            />
+            <div id="react-project-root" data-accentcolor="{{$accentColor}}" data-demomode="{{$demoMode}}" />
             <div class="mb-5"></div>
         </div>
     </section>
@@ -493,10 +570,10 @@
                     <h2 class="mb-4">Contact Me</h2>
                 </div>
             </div>
-    
+
             <div class="row no-gutters block-9">
                 <div class="col-md-6 order-md-last d-flex">
-                    <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form" >
+                    <form action="#" method="POST" id="contact-me-form" class="bg-light p-4 p-md-5 contact-form">
                         @csrf
                         <div class="hp-field" aria-hidden="true">
                             <label for="website">Website</label>
@@ -515,7 +592,10 @@
                             <textarea id="body" name="body" cols="30" rows="7" class="form-control" placeholder="Body" aria-label="Message"></textarea>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                            <div class="g-recaptcha" data-sitekey="{{ env("GOOGLE_RECAPTCHA_PUBLIC_KEY") }}"></div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-submit">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -523,20 +603,20 @@
                     <div class="align-self-stretch box text-center p-4">
                         <div class="card-body">
                             @if ($about->address)
-                                <p class="mb-0"><strong>Address</strong></p>
-                                <p class="pb-2 text-muted">{{$about->address }}</p>
+                            <p class="mb-0"><strong>Address</strong></p>
+                            <p class="pb-2 text-muted">{{$about->address }}</p>
                             @endif
                             @if ($about->email)
-                                <p class="mb-0"><strong>Email</strong></p>
-                                <p class="pb-2 text-muted">{{$about->email }}</p>
+                            <p class="mb-0"><strong>Email</strong></p>
+                            <p class="pb-2 text-muted">{{$about->email }}</p>
                             @endif
                             @if ($linkedinUrl)
                                 <p class="mb-0"><strong>LinkedIn</strong></p>
                                 <p class="pb-2 text-muted"><a href="{{$linkedinUrl}}" target="_blank" rel="noopener noreferrer">{{$linkedinUrl}}</a></p>
                             @endif
                             @if ($about->phone)
-                                <p class="mb-0"><strong>Phone</strong></p>
-                                <p class="pb-2 text-muted">{{$about->phone }}</p>
+                            <p class="mb-0"><strong>Phone</strong></p>
+                            <p class="pb-2 text-muted">{{$about->phone }}</p>
                             @endif
                             @if ($portfolioConfig['visibility']['cv'])
                                 <p class="mb-0"><strong>Resume</strong></p>
@@ -565,7 +645,6 @@
     @if ($portfolioConfig['visibility']['footer'])
     <footer class="footer">
         <div class="h4 title text-center text-muted">{{$about->name}}</div>
-        <div class="text-center text-muted"><p>©{{ now()->year }} All rights reserved.</p></div>
         <div class="text-center text-muted">
             <small><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a>
@@ -608,7 +687,7 @@
                     $(this).remove();
                 });
             }
-            
+
             if ($('#typed-strings').length) {
                 @if($about->taglines)
                     var typedStrings = new Typed('#typed-strings', {
@@ -640,7 +719,6 @@
                 submitHandler: function(form, event)
                 {
                     const button = $('#contact-me-form #submit');
-
                     button.attr('disabled', true);
                     button.html(`<span class="content">
                         Sending <i class="fas fa-spinner fa-spin"></i>
@@ -664,10 +742,22 @@
                             } else if (response.status === 200) {
                                 showNotification(response.message, 'success', false);
                                 $('#contact-me-form').trigger('reset');
+                                grecaptcha.reset();
                             }
                         },
                         error: function (jqXHR, exception) {
-                            console.log(jqXHR);
+                            let messages = jqXHR.responseText;
+                            if (typeof messages ==='string') {
+                                messages = JSON.parse(messages).message;
+                            }
+                            
+                           // Loop through each key in the object
+                            Object.keys(messages).forEach(key => {
+                                // Get the array of messages for each key
+                                messages[key].forEach(message => {
+                                    showNotification(message, 'error', false);
+                                });
+                            });
                         },
                         complete: function(data) {
                             button.attr('disabled', false);
@@ -681,7 +771,7 @@
                     });
                 }
             });
-            
+
             function showNotification(message = 'Something went wrong', type = 'error', sticky = false) {
                 iziToast.show({
                     title: '',
@@ -696,13 +786,13 @@
                     messageColor: type === 'success' ? '#00ffb8' : '#ffafb4',
                     icon: type === 'success' ? 'fas fa-check' : 'fas fa-times-circle'
                 });
-            }    
+            }
         });
     </script>
     @if (!empty($portfolioConfig['script']['footer']) && $portfolioConfig['script']['footer'] != '')
-        <script>
-            {!!$portfolioConfig['script']['footer']!!}
-        </script>
+    <script>
+        {!!$portfolioConfig['script']['footer']!!}
+    </script>
     @endif
     @include('common.pixelTracking')
 </body>

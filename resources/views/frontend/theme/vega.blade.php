@@ -94,12 +94,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="image" href="{{ asset($about->avatar) }}">
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/themes/vega/css/styles.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/themes/vega/css/custom.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/themes/vega/css/styles.css') }}" rel="stylesheet" />
+    <link href="{{ secure_asset('assets/themes/vega/css/custom.css') }}" rel="stylesheet" />
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -518,8 +518,8 @@
     </div>
     @endif
     <!-- Bootstrap core JS-->
-    <script src="{{ asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/jquery/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- Third party plugin JS-->
     <script src="{{ asset('assets/common/lib/jquery.easing/jquery.easing.min.js') }}"></script>
     @if($about->taglines)
@@ -530,8 +530,8 @@
     <script src="{{ asset('assets/common/lib/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
     <!-- Core theme JS-->
-    <script src="{{ asset('assets/themes/vega/js/scripts.js') }}"></script>
-    <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
+    <script src="{{ secure_asset('assets/themes/vega/js/scripts.js') }}"></script>
+    <script src="{{ secure_asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
             if ($('#szn-preloader').length) {

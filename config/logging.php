@@ -37,19 +37,19 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => explode(',', env('LOG_STACK', 'daily')),
             'ignore_exceptions' => false,
         ],
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
@@ -81,11 +81,6 @@ return [
             ],
         ],
 
-        'syslog' => [
-            'driver' => 'syslog',
-            'level' => env('LOG_LEVEL', 'debug'),
-        ],
-
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
@@ -97,7 +92,17 @@ return [
         ],
 
         'emergency' => [
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/'.config('app.name').'.log'),
+        ],
+
+        'rsyslog' => [
+            'driver'  => 'monolog',
+            'handler' => Monolog\Handler\SyslogUdpHandler::class,
+            'handler_with' => [
+                'host' => env('RSYSLOG_HOST', '127.0.0.1'),
+                'port' => env('RSYSLOG_PORT', '514'),
+                'ident' => \Illuminate\Support\Str::upper(config('app.name'))
+            ],
         ],
     ],
 

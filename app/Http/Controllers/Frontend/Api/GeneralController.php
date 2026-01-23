@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Frontend\Api;
 
-use App\Http\Controllers\Controller;
-use App\Services\Contracts\FrontendInterface;
-use App\Services\Contracts\MessageInterface;
-use CoreConstants;
-use Illuminate\Http\JsonResponse;
+use Exception;
 use Illuminate\Http\Request;
+use App\Helpers\CoreConstants;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Services\Contracts\MessageInterface;
+use App\Services\Contracts\FrontendInterface;
+use Illuminate\Validation\ValidationException;
+
 
 class GeneralController extends Controller
 {
@@ -55,23 +58,35 @@ class GeneralController extends Controller
                 ],
             ], 422);
         }
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:120',
+        try {
+            // Validation for the incoming request parameters.
+            $validator = Validator::make($request->all(), [
+                 'name' => 'required|string|max:120',
             'email' => 'required|email',
             'subject' => 'required|string|max:150',
             'body' => 'required|string',
-        ]);
+                'g-recaptcha-response' => 'google_recaptcha',
+            ]);
+    
+            if ($validator->fails()) {
+                throw new ValidationException($validator);
+            }
+    
+            $validatedData = $request->only('name', 'email', 'subject', 'body');
 
-        if ($validator->fails()) {
+            $result = resolve(MessageInterface::class)->store($validatedData);
+
+            return response()->json($result, !empty($result['status']) ? $result['status'] : CoreConstants::STATUS_CODE_SUCCESS);
+        } catch (ValidationException $exception) {
+            // Handle validation errors.
+            $errors = $exception->validator->errors()->toArray();
             return response()->json([
-                'message' => $validator->errors(),
+                "message" => $errors,
             ], 422);
+        } catch (Exception $exception) {
+            return response()->json([
+                "message" => $exception->getMessage(),
+            ], 500);
         }
-
-        $payload = $request->only('name', 'email', 'subject', 'body');
-        $result = resolve(MessageInterface::class)->store($payload);
-
-        return response()->json($result, !empty($result['status']) ? $result['status'] : CoreConstants::STATUS_CODE_SUCCESS);
     }
 }

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import HTTP from '../../../common/helpers/HTTP';
 import Utils from '../../../common/helpers/Utils';
 import Routes from '../../../common/helpers/Routes';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const StyledDrawer = styled(Drawer)`
     .ant-drawer-content-wrapper {
@@ -20,16 +22,23 @@ const Experience = (props) => {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState((typeof props.loading !== 'undefined') ? props.loading : false);
     const [componentLoading, setComponentLoading] = useState((typeof props.componentLoading !== 'undefined') ? props.componentLoading : false);
+    const [detailsValue, setDetailsValue] = useState('');
 
     useEffect(() => {
+        if (!props.visible) {
+            return;
+        }
+
+        const initialDetails = props.itemToEdit ? props.itemToEdit.details : '';
         form.setFieldsValue({
             id: props.itemToEdit ? props.itemToEdit.id : '', 
             company: props.itemToEdit ? props.itemToEdit.company : '', 
             period: props.itemToEdit ? props.itemToEdit.period : '',
             position: props.itemToEdit ? props.itemToEdit.position : '',
-            details: props.itemToEdit ? props.itemToEdit.details : ''
+            details: initialDetails
         });
-    }, [props.itemToEdit])
+        setDetailsValue(initialDetails);
+    }, [props.itemToEdit, props.visible])
 
     useEffect(() => {
         setTimeout(() => {
@@ -72,11 +81,12 @@ const Experience = (props) => {
                 period: values.period,
             })
             .then(response => {
-                Utils.handleSuccessResponse(response, () => {
-                    form.resetFields();
-                    Utils.showNotification(response.data.message, 'success');
-                    props.submitCallback();
-                })
+                    Utils.handleSuccessResponse(response, () => {
+                        form.resetFields();
+                        setDetailsValue('');
+                        Utils.showNotification(response.data.message, 'success');
+                        props.submitCallback();
+                    })
             })
             .catch((error) => {
                 Utils.handleException(error);
@@ -150,7 +160,28 @@ const Experience = (props) => {
                         <Input placeholder="Enter Position"/>
                     </Form.Item>
                     <Form.Item name="details" label="Details">
-                        <Input.TextArea rows={4} placeholder="Enter Details"/>
+                        <ReactQuill
+                            theme="snow"
+                            value={detailsValue}
+                            placeholder="Enter Details"
+                            modules={{
+                                toolbar: [
+                                    ['bold', 'italic', 'underline', 'strike'],
+                                    [{ header: [1, 2, 3, false] }],
+                                    [{ list: 'ordered' }, { list: 'bullet' }],
+                                    ['blockquote', 'link'],
+                                    ['clean']
+                                ],
+                            }}
+                            formats={[
+                                'header', 'bold', 'italic', 'underline',
+                                'strike', 'list', 'bullet', 'blockquote', 'link'
+                            ]}
+                            onChange={(content) => {
+                                setDetailsValue(content);
+                                form.setFieldsValue({ details: content });
+                            }}
+                        />
                     </Form.Item>
                 </Form>
             </Spin>
