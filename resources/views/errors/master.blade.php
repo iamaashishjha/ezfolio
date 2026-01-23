@@ -14,6 +14,5 @@
         />
 
         <script src="{{ secure_asset('js/client/frontend/roots/error.js') }}"></script>
-        {{-- <script src="{{ secure_secure_asset('js/client/frontend/roots/error.js') }}"></script> --}}
     </body>
 </html>
