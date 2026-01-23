@@ -30,6 +30,7 @@ class About extends Model
         'address',
         'description',
         'taglines',
+        'about_highlights',
         'social_links',
         'cv',
     ];

@@ -83,9 +83,11 @@ const About = () => {
     const [cv, setCv] = useState(null);
     const [cover, setCover] = useState(null);
     const [taglines, setTagLines] = useState([]);
+    const [aboutHighlights, setAboutHighlights] = useState([]);
     const [socialLinks, setSocialLinks] = useState([]);
     
     const [focusTaglines, setFocusTaglines] = useState(false);
+    const [focusHighlights, setFocusHighlights] = useState(false);
     const [focusSocialLinks, setFocusSocialLinks] = useState(false);
 
     const [componentLoading, setComponentLoading] = useState(true);
@@ -101,6 +103,7 @@ const About = () => {
     const addressInput = useRef(null);
     const descriptionInput = useRef(null);
     const taglinesInput = useRef(null);
+    const highlightsInput = useRef(null);
     const socialLinksInput = useRef(null);
 
     const typedElement = useRef(null);
@@ -140,6 +143,14 @@ const About = () => {
     }, [focusTaglines]);
 
     useEffect(() => {
+        if (focusHighlights === true) {
+            setTimeout(() => {
+                setFocusHighlights(false);
+            }, 900);
+        }
+    }, [focusHighlights]);
+
+    useEffect(() => {
         if (focusSocialLinks === true) {
             setTimeout(() => {
                 setFocusSocialLinks(false);
@@ -164,6 +175,7 @@ const About = () => {
                 setCv(response.data.payload.cv);
                 setCover(response.data.payload.cover);
                 setTagLines(response.data.payload.taglines ? JSON.parse(response.data.payload.taglines) : []);
+                setAboutHighlights(response.data.payload.about_highlights ? JSON.parse(response.data.payload.about_highlights) : []);
                 setSocialLinks(response.data.payload.social_links ? JSON.parse(response.data.payload.social_links) : []);
 
                 //set form values
@@ -197,6 +209,9 @@ const About = () => {
         } else if (input === 'taglines') {
             setFocusTaglines(true);
             taglinesInput.current.focus();
+        } else if (input === 'highlights') {
+            setFocusHighlights(true);
+            highlightsInput.current.focus();
         }  else if (input === 'socialLinks') {
             setFocusSocialLinks(true);
             socialLinksInput.current.focus();
@@ -217,6 +232,7 @@ const About = () => {
                 address: values.address,
                 description: values.description,
                 taglines: taglines,
+                about_highlights: aboutHighlights,
                 social_links: socialLinks,
             })
             .then(response => {
@@ -268,6 +284,26 @@ const About = () => {
         let array = [...taglines];
         array[index] = e.target.value;
         setTagLines(array);
+    }
+
+    const highlightNewHandler = () => {
+        let array = [...aboutHighlights];
+        array.push('');
+        setAboutHighlights(array);
+    }
+
+    const highlightDeleteHandler = (index) => {
+        let array = [...aboutHighlights];
+        if (index !== -1) {
+            array.splice(index, 1);
+            setAboutHighlights(array);
+        }
+    }
+
+    const highlightEditHandler = (e, index) => {
+        let array = [...aboutHighlights];
+        array[index] = e.target.value;
+        setAboutHighlights(array);
     }
 
     const socialLinksNewHandler = () => {
@@ -402,6 +438,26 @@ const About = () => {
                                     <div>
                                         <span ref={typedElement}></span>
                                     </div>
+                                }/>
+                            </Item>
+                            <Item>
+                                <Item.Meta title={
+                                    <React.Fragment>
+                                        Highlights
+                                        <EditSpan onClick={() => {focusInput('highlights')}}>
+                                            <i className="fa fa-pencil-alt" title="Edit"></i>
+                                        </EditSpan>
+                                    </React.Fragment>
+                                } description={
+                                    aboutHighlights.length ? (
+                                        <Space wrap>
+                                            {aboutHighlights.map((highlight, index) => (
+                                                <Text type="secondary" key={index}>{highlight}</Text>
+                                            ))}
+                                        </Space>
+                                    ) : (
+                                        <Text type="secondary">No highlights set</Text>
+                                    )
                                 }/>
                             </Item>
                             <Item>
@@ -570,6 +626,48 @@ const About = () => {
                                                                 }>
                                                                     <Item.Meta description={
                                                                         <Input placeholder="Enter tag line" value={item} bordered={false} onChange={(e) => taglineEditHandler(e, index)}/>
+                                                                    }/>
+                                                                </List.Item>
+                                                            </div>
+                                                        ))
+                                                    }
+                                                </QueueAnim>
+                                            ) : (
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            )
+                                        }
+                                    </List>
+                                </Form.Item>
+                            </AnimatedDiv>
+                            <AnimatedDiv animate={focusHighlights} ref={highlightsInput} tabIndex="-1">
+                                <Form.Item
+                                    label={<Text strong>
+                                            Highlights
+                                            <EditSpan onClick={highlightNewHandler}>
+                                                <i className="fa fa-plus" title="Edit"></i>
+                                            </EditSpan>
+                                        </Text>
+                                    }
+                                >
+                                    <List
+                                        size="small"
+                                        bordered
+                                    >
+                                        {
+                                            aboutHighlights.length ? (
+                                                <QueueAnim type={['right', 'left']} leaveReverse>
+                                                    {
+                                                        aboutHighlights.map((item, index) => (
+                                                            <div key={index}>
+                                                                <List.Item actions={
+                                                                    [
+                                                                        <EditSpan key={'delete'}>
+                                                                            <i className="fas fa-times" style={{color: 'red'}} onClick={()=> highlightDeleteHandler(index)}></i>
+                                                                        </EditSpan>
+                                                                    ]
+                                                                }>
+                                                                    <Item.Meta description={
+                                                                        <Input placeholder="Enter highlight" value={item} bordered={false} onChange={(e) => highlightEditHandler(e, index)}/>
                                                                     }/>
                                                                 </List.Item>
                                                             </div>

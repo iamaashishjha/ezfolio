@@ -26,13 +26,6 @@
             }
         }
     }
-    $aboutHighlights = [
-        'Microservices & REST APIs',
-        'DB Optimization (MySQL/Postgres)',
-        'Caching (Redis)',
-        'Security best practices',
-        'Laravel/Lumen + Node.js',
-    ];
 @endphp
 
 <!DOCTYPE html>

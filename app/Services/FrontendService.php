@@ -77,6 +77,12 @@ class FrontendService implements FrontendInterface
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                 $data['services'] = $result['payload'];
             }
+
+            $data['aboutHighlights'] = $this->buildAboutHighlights(
+                $data['about'] ?? null,
+                $data['skills'] ?? [],
+                $data['services'] ?? []
+            );
             
             return [
                 'message' => 'Data is fetched successfully',
@@ -120,5 +126,63 @@ class FrontendService implements FrontendInterface
                 'status'  => CoreConstants::STATUS_CODE_ERROR
             ];
         }
+    }
+
+    /**
+     * Build about highlights from skills/services data.
+     *
+     * @param array|\Illuminate\Support\Collection $skills
+     * @param array|\Illuminate\Support\Collection $services
+     * @return array
+     */
+    private function buildAboutHighlights($about, $skills, $services)
+    {
+        if (!empty($about) && !empty($about->about_highlights)) {
+            $decoded = json_decode($about->about_highlights, true);
+            if (is_array($decoded) && count($decoded)) {
+                return $decoded;
+            }
+        }
+
+        $skillNames = collect($skills ?? [])->pluck('name')->map(function ($name) {
+            return strtolower($name);
+        });
+        $serviceNames = collect($services ?? [])->pluck('title')->map(function ($title) {
+            return strtolower($title);
+        });
+
+        $hasKeyword = function (array $keywords) use ($skillNames, $serviceNames) {
+            foreach ($keywords as $keyword) {
+                $keyword = strtolower($keyword);
+                if ($skillNames->contains($keyword) || $serviceNames->contains($keyword)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        $aboutHighlights = [];
+
+        if ($hasKeyword(['microservices', 'microservices architecture', 'rest apis', 'api development', 'api gateway'])) {
+            $aboutHighlights[] = 'Microservices & REST APIs';
+        }
+        if ($hasKeyword(['mysql', 'postgresql', 'postgres', 'database', 'db optimization'])) {
+            $aboutHighlights[] = 'DB Optimization (MySQL/Postgres)';
+        }
+        if ($hasKeyword(['redis', 'cache', 'caching'])) {
+            $aboutHighlights[] = 'Caching (Redis)';
+        }
+        if ($hasKeyword(['security', 'jwt', 'oauth', 'auth'])) {
+            $aboutHighlights[] = 'Security best practices';
+        }
+        if ($hasKeyword(['laravel', 'lumen', 'node.js', 'node', 'express.js'])) {
+            $aboutHighlights[] = 'Laravel/Lumen + Node.js';
+        }
+
+        if (empty($aboutHighlights)) {
+            $aboutHighlights = collect($skills ?? [])->take(5)->pluck('name')->all();
+        }
+
+        return $aboutHighlights;
     }
 }

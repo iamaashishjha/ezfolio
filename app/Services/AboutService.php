@@ -104,6 +104,16 @@ class AboutService implements AboutInterface
                 }
             }
             $newData['taglines'] = count($newTagLinesArray) ? json_encode($newTagLinesArray) : null;
+
+            $newHighlightsArray = [];
+            if (isset($data['about_highlights'])) {
+                foreach ($data['about_highlights'] as $key => $highlight) {
+                    if ($highlight !== null && $highlight !== '') {
+                        array_push($newHighlightsArray, $highlight);
+                    }
+                }
+            }
+            $newData['about_highlights'] = count($newHighlightsArray) ? json_encode($newHighlightsArray) : null;
             
             $newSocialLinksArray = [];
             if (isset($data['social_links'])) {
