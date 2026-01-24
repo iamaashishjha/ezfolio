@@ -95,7 +95,7 @@ select:focus-visible {
 
 @media (max-width: 991.98px) {
     body {
-        padding-bottom: 72px;
+        padding-bottom: 96px;
     }
 }
 
@@ -191,6 +191,40 @@ select:focus-visible {
     gap: 8px;
     align-items: center;
     justify-content: center;
+}
+
+.resume-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.contact-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.contact-social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #6c757d;
+    transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.contact-social-links a:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--z-accent-color);
+    border-color: var(--z-accent-color);
+    transform: translateY(-1px);
 }
 
 .hp-field {

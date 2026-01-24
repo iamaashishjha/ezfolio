@@ -14,21 +14,13 @@
     $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
-    $linkedinUrl = null;
+    $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
-        foreach (json_decode($about->social_links) as $social) {
+        $socialLinks = json_decode($about->social_links) ?: [];
+        foreach ($socialLinks as $social) {
             if (!empty($social->link)) {
                 $schemaSameAs[] = $social->link;
-            }
-            if (
-                !$linkedinUrl &&
-                (
-                    (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
-                    (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
-                )
-            ) {
-                $linkedinUrl = $social->link;
             }
         }
     }
@@ -292,8 +284,8 @@
     <section class="contact-section ftco-no-pb social-icon-block">
         <div class="container">
             <div class="row d-flex">
-                @if ($about->social_links)
-                    @foreach (json_decode($about->social_links) as $social)
+                @if (!empty($socialLinks))
+                    @foreach ($socialLinks as $social)
                         <div class="col-6 col-md-4 col-lg-2 mb-lg-4" data-aos="zoom-in">
                             <div class="align-self-stretch box text-center p-3 shadow">
                                 <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}">
@@ -317,20 +309,6 @@
     $portfolioConfig['visibility']['skills'])
     <section class="ftco-section ftco-no-pb" id="resume-section">
         <div class="container">
-            @if ($portfolioConfig['visibility']['cv'])
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-10 heading-section text-center">
-                    <h2 class="mb-3">Resume</h2>
-                    <p class="text-muted">Download the PDF or DOCX version for recruiters.</p>
-                    <div class="resume-actions">
-                        <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>Download Resume (PDF)</a>
-                        @if ($hasResumeDocx)
-                            <a href="{{ $resumeDocx }}" class="btn btn-light py-3 px-4" download>Download Resume (DOCX)</a>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endif
             <div class="row">
                 <div class="col-md-3">
                     <nav id="navi">
@@ -554,21 +532,40 @@
                             <p class="mb-0"><strong>Email</strong></p>
                             <p class="pb-2 text-muted">{{$about->email }}</p>
                             @endif
-                            @if ($linkedinUrl)
-                                <p class="mb-0"><strong>LinkedIn</strong></p>
-                                <p class="pb-2 text-muted"><a href="{{$linkedinUrl}}" target="_blank" rel="noopener noreferrer">{{$linkedinUrl}}</a></p>
-                            @endif
                             @if ($about->phone)
                             <p class="mb-0"><strong>Phone</strong></p>
                             <p class="pb-2 text-muted">{{$about->phone }}</p>
                             @endif
+                            @if (!empty($socialLinks))
+                                <p class="mb-0"><strong>Social</strong></p>
+                                <div class="contact-social-links mb-3">
+                                    @foreach ($socialLinks as $social)
+                                        @if (!empty($social->link))
+                                            <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}" title="{{$social->title}}">
+                                                @if (!empty($social->iconClass))
+                                                    <span class="{{$social->iconClass}}" aria-hidden="true"></span>
+                                                    <span class="sr-only">{{$social->title}}</span>
+                                                @else
+                                                    <span>{{$social->title}}</span>
+                                                @endif
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
                             @if ($portfolioConfig['visibility']['cv'])
                                 <p class="mb-0"><strong>Resume</strong></p>
                                 <div class="resume-links">
-                                    <a href="{{ $resumePdf }}" class="text-muted" download>PDF</a>
+                                    <a href="{{ $resumePdf }}" class="text-muted resume-link" download aria-label="Download resume PDF">
+                                        <span class="fas fa-file-pdf" aria-hidden="true"></span>
+                                        <span>PDF</span>
+                                    </a>
                                     @if ($hasResumeDocx)
                                         <span class="text-muted">·</span>
-                                        <a href="{{ $resumeDocx }}" class="text-muted" download>DOCX</a>
+                                        <a href="{{ $resumeDocx }}" class="text-muted resume-link" download aria-label="Download resume DOCX">
+                                            <span class="fas fa-file-word" aria-hidden="true"></span>
+                                            <span>DOCX</span>
+                                        </a>
                                     @endif
                                 </div>
                             @endif
@@ -590,17 +587,13 @@
     <footer class="footer">
         <div class="h4 title text-center text-muted">{{$about->name}}</div>
         <div class="text-center text-muted">
-            <small><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></small>
+            <small>&copy; {{ date('Y') }} All rights reserved.</small>
         </div>
     </footer>
     @else
     <footer class="footer">
         <div class="text-center text-muted">
-            <small><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" rel="noopener noreferrer">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></small>
+            <small>&copy; {{ date('Y') }} All rights reserved.</small>
         </div>
     </footer>
     @endif
