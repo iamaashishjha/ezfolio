@@ -6,7 +6,7 @@ FROM php:8.1-fpm-alpine AS base
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN apk add --no-cache \
-        bash git unzip \
+        bash git nodejs npm unzip \
         icu-dev oniguruma-dev libzip-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         postgresql-dev \

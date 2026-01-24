@@ -18,15 +18,31 @@ const thumbnailStyle = {
     objectFit: 'cover'
 }
 
+const htmlToLines = (details = '') => {
+    if (!details) {
+        return [];
+    }
+    const normalized = details
+        .replace(/<\s*br\s*\/?>/gi, '\n')
+        .replace(/<\/p>/gi, '\n')
+        .replace(/<\/div>/gi, '\n')
+        .replace(/<\/li>/gi, '\n')
+        .replace(/<li>/gi, '- ');
+    const temp = document.createElement('div');
+    temp.innerHTML = normalized;
+    const text = (temp.textContent || temp.innerText || '').trim();
+    return text
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean);
+};
+
 const parseProjectDetails = (details = '') => {
     const summary = { other: [] };
     if (!details) {
         return summary;
     }
-    const lines = details
-        .split(/\r?\n/)
-        .map((line) => line.trim())
-        .filter(Boolean);
+    const lines = htmlToLines(details);
 
     lines.forEach((line) => {
         const lower = line.toLowerCase();

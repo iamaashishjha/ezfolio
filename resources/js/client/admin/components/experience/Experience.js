@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import HTTP from '../../../common/helpers/HTTP';
 import Utils from '../../../common/helpers/Utils';
 import Routes from '../../../common/helpers/Routes';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import SummernoteEditor from '../common/SummernoteEditor';
 
 const StyledDrawer = styled(Drawer)`
     .ant-drawer-content-wrapper {
@@ -160,23 +159,10 @@ const Experience = (props) => {
                         <Input placeholder="Enter Position"/>
                     </Form.Item>
                     <Form.Item name="details" label="Details">
-                        <ReactQuill
-                            theme="snow"
+                        <SummernoteEditor
                             value={detailsValue}
                             placeholder="Enter Details"
-                            modules={{
-                                toolbar: [
-                                    ['bold', 'italic', 'underline', 'strike'],
-                                    [{ header: [1, 2, 3, false] }],
-                                    [{ list: 'ordered' }, { list: 'bullet' }],
-                                    ['blockquote', 'link'],
-                                    ['clean']
-                                ],
-                            }}
-                            formats={[
-                                'header', 'bold', 'italic', 'underline',
-                                'strike', 'list', 'bullet', 'blockquote', 'link'
-                            ]}
+                            height={200}
                             onChange={(content) => {
                                 setDetailsValue(content);
                                 form.setFieldsValue({ details: content });

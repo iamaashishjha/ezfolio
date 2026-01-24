@@ -49,3 +49,15 @@
     margin-bottom: 8px;
     color: rgba(0, 0, 0, 0.75);
 }
+
+.project-details p {
+    margin-bottom: 8px;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.project-details ul,
+.project-details ol {
+    margin-bottom: 12px;
+    padding-left: 20px;
+    color: rgba(0, 0, 0, 0.75);
+}

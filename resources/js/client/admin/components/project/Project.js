@@ -7,8 +7,7 @@ import Utils from '../../../common/helpers/Utils';
 import Routes from '../../../common/helpers/Routes';
 import FileUploaderFormInput from '../uploader/FileUploaderFormInput';
 import { PlusOutlined } from '@ant-design/icons';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import SummernoteEditor from '../common/SummernoteEditor';
 
 const { Option } = Select;
 
@@ -324,23 +323,10 @@ const Project = (props) => {
                         <Input placeholder="Enter Link"/>
                     </Form.Item>
                     <Form.Item name="details" label="Details">
-                        <ReactQuill
-                            theme="snow"
+                        <SummernoteEditor
                             value={detailsValue}
                             placeholder="Enter Details"
-                            modules={{
-                                toolbar: [
-                                    ['bold', 'italic', 'underline', 'strike'],
-                                    [{ header: [1, 2, 3, false] }],
-                                    [{ list: 'ordered' }, { list: 'bullet' }],
-                                    ['blockquote', 'link'],
-                                    ['clean']
-                                ],
-                            }}
-                            formats={[
-                                'header', 'bold', 'italic', 'underline',
-                                'strike', 'list', 'bullet', 'blockquote', 'link'
-                            ]}
+                            height={200}
                             onChange={(content) => {
                                 setDetailsValue(content);
                                 form.setFieldsValue({ details: content });

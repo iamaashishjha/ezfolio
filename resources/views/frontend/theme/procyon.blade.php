@@ -475,7 +475,7 @@
                         </span>
                         <div class="desc">
                             <h3 class="mb-5">{{$service->title}}</h3>
-                            <p>{{$service->details}}</p>
+                                    <div class="service-details">{!! $service->details !!}</div>
                         </div>
                     </div>
                 </div>

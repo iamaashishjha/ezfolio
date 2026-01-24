@@ -433,7 +433,7 @@
                                         <i class="{{$service->icon}}"></i>
                                     </div>
                                     <h4><a href="">{{$service->title}}</a></h4>
-                                    <p>{{$service->details}}</p>
+                                    <div class="service-details">{!! $service->details !!}</div>
                                 </div>
                             </div>
                         @endforeach

@@ -25,9 +25,7 @@ const StyledTitle = styled.p`
 const ProjectPopup = (props) => {
     const [visible, setVisible] = useState(false);
     const [componentLoading, setComponentLoading] = useState((typeof props.componentLoading !== 'undefined') ? props.componentLoading : false);
-    const detailLines = props.project && props.project.details
-        ? props.project.details.split(/\r?\n/).map((line) => line.trim()).filter(Boolean)
-        : [];
+    const detailsHtml = props.project && props.project.details ? props.project.details : '';
 
     useEffect(() => {
         setTimeout(() => {
@@ -107,15 +105,13 @@ const ProjectPopup = (props) => {
                     </Col>
                 </Row>
                 {
-                    detailLines.length > 0 && (
+                    detailsHtml && (
                         <React.Fragment>
                             <Divider/>
                             <StyledTitle>Description</StyledTitle>
                             <Row>
                                 <Col span={24}>
-                                    {detailLines.map((line, index) => (
-                                        <p key={index} className="project-detail-line">{line}</p>
-                                    ))}
+                                    <div className="project-details" dangerouslySetInnerHTML={{ __html: detailsHtml }} />
                                 </Col>
                             </Row>
                         </React.Fragment>
