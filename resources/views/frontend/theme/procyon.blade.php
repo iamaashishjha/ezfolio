@@ -16,6 +16,7 @@
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
     $jobTitle = $about->job_title ?: 'Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
+    $recaptchaSiteKey = config('services.recaptcha.site_key');
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -90,6 +91,9 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/themes/procyon/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/procyon/css/custom.css')) }}" rel="stylesheet">
+    @if (!empty($recaptchaSiteKey))
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -529,9 +533,11 @@
                         <div class="form-group">
                             <textarea id="body" name="body" cols="30" rows="7" class="form-control" placeholder="Body" aria-label="Message"></textarea>
                         </div>
-                        <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="{{ env("GOOGLE_RECAPTCHA_PUBLIC_KEY") }}"></div>
-                        </div>
+                        @if (!empty($recaptchaSiteKey))
+                            <div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="{{ $recaptchaSiteKey }}"></div>
+                            </div>
+                        @endif
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-submit">Submit</button>
                         </div>
@@ -737,7 +743,9 @@
                             } else if (response.status === 200) {
                                 showNotification(response.message, 'success', false);
                                 $('#contact-me-form').trigger('reset');
-                                grecaptcha.reset();
+                                if (typeof grecaptcha !== 'undefined') {
+                                    grecaptcha.reset();
+                                }
                             }
                         },
                         error: function (jqXHR, exception) {
