@@ -213,10 +213,16 @@
                         <p class="hero-subtitle">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
                         <div class="hero-actions">
                             @if ($portfolioConfig['visibility']['cv'])
-                                <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>Download Resume</a>
+                                <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>
+                                    <span class="btn-icon"><span class="fas fa-file-download" aria-hidden="true"></span></span>
+                                    Download Resume
+                                </a>
                             @endif
                             @if ($portfolioConfig['visibility']['projects'])
-                                <a href="#projects-section" class="btn btn-light py-3 px-4">View Projects</a>
+                                <a href="#projects-section" class="btn btn-light py-3 px-4">
+                                    <span class="btn-icon"><span class="fas fa-folder-open" aria-hidden="true"></span></span>
+                                    View Projects
+                                </a>
                             @endif
                         </div>
                     </div>
@@ -253,7 +259,10 @@
                             @endif
                             <div class="about-highlights">
                                 @foreach ($aboutHighlights as $highlight)
-                                    <span class="about-highlight">{{$highlight}}</span>
+                                    <span class="about-highlight">
+                                        <span class="highlight-icon fas fa-check-circle" aria-hidden="true"></span>
+                                        <span>{{$highlight}}</span>
+                                    </span>
                                 @endforeach
                             </div>
                             <ul class="about-info mt-4 px-md-0 px-2">
@@ -271,9 +280,14 @@
                         </div>
                     </div>
                     @if ($portfolioConfig['visibility']['cv'])
-                    <div class="counter-wrap d-flex mt-md-3" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                    <div class="counter-wrap d-flex justify-content-center mt-md-3" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <div class="text">
-                            <p><a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-3" download>Download Resume (PDF)</a></p>
+                            <p>
+                                <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-3" download>
+                                    <span class="btn-icon"><span class="fas fa-file-pdf" aria-hidden="true"></span></span>
+                                    Download Resume (PDF)
+                                </a>
+                            </p>
                         </div>
                     </div>
                     @endif
@@ -536,23 +550,6 @@
                             <p class="mb-0"><strong>Phone</strong></p>
                             <p class="pb-2 text-muted">{{$about->phone }}</p>
                             @endif
-                            @if (!empty($socialLinks))
-                                <p class="mb-0"><strong>Social</strong></p>
-                                <div class="contact-social-links mb-3">
-                                    @foreach ($socialLinks as $social)
-                                        @if (!empty($social->link))
-                                            <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}" title="{{$social->title}}">
-                                                @if (!empty($social->iconClass))
-                                                    <span class="{{$social->iconClass}}" aria-hidden="true"></span>
-                                                    <span class="sr-only">{{$social->title}}</span>
-                                                @else
-                                                    <span>{{$social->title}}</span>
-                                                @endif
-                                            </a>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            @endif
                             @if ($portfolioConfig['visibility']['cv'])
                                 <p class="mb-0"><strong>Resume</strong></p>
                                 <div class="resume-links">
@@ -583,18 +580,53 @@
     </a>
     @if ($portfolioConfig['visibility']['cv'])
     <div class="mobile-resume-cta d-lg-none">
-        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume</a>
+        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>
+            <span class="btn-icon"><span class="fas fa-file-download" aria-hidden="true"></span></span>
+            Download Resume
+        </a>
     </div>
     @endif
     @if ($portfolioConfig['visibility']['footer'])
     <footer class="footer">
         <div class="h4 title text-center text-muted">{{$about->name}}</div>
+        @if (!empty($socialLinks))
+            <div class="footer-social-links">
+                @foreach ($socialLinks as $social)
+                    @if (!empty($social->link))
+                        <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}" title="{{$social->title}}">
+                            @if (!empty($social->iconClass))
+                                <span class="{{$social->iconClass}}" aria-hidden="true"></span>
+                                <span class="sr-only">{{$social->title}}</span>
+                            @else
+                                <span>{{$social->title}}</span>
+                            @endif
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        @endif
         <div class="text-center text-muted">
             <small>&copy; {{ date('Y') }} All rights reserved.</small>
         </div>
     </footer>
     @else
     <footer class="footer">
+        @if (!empty($socialLinks))
+            <div class="footer-social-links">
+                @foreach ($socialLinks as $social)
+                    @if (!empty($social->link))
+                        <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" aria-label="{{$social->title}}" title="{{$social->title}}">
+                            @if (!empty($social->iconClass))
+                                <span class="{{$social->iconClass}}" aria-hidden="true"></span>
+                                <span class="sr-only">{{$social->title}}</span>
+                            @else
+                                <span>{{$social->title}}</span>
+                            @endif
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        @endif
         <div class="text-center text-muted">
             <small>&copy; {{ date('Y') }} All rights reserved.</small>
         </div>
