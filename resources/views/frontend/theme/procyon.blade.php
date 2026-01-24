@@ -88,11 +88,11 @@
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
     <link rel="preload" as="image" href="{{ asset($about->cover) }}">
 
-    <link href="{{ secure_asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
-    <link href="{{ secure_asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/common/lib/boxicons/css/boxicons.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/themes/procyon/css/custom.css') }}" rel="stylesheet">

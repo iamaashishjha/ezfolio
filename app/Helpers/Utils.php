@@ -21,12 +21,12 @@ class Utils
             $result = $settingService->getSettingByKey(CoreConstants::SETTING__FAVICON, ['setting_value']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return secure_asset($result['payload']->setting_value);
+                return asset($result['payload']->setting_value);
             } else {
-                return secure_asset('assets/common/img/favicon/default.png');
+                return asset('assets/common/img/favicon/default.png');
             }
         } catch (\Throwable $th) {
-            return secure_asset('assets/common/img/favicon/default.png');
+            return asset('assets/common/img/favicon/default.png');
         }
     }
     
@@ -59,12 +59,12 @@ class Utils
             $result = $setting->getSettingByKey(CoreConstants::SETTING__LOGO, ['value']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return secure_asset($result['payload']->value);
+                return asset($result['payload']->value);
             } else {
-                return secure_asset('assets/common/img/logo/default.png');
+                return asset('assets/common/img/logo/default.png');
             }
         } catch (\Throwable $th) {
-            return secure_asset('assets/common/img/logo/default.png');
+            return asset('assets/common/img/logo/default.png');
         }
     }
 
@@ -80,12 +80,12 @@ class Utils
             $result = $about->getAll(['avatar']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return secure_asset($result['payload']->avatar);
+                return asset($result['payload']->avatar);
             }
 
-            return secure_asset('assets/common/img/avatar/default.png');
+            return asset('assets/common/img/avatar/default.png');
         } catch (\Throwable $th) {
-            return secure_asset('assets/common/img/avatar/default.png');
+            return asset('assets/common/img/avatar/default.png');
         }
     }
 
@@ -101,12 +101,12 @@ class Utils
             $result = $about->getAll(['cover']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return secure_asset($result['payload']->cover);
+                return asset($result['payload']->cover);
             }
 
-            return secure_asset('assets/common/img/cover/default.png');
+            return asset('assets/common/img/cover/default.png');
         } catch (\Throwable $th) {
-            return secure_asset('assets/common/img/cover/default.png');
+            return asset('assets/common/img/cover/default.png');
         }
     }
 }
