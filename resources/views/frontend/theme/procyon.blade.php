@@ -629,6 +629,7 @@
             }
 
             const mobileCta = document.querySelector('.mobile-resume-cta');
+            let isCtaHidden = mobileCta ? mobileCta.classList.contains('is-hidden') : false;
             const updateMobileCtaOffset = () => {
                 if (!mobileCta) {
                     return;
@@ -636,6 +637,10 @@
                 const isMobile = window.matchMedia('(max-width: 991.98px)').matches;
                 if (!isMobile) {
                     document.documentElement.style.removeProperty('--mobile-cta-offset');
+                    return;
+                }
+                if (isCtaHidden) {
+                    document.documentElement.style.setProperty('--mobile-cta-offset', '0px');
                     return;
                 }
                 const height = mobileCta.offsetHeight || 0;
@@ -732,7 +737,12 @@
             if (mobileCta && footer && 'IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
-                        mobileCta.classList.toggle('is-hidden', entry.isIntersecting);
+                        const shouldHide = entry.isIntersecting;
+                        mobileCta.classList.toggle('is-hidden', shouldHide);
+                        if (shouldHide !== isCtaHidden) {
+                            isCtaHidden = shouldHide;
+                            updateMobileCtaOffset();
+                        }
                     });
                 }, { rootMargin: '0px 0px -64px 0px' });
                 observer.observe(footer);

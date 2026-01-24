@@ -75,7 +75,7 @@ select:focus-visible {
 }
 
 :root {
-    --mobile-cta-offset: 96px;
+    --mobile-cta-offset: 72px;
 }
 
 .mobile-resume-cta {
