@@ -87,7 +87,7 @@
     <link href="{{ asset('assets/common/lib/aos/aos.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/procyon/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/procyon/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/themes/procyon/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/procyon/css/custom.css')) }}" rel="stylesheet">
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -708,6 +708,17 @@
                     });
                 }
             });
+
+            const mobileCta = document.querySelector('.mobile-resume-cta');
+            const footer = document.querySelector('footer.footer');
+            if (mobileCta && footer && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        mobileCta.classList.toggle('is-hidden', entry.isIntersecting);
+                    });
+                }, { rootMargin: '0px 0px -64px 0px' });
+                observer.observe(footer);
+            }
 
             function showNotification(message = 'Something went wrong', type = 'error', sticky = false) {
                 iziToast.show({

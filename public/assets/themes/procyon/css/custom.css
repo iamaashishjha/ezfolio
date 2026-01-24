@@ -74,6 +74,10 @@ select:focus-visible {
     outline-offset: 2px;
 }
 
+:root {
+    --mobile-cta-offset: 96px;
+}
+
 .mobile-resume-cta {
     position: fixed;
     left: 0;
@@ -86,6 +90,7 @@ select:focus-visible {
     box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .mobile-resume-cta .btn {
@@ -93,9 +98,23 @@ select:focus-visible {
     max-width: 320px;
 }
 
+.mobile-resume-cta.is-hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media (max-width: 991.98px) {
     body {
-        padding-bottom: 96px;
+        padding-bottom: calc(var(--mobile-cta-offset) + env(safe-area-inset-bottom));
+    }
+
+    .footer {
+        margin-bottom: var(--mobile-cta-offset);
+    }
+
+    .mobile-resume-cta {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
     }
 }
 
