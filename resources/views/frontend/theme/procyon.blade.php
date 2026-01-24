@@ -578,6 +578,9 @@
     @endif
 
     </main>
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <span class="bx bx-up-arrow-alt" aria-hidden="true"></span>
+    </a>
     @if ($portfolioConfig['visibility']['cv'])
     <div class="mobile-resume-cta d-lg-none">
         <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume</a>
@@ -613,7 +616,7 @@
     <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
     <script src="{{ asset('assets/common/lib/scrollax/scrollax.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
-    <script src="{{ asset('assets/themes/procyon/js/main.js') }}"></script>
+    <script src="{{ asset('assets/themes/procyon/js/main.js') }}?v={{ filemtime(public_path('assets/themes/procyon/js/main.js')) }}"></script>
     <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
@@ -624,6 +627,22 @@
                     $(this).remove();
                 });
             }
+
+            const mobileCta = document.querySelector('.mobile-resume-cta');
+            const updateMobileCtaOffset = () => {
+                if (!mobileCta) {
+                    return;
+                }
+                const isMobile = window.matchMedia('(max-width: 991.98px)').matches;
+                if (!isMobile) {
+                    document.documentElement.style.removeProperty('--mobile-cta-offset');
+                    return;
+                }
+                const height = mobileCta.offsetHeight || 0;
+                document.documentElement.style.setProperty('--mobile-cta-offset', `${height}px`);
+            };
+            updateMobileCtaOffset();
+            window.addEventListener('resize', updateMobileCtaOffset);
 
             if ($('#typed-strings').length) {
                 @if($about->taglines)
@@ -709,7 +728,6 @@
                 }
             });
 
-            const mobileCta = document.querySelector('.mobile-resume-cta');
             const footer = document.querySelector('footer.footer');
             if (mobileCta && footer && 'IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries) => {

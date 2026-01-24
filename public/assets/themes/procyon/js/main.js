@@ -178,7 +178,7 @@
 	};
 	contentWayPoint();
 
-  var goHere = function() {
+	var goHere = function() {
 
 		$('.mouse-icon').on('click', function(event){
 			
@@ -194,6 +194,26 @@
 		});
 	};
 	goHere();
+
+	var backToTop = function() {
+		var $button = $('.back-to-top');
+		if (!$button.length) {
+			return;
+		}
+
+		$(window).scroll(function() {
+			$button.toggleClass('is-visible', $(this).scrollTop() > 200);
+		});
+		$(window).trigger('scroll');
+
+		$button.on('click', function(event) {
+			event.preventDefault();
+			$('html, body').animate({
+				scrollTop: 0
+			}, 500, 'easeInOutExpo');
+		});
+	};
+	backToTop();
 
 	// $("#myScrollspy").scrollspy({ offset: -75 });
 
@@ -349,4 +369,3 @@ $(function() {
   }
 
 });
-
