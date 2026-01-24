@@ -91,4 +91,6 @@ const SummernoteEditor = forwardRef(({
     );
 });
 
+SummernoteEditor.displayName = 'SummernoteEditor';
+
 export default SummernoteEditor;

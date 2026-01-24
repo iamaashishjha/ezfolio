@@ -61,17 +61,17 @@ class GeneralController extends Controller
         try {
             // Validation for the incoming request parameters.
             $validator = Validator::make($request->all(), [
-                 'name' => 'required|string|max:120',
-            'email' => 'required|email',
-            'subject' => 'required|string|max:150',
-            'body' => 'required|string',
+                'name' => 'required|string|max:120',
+                'email' => 'required|email',
+                'subject' => 'required|string|max:150',
+                'body' => 'required|string',
                 'g-recaptcha-response' => 'google_recaptcha',
             ]);
-    
+
             if ($validator->fails()) {
                 throw new ValidationException($validator);
             }
-    
+
             $validatedData = $request->only('name', 'email', 'subject', 'body');
 
             $result = resolve(MessageInterface::class)->store($validatedData);
