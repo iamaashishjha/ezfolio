@@ -22,6 +22,7 @@
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
     $jobTitle = $about->job_title ?: 'Backend Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
+    $recaptchaSiteKey = config('services.recaptcha.site_key');
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -94,6 +95,9 @@
     <link href="{{ asset('assets/common/lib/iziToast/css/iziToast.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/themes/vega/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/themes/vega/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/vega/css/custom.css')) }}" rel="stylesheet" />
+    @if (!empty($recaptchaSiteKey))
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -471,6 +475,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if (!empty($recaptchaSiteKey))
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <div class="g-recaptcha" data-sitekey="{{ $recaptchaSiteKey }}"></div>
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div class="row">
                                             <div class="col">
                                                 <button type="submit" class="submit-button">Send Message</button>
@@ -680,6 +691,9 @@
                             } else if (response.status === 200) {
                                 showNotification(response.message, 'success', false);
                                 $('#contact-me-form').trigger('reset');
+                                if (typeof grecaptcha !== 'undefined') {
+                                    grecaptcha.reset();
+                                }
                             }
                         },
                         error: function (jqXHR, exception) {

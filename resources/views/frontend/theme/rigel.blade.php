@@ -14,6 +14,7 @@
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
     $jobTitle = $about->job_title ?: 'Backend Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
+    $recaptchaSiteKey = config('services.recaptcha.site_key');
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -91,6 +92,9 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/themes/rigel/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/rigel/css/custom.css')) }}" rel="stylesheet">
+    @if (!empty($recaptchaSiteKey))
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -520,6 +524,11 @@
                                 <textarea class="form-control" name="body" id="body" rows="5" data-rule="required" data-msg="Please write something" placeholder="Body" aria-label="Message"></textarea>
                                 <div class="validate"></div>
                             </div>
+                            @if (!empty($recaptchaSiteKey))
+                                <div class="form-group">
+                                    <div class="g-recaptcha" data-sitekey="{{ $recaptchaSiteKey }}"></div>
+                                </div>
+                            @endif
                             <div class="text-center"><button type="submit" class="submit-button">Send Message</button></div>
                         </form>
                     </div>
@@ -684,6 +693,9 @@
                             } else if (response.status === 200) {
                                 showNotification(response.message, 'success', false);
                                 $('#contact-me-form').trigger('reset');
+                                if (typeof grecaptcha !== 'undefined') {
+                                    grecaptcha.reset();
+                                }
                             }
                         },
                         error: function (jqXHR, exception) {
