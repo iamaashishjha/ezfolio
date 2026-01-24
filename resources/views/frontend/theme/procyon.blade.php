@@ -146,7 +146,7 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
-                    <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="#hero" class="nav-link"><span>Home</span></a></li>
                     @if ($portfolioConfig['visibility']['about'])
                     <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
                     @endif
@@ -182,7 +182,7 @@
             </button>
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
-                    <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="#hero" class="nav-link"><span>Home</span></a></li>
                     @if ($portfolioConfig['visibility']['about'])
                     <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
                     @endif
@@ -305,17 +305,12 @@
                                     </div>
                                 </a>
                             </div>
-                            <div>
-                                <p class="mb-0">{{$social->title}}</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                @endforeach
+                        </div>
+                    @endforeach
                 @endif
             </div>
         </div>
-    </section>x
+    </section>
     @endif
 
     @if ($portfolioConfig['visibility']['experiences'] || $portfolioConfig['visibility']['education'] ||
@@ -400,116 +395,65 @@
                     @if ($portfolioConfig['visibility']['skills'])
                     <div id="page-3" class="page three">
                         <h2 class="heading">Skills</h2>
-                        @php
-                            $skillsCollection = collect($skills ?? []);
-                            $skillGroups = [
-                                'Backend' => ['laravel', 'lumen', 'php', 'node.js', 'express.js', 'rest apis', 'microservices'],
-                                'Databases & Caching' => ['mysql', 'postgresql', 'mongodb', 'redis', 'elasticsearch'],
-                                'Frontend' => ['javascript', 'react.js', 'vue.js', 'html', 'css'],
-                                'Tools' => ['docker', 'ci/cd', 'git', 'nginx', 'aws'],
-                            ];
-                            $groupKeys = collect($skillGroups)->flatten()->all();
-                            $otherSkills = $skillsCollection->filter(function ($skill) use ($groupKeys) {
-                                return !in_array(strtolower($skill->name), $groupKeys);
-                            });
-                        @endphp
-                        @foreach ($skillGroups as $groupName => $groupSkills)
-                            @php
-                                $groupItems = $skillsCollection->filter(function ($skill) use ($groupSkills) {
-                                    return in_array(strtolower($skill->name), $groupSkills);
-                                });
-                            @endphp
-                            @if ($groupItems->count())
-                                <div class="skill-group">
-                                    <h3 class="skill-group-title">{{$groupName}}</h3>
-                                    <div class="row">
-                                        @foreach ($groupItems as $skill)
-                                            @if ((int)$portfolioConfig['visibility']['skillProficiency'])
-                                                <div class="col-md-6">
-                                                    <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                                        <h3>{{$skill->name}}</h3>
-                                                        <div class="progress">
-                                                            <div class="progress-bar color-1" role="progressbar" aria-valuenow="{{$skill->proficiency}}"
-                                                                aria-valuemin="0" aria-valuemax="100" style="width:{{$skill->proficiency}}%">
-                                                                <span>{{$skill->proficiency}}%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
-                                                    <div class="bg-white rounded-lg shadow p-3 z-hover text-center">
-                                                        <h2 class="h6 font-weight-bold mb-0">{{$skill->name}}</h2>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
+                        @if ((int)$portfolioConfig['visibility']['skillProficiency'])
+                        @if (!empty($skills))
+                        <div class="row progress-circle mb-5">
+                            @foreach ($skills as $key => $skill)
+                            @if ($key < 3)
+                            <div class="col-lg-4 mb-4" data-aos="zoom-in">
+                                <div class="bg-white rounded-lg shadow p-4 z-hover">
+                                    <h2 class="h5 font-weight-bold text-center mb-4">{{$skill->name}}</h2>
+                                    <div class="progress mx-auto mb-4" data-value='{{$skill->proficiency}}'>
+                                        <span class="progress-left">
+                                            <span class="progress-bar border-primary"></span>
+                                        </span>
+                                        <span class="progress-right">
+                                            <span class="progress-bar border-primary"></span>
+                                        </span>
+                                        <div
+                                            class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+                                            <div class="h2 font-weight-bold">{{$skill->proficiency}}<sup
+                                                    class="small">%</sup></div>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
                             @endif
-                        @endforeach
-                        @if ($otherSkills->count())
-                            <div class="skill-group">
-                                <h3 class="skill-group-title">Other</h3>
-                                <div class="row">
-                                    @foreach ($otherSkills as $skill)
-                                        @if ((int)$portfolioConfig['visibility']['skillProficiency'])
-                                            <div class="col-md-6">
-                                                <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                                    <h3>{{$skill->name}}</h3>
-                                                    <div class="progress">
-                                                        <div class="progress-bar color-1" role="progressbar" aria-valuenow="{{$skill->proficiency}}"
-                                                            aria-valuemin="0" aria-valuemax="100" style="width:{{$skill->proficiency}}%">
-                                                            <span>{{$skill->proficiency}}%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
-                                                <div class="bg-white rounded-lg shadow p-3 z-hover text-center">
-                                                    <h2 class="h6 font-weight-bold mb-0">{{$skill->name}}</h2>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
+                            @endforeach
+                        </div>
                         @endif
-                        @endforeach
-                    </div>
-                    @endif
-                    @if (!empty($skills))
-                    <div class="row">
-                        @foreach ($skills as $key => $skill)
-                        @if ($key >= 3)
-                        <div class="col-md-6">
-                            <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                                <h3>{{$skill->name}}</h3>
-                                <div class="progress">
-                                    <div class="progress-bar color-1" role="progressbar"
-                                        aria-valuenow="{{$skill->proficiency}}" aria-valuemin="0" aria-valuemax="100"
-                                        style="width:{{$skill->proficiency}}%">
-                                        <span>{{$skill->proficiency}}%</span>
+                        @if (!empty($skills))
+                        <div class="row">
+                            @foreach ($skills as $key => $skill)
+                            @if ($key >= 3)
+                            <div class="col-md-6">
+                                <div class="progress-wrap" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                                    <h3>{{$skill->name}}</h3>
+                                    <div class="progress">
+                                        <div class="progress-bar color-1" role="progressbar"
+                                            aria-valuenow="{{$skill->proficiency}}" aria-valuemin="0" aria-valuemax="100"
+                                            style="width:{{$skill->proficiency}}%">
+                                            <span>{{$skill->proficiency}}%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                         @endif
-                        @endforeach
-                    </div>
-                    @endif
-                    @else
-                    <div class="row progress-circle mb-5">
-                        @foreach ($skills as $key => $skill)
-                        <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in">
-                            <div class="bg-white rounded-lg shadow p-4 z-hover">
-                                <h2 class="h5 font-weight-bold text-center">{{$skill->name}}</h2>
+                        @else
+                        <div class="row progress-circle mb-5">
+                            @foreach ($skills as $key => $skill)
+                            <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in">
+                                <div class="bg-white rounded-lg shadow p-4 z-hover">
+                                    <h2 class="h5 font-weight-bold text-center">{{$skill->name}}</h2>
+                                </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
+                        @endif
                     </div>
-                    @endif
                 </div>
                 @endif
             </div>
