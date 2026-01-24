@@ -259,3 +259,49 @@ select:focus-visible {
     padding-left: 18px;
     margin-bottom: 0;
 }
+
+.navbar-dark .navbar-toggler {
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: none;
+    width: 24px;
+    height: 2px;
+    background-color: #1f2933;
+    position: relative;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-dark .navbar-toggler-icon::before,
+.navbar-dark .navbar-toggler-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: #1f2933;
+    transition: transform 0.2s ease, top 0.2s ease;
+}
+
+.navbar-dark .navbar-toggler-icon::before {
+    top: -7px;
+}
+
+.navbar-dark .navbar-toggler-icon::after {
+    top: 7px;
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-color: transparent;
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.navbar-dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
