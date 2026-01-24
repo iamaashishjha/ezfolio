@@ -30,7 +30,7 @@
         '@context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $about->name,
-        'jobTitle' => 'Backend Software Engineer',
+        'jobTitle' => 'Software Engineer',
         'url' => $baseUrl,
         'image' => asset($about->avatar),
     ];
@@ -203,7 +203,7 @@
                 <div class="col-lg-8 col-md-6 d-flex align-items-center" data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom">
                     <div class="text text-center">
-                        <h1 class="mb-2">{{$about->name}} <span class="hero-role">— Backend Software Engineer</span></h1>
+                        <h1 class="mb-2">{{$about->name}} <span class="hero-role">— Software Engineer</span></h1>
                         <h2 class="mb-3">
                             <span id="typed-strings"></span>
                             {{-- <span class="txt-rotate" data-period="2000"

@@ -75,6 +75,10 @@ select:focus-visible,
     outline-offset: 2px;
 }
 
+:root {
+    --mobile-cta-offset: 72px;
+}
+
 .mobile-resume-cta {
     position: fixed;
     left: 0;
@@ -87,6 +91,7 @@ select:focus-visible,
     box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.12);
     display: flex;
     justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .mobile-resume-cta .btn {
@@ -94,13 +99,27 @@ select:focus-visible,
     max-width: 320px;
 }
 
+.mobile-resume-cta.is-hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 @media (max-width: 991.98px) {
     body {
-        padding-bottom: 72px;
+        padding-bottom: calc(var(--mobile-cta-offset) + env(safe-area-inset-bottom));
     }
 
     .back-to-top {
-        bottom: 88px;
+        bottom: calc(var(--mobile-cta-offset) + 8px + env(safe-area-inset-bottom));
+    }
+
+    #footer {
+        margin-bottom: var(--mobile-cta-offset);
+    }
+
+    .mobile-resume-cta {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
     }
 }
 
@@ -162,6 +181,35 @@ select:focus-visible,
     justify-content: center;
 }
 
+.btn .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    line-height: 1;
+    color: inherit;
+}
+
+.btn .btn-icon .fas,
+.btn .btn-icon .far,
+.btn .btn-icon .fab {
+    color: inherit;
+}
+
+.btn.btn-primary .btn-icon,
+.btn.btn-primary .btn-icon .fas,
+.btn.btn-primary .btn-icon .far,
+.btn.btn-primary .btn-icon .fab {
+    color: #fff !important;
+}
+
+.btn.btn-primary:hover .btn-icon,
+.btn.btn-primary:hover .btn-icon .fas,
+.btn.btn-primary:hover .btn-icon .far,
+.btn.btn-primary:hover .btn-icon .fab {
+    color: #111 !important;
+}
+
 .about-highlights {
     display: flex;
     flex-wrap: wrap;
@@ -170,12 +218,20 @@ select:focus-visible,
 }
 
 .about-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border-radius: 999px;
     padding: 6px 12px;
     font-size: 12px;
     color: #1f2933;
     background: rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.about-highlight .highlight-icon {
+    color: var(--z-accent-color);
+    font-size: 12px;
 }
 
 .skill-group-title {
@@ -189,6 +245,12 @@ select:focus-visible,
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+.resume-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .hp-field {

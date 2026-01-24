@@ -12,21 +12,13 @@
     $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
-    $linkedinUrl = null;
+    $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
-        foreach (json_decode($about->social_links) as $social) {
+        $socialLinks = json_decode($about->social_links) ?: [];
+        foreach ($socialLinks as $social) {
             if (!empty($social->link)) {
                 $schemaSameAs[] = $social->link;
-            }
-            if (
-                !$linkedinUrl &&
-                (
-                    (!empty($social->title) && stripos($social->title, 'linkedin') !== false) ||
-                    (!empty($social->iconClass) && stripos($social->iconClass, 'linkedin') !== false)
-                )
-            ) {
-                $linkedinUrl = $social->link;
             }
         }
     }
@@ -96,7 +88,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/themes/rigel/css/styles.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/themes/rigel/css/custom.css') }}?v={{ filemtime(public_path('assets/themes/rigel/css/custom.css')) }}" rel="stylesheet">
     <style>
         :root {
           --z-accent-color: {{$accentColor}};
@@ -173,15 +165,21 @@
             <p><span class="typed"></span></p>
             @if ($portfolioConfig['visibility']['cv'])
                 <div class="hero-actions my-3">
-                    <a href="{{ $resumePdf }}" class="btn btn-light btn-sm" download>Download Resume</a>
+                    <a href="{{ $resumePdf }}" class="btn btn-light btn-sm" download>
+                        <span class="btn-icon"><span class="fas fa-file-download" aria-hidden="true"></span></span>
+                        Download Resume
+                    </a>
                     @if ($portfolioConfig['visibility']['projects'])
-                        <a href="#projects" class="btn btn-outline-light btn-sm">View Projects</a>
+                        <a href="#projects" class="btn btn-outline-light btn-sm">
+                            <span class="btn-icon"><span class="fas fa-folder-open" aria-hidden="true"></span></span>
+                            View Projects
+                        </a>
                     @endif
                 </div>
             @endif
-            @if ($about->social_links)
+            @if (!empty($socialLinks))
                 <div class="social-links">
-                    @foreach (json_decode($about->social_links) as $social)
+                    @foreach ($socialLinks as $social)
                         <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="{{$social->title}}">
                             <i class="{{$social->iconClass}}"></i>
                         </a>
@@ -227,7 +225,10 @@
                         @endif
                         <div class="about-highlights">
                             @foreach ($aboutHighlights as $highlight)
-                                <span class="about-highlight">{{$highlight}}</span>
+                                <span class="about-highlight">
+                                    <span class="highlight-icon fas fa-check-circle" aria-hidden="true"></span>
+                                    <span>{{$highlight}}</span>
+                                </span>
                             @endforeach
                         </div>
                     </div>
@@ -244,9 +245,15 @@
                     <p class="text-muted">Download the PDF or DOCX version for recruiters.</p>
                 </div>
                 <div class="resume-actions text-center">
-                    <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume (PDF)</a>
+                    <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>
+                        <span class="btn-icon"><span class="fas fa-file-pdf" aria-hidden="true"></span></span>
+                        Download Resume (PDF)
+                    </a>
                     @if ($hasResumeDocx)
-                        <a href="{{ $resumeDocx }}" class="btn btn-outline-primary btn-sm" download>Download Resume (DOCX)</a>
+                        <a href="{{ $resumeDocx }}" class="btn btn-outline-primary btn-sm" download>
+                            <span class="btn-icon"><span class="fas fa-file-word" aria-hidden="true"></span></span>
+                            Download Resume (DOCX)
+                        </a>
                     @endif
                 </div>
             </div>
@@ -458,13 +465,6 @@
                                     <p>{{$about->email}}</p>
                                 </div>
                             @endif
-                            @if ($linkedinUrl)
-                                <div class="email">
-                                    <i class='bx bxl-linkedin-square'></i>
-                                    <h4>LinkedIn:</h4>
-                                    <p><a href="{{$linkedinUrl}}" target="_blank" rel="noopener noreferrer">{{$linkedinUrl}}</a></p>
-                                </div>
-                            @endif
                             @if ($about->address && $about->address !== '')
                                 <div class="address">
                                     <i class='bx bx-current-location' ></i>
@@ -476,13 +476,19 @@
                                 <div class="email">
                                     <i class='bx bxs-file'></i>
                                     <h4>Resume:</h4>
-                                    <p>
-                                        <a href="{{ $resumePdf }}" download>PDF</a>
+                                    <div class="resume-links">
+                                        <a href="{{ $resumePdf }}" class="text-muted resume-link" download aria-label="Download resume PDF">
+                                            <span class="fas fa-file-pdf" aria-hidden="true"></span>
+                                            <span>PDF</span>
+                                        </a>
                                         @if ($hasResumeDocx)
-                                            <span>·</span>
-                                            <a href="{{ $resumeDocx }}" download>DOCX</a>
+                                            <span class="text-muted">·</span>
+                                            <a href="{{ $resumeDocx }}" class="text-muted resume-link" download aria-label="Download resume DOCX">
+                                                <span class="fas fa-file-word" aria-hidden="true"></span>
+                                                <span>DOCX</span>
+                                            </a>
                                         @endif
-                                    </p>
+                                    </div>
                                 </div>
                             @endif
                         </div>
@@ -526,9 +532,9 @@
     <footer id="footer">
         <div class="container">
             <h3>{{$about->name}}</h3>
-            @if ($about->social_links)
+            @if (!empty($socialLinks))
                 <div class="social-links">
-                    @foreach (json_decode($about->social_links) as $social)
+                    @foreach ($socialLinks as $social)
                         <a href="{{$social->link}}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="{{$social->title}}">
                             <i class="{{$social->iconClass}}"></i>
                         </a>
@@ -536,14 +542,7 @@
                 </div>
             @endif
             <div class="copyright">
-                ©{{ now()->year }} All rights reserved.
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: [license-url] -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                &copy; {{ now()->year }} All rights reserved.
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -551,12 +550,8 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="py-1">
         <div class="container">
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: [license-url] -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            <div class="copyright">
+                &copy; {{ now()->year }} All rights reserved.
             </div>
         </div>
     </footer><!-- End Footer -->
@@ -564,7 +559,10 @@
 
     @if ($portfolioConfig['visibility']['cv'])
     <div class="mobile-resume-cta d-lg-none">
-        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>Download Resume</a>
+        <a href="{{ $resumePdf }}" class="btn btn-primary btn-sm" download>
+            <span class="btn-icon"><span class="fas fa-file-download" aria-hidden="true"></span></span>
+            Download Resume
+        </a>
     </div>
     @endif
 
@@ -586,12 +584,48 @@
     <script src="{{ asset('assets/common/lib/jquery.lazy/jquery.lazy.min.js') }}"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{ asset('assets/themes/rigel/js/main.js') }}"></script>
+    <script src="{{ asset('assets/themes/rigel/js/main.js') }}?v={{ filemtime(public_path('assets/themes/rigel/js/main.js')) }}"></script>
 
     <script src="{{ asset('js/client/frontend/roots/projects.js') }}"></script>
     <script>
         $(function() {
             $('.lazy').lazy();
+
+            const mobileCta = document.querySelector('.mobile-resume-cta');
+            let isCtaHidden = mobileCta ? mobileCta.classList.contains('is-hidden') : false;
+            const updateMobileCtaOffset = () => {
+                if (!mobileCta) {
+                    return;
+                }
+                const isMobile = window.matchMedia('(max-width: 991.98px)').matches;
+                if (!isMobile) {
+                    document.documentElement.style.removeProperty('--mobile-cta-offset');
+                    return;
+                }
+                if (isCtaHidden) {
+                    document.documentElement.style.setProperty('--mobile-cta-offset', '0px');
+                    return;
+                }
+                const height = mobileCta.offsetHeight || 0;
+                document.documentElement.style.setProperty('--mobile-cta-offset', `${height}px`);
+            };
+            updateMobileCtaOffset();
+            window.addEventListener('resize', updateMobileCtaOffset);
+
+            const footer = document.querySelector('#footer');
+            if (mobileCta && footer && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        const shouldHide = entry.isIntersecting;
+                        mobileCta.classList.toggle('is-hidden', shouldHide);
+                        if (shouldHide !== isCtaHidden) {
+                            isCtaHidden = shouldHide;
+                            updateMobileCtaOffset();
+                        }
+                    });
+                }, { rootMargin: '0px 0px -64px 0px' });
+                observer.observe(footer);
+            }
             
             @if($about->taglines)
                 if ($('.typed').length) {
