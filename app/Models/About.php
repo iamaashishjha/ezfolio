@@ -23,6 +23,7 @@ class About extends Model
      */
     protected $fillable = [
         'name',
+        'job_title',
         'avatar',
         'cover',
         'email',
@@ -30,6 +31,7 @@ class About extends Model
         'address',
         'description',
         'taglines',
+        'hero_subtitle',
         'about_highlights',
         'social_links',
         'cv',

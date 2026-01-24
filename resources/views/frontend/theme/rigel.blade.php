@@ -12,6 +12,8 @@
     $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $jobTitle = $about->job_title ?: 'Backend Software Engineer';
+    $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -28,7 +30,7 @@
         '@context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $about->name,
-        'jobTitle' => 'Backend Software Engineer',
+        'jobTitle' => $jobTitle,
         'url' => $baseUrl,
         'image' => asset($about->avatar),
     ];
@@ -160,8 +162,8 @@
     <!-- ======= hero Section ======= -->
     <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{asset($about->cover)}}');">
         <div class="container" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <h1 class="mb-2">{{ $about->name }} <span class="hero-role">— Backend Software Engineer</span></h1>
-            <p class="hero-subtitle mb-3">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
+            <h1 class="mb-2">{{ $about->name }} <span class="hero-role">— {{ $jobTitle }}</span></h1>
+            <p class="hero-subtitle mb-3">{{ $heroSubtitle }}</p>
             <p><span class="typed"></span></p>
             @if ($portfolioConfig['visibility']['cv'])
                 <div class="hero-actions my-3">

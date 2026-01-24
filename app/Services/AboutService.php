@@ -87,6 +87,7 @@ class AboutService implements AboutInterface
 
             $newData['name'] = $data['name'];
             $newData['email'] = $data['email'];
+            $newData['job_title'] = isset($data['job_title']) ? $data['job_title'] : null;
             $newData['phone'] = isset($data['phone']) ? $data['phone'] : null;
             $newData['address'] = isset($data['address']) ? $data['address'] : null;
             $newData['description'] = isset($data['description']) ? $data['description'] : null;
@@ -104,6 +105,7 @@ class AboutService implements AboutInterface
                 }
             }
             $newData['taglines'] = count($newTagLinesArray) ? json_encode($newTagLinesArray) : null;
+            $newData['hero_subtitle'] = isset($data['hero_subtitle']) ? $data['hero_subtitle'] : null;
 
             $newHighlightsArray = [];
             if (isset($data['about_highlights'])) {

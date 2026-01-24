@@ -14,6 +14,8 @@
     $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $jobTitle = $about->job_title ?: 'Software Engineer';
+    $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -30,7 +32,7 @@
         '@context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $about->name,
-        'jobTitle' => 'Software Engineer',
+        'jobTitle' => $jobTitle,
         'url' => $baseUrl,
         'image' => asset($about->avatar),
     ];
@@ -203,14 +205,14 @@
                 <div class="col-lg-8 col-md-6 d-flex align-items-center" data-aos="fade-up"
                     data-aos-anchor-placement="top-bottom">
                     <div class="text text-center">
-                        <h1 class="mb-2">{{$about->name}} <span class="hero-role">— Software Engineer</span></h1>
+                        <h1 class="mb-2">{{$about->name}} <span class="hero-role">— {{ $jobTitle }}</span></h1>
                         <h2 class="mb-3">
                             <span id="typed-strings"></span>
                             {{-- <span class="txt-rotate" data-period="2000"
                                 data-rotate='{!! json_encode(json_decode($about->taglines)) !!}'>
                             </span> --}}
                         </h2>
-                        <p class="hero-subtitle">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
+                        <p class="hero-subtitle">{{ $heroSubtitle }}</p>
                         <div class="hero-actions">
                             @if ($portfolioConfig['visibility']['cv'])
                                 <a href="{{ $resumePdf }}" class="btn btn-primary py-3 px-4" download>

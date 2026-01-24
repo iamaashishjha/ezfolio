@@ -292,6 +292,7 @@ class PortfolioSeeder extends Seeder
                 
                 $data = [
                     'name' => 'Aashish Jha',
+                    'job_title' => 'Backend Software Engineer',
                     'email' => 'aashish.jha@example.com',
                     'avatar' => 'assets/common/img/avatar/default.png',
                     'cover' => 'assets/common/img/cover/default.png',
@@ -299,6 +300,7 @@ class PortfolioSeeder extends Seeder
                     'address' => 'Remote',
                     'description' => '<p>Backend software engineer focused on building API-first platforms, scalable microservices, and data-heavy systems. I design secure Laravel/Lumen and Node.js services, optimize MySQL/PostgreSQL queries, and use Redis caching and queues to improve latency, throughput, and reliability.</p>',
                     'taglines' => ['Backend Software Engineer', 'Microservices & API Design', 'Laravel/Lumen + Node.js', 'Database Performance & Caching'],
+                    'hero_subtitle' => 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.',
                     'about_highlights' => [
                         'Microservices & REST APIs',
                         'DB Optimization (MySQL/Postgres)',

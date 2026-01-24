@@ -78,10 +78,12 @@ i, svg {
 const About = () => {
     const [avatar, setAvatar] = useState(null);
     const [name, setName] = useState('');
+    const [jobTitle, setJobTitle] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
+    const [heroSubtitle, setHeroSubtitle] = useState('');
     const [cv, setCv] = useState(null);
     const [cover, setCover] = useState(null);
     const [taglines, setTagLines] = useState([]);
@@ -100,10 +102,12 @@ const About = () => {
     const [form] = Form.useForm();
 
     const nameInput = useRef(null);
+    const jobTitleInput = useRef(null);
     const emailInput = useRef(null);
     const phoneInput = useRef(null);
     const addressInput = useRef(null);
     const descriptionInput = useRef(null);
+    const heroSubtitleInput = useRef(null);
     const taglinesInput = useRef(null);
     const highlightsInput = useRef(null);
     const socialLinksInput = useRef(null);
@@ -170,10 +174,12 @@ const About = () => {
             Utils.handleSuccessResponse(response, () => {
                 setAvatar(response.data.payload.avatar);
                 setName(response.data.payload.name);
+                setJobTitle(response.data.payload.job_title);
                 setEmail(response.data.payload.email);
                 setPhone(response.data.payload.phone);
                 setAddress(response.data.payload.address);
                 setDescription(response.data.payload.description);
+                setHeroSubtitle(response.data.payload.hero_subtitle);
                 setCv(response.data.payload.cv);
                 setCover(response.data.payload.cover);
                 setTagLines(response.data.payload.taglines ? JSON.parse(response.data.payload.taglines) : []);
@@ -183,10 +189,12 @@ const About = () => {
                 //set form values
                 form.setFieldsValue({
                     name: response.data.payload.name,
+                    job_title: response.data.payload.job_title,
                     email: response.data.payload.email,
                     phone: response.data.payload.phone,
                     address: response.data.payload.address,
                     description: response.data.payload.description,
+                    hero_subtitle: response.data.payload.hero_subtitle,
                 });
             })
         })
@@ -200,6 +208,8 @@ const About = () => {
     const focusInput = (input) => {
         if (input === 'name') {
             nameInput.current.focus();
+        } else if (input === 'jobTitle') {
+            jobTitleInput.current.focus();
         } else if (input === 'email') {
             emailInput.current.focus();
         } else if (input === 'phone') {
@@ -209,6 +219,10 @@ const About = () => {
         } else if (input === 'description') {
             if (descriptionInput.current) {
                 descriptionInput.current.focus();
+            }
+        } else if (input === 'heroSubtitle') {
+            if (heroSubtitleInput.current) {
+                heroSubtitleInput.current.focus();
             }
         } else if (input === 'taglines') {
             setFocusTaglines(true);
@@ -231,10 +245,12 @@ const About = () => {
 
             HTTP.post(Routes.api.admin.about, {
                 name: values.name,
+                job_title: values.job_title,
                 email: values.email,
                 phone: values.phone,
                 address: values.address,
                 description: values.description,
+                hero_subtitle: values.hero_subtitle,
                 taglines: taglines,
                 about_highlights: aboutHighlights,
                 social_links: socialLinks,
@@ -259,6 +275,8 @@ const About = () => {
     const onFormValuesChange = (changedValues) => {
         if (typeof changedValues.name !== 'undefined') {
             setName(changedValues.name);
+        } else if (typeof changedValues.job_title !== 'undefined') {
+            setJobTitle(changedValues.job_title);
         } else if (typeof changedValues.email !== 'undefined') {
             setEmail(changedValues.email);
         } else if (typeof changedValues.phone !== 'undefined') {
@@ -267,6 +285,8 @@ const About = () => {
             setAddress(changedValues.address);
         } else if (typeof changedValues.description !== 'undefined') {
             setDescription(changedValues.description);
+        } else if (typeof changedValues.hero_subtitle !== 'undefined') {
+            setHeroSubtitle(changedValues.hero_subtitle);
         }
     }
 
@@ -385,6 +405,18 @@ const About = () => {
                             <Item>
                                 <Item.Meta title={
                                     <React.Fragment>
+                                        Job Title
+                                        <EditSpan onClick={() => {focusInput('jobTitle')}}>
+                                            <i className="fa fa-pencil-alt" title="Edit"></i>
+                                        </EditSpan>
+                                    </React.Fragment>
+                                } description={
+                                    <Text type="secondary">{jobTitle || 'Not set'}</Text>
+                                }/>
+                            </Item>
+                            <Item>
+                                <Item.Meta title={
+                                    <React.Fragment>
                                         Email
                                         <EditSpan onClick={() => {focusInput('email')}}>
                                             <i className="fa fa-pencil-alt" title="Edit"></i>
@@ -428,6 +460,18 @@ const About = () => {
                                     </React.Fragment>
                                 } description={
                                     <Paragraph type="secondary" style={{textAlign: 'justify'}}>{description}</Paragraph>
+                                }/>
+                            </Item>
+                            <Item>
+                                <Item.Meta title={
+                                    <React.Fragment>
+                                        Hero Subtitle
+                                        <EditSpan onClick={() => {focusInput('heroSubtitle')}}>
+                                            <i className="fa fa-pencil-alt" title="Edit"></i>
+                                        </EditSpan>
+                                    </React.Fragment>
+                                } description={
+                                    <Paragraph type="secondary" style={{textAlign: 'justify'}}>{heroSubtitle || 'Not set'}</Paragraph>
                                 }/>
                             </Item>
                             <Item>
@@ -558,6 +602,13 @@ const About = () => {
                                 <Input ref={nameInput} placeholder="Full Name"/>
                             </Form.Item>
                             <Form.Item
+                                name="job_title"
+                                label={<Text strong>Job Title</Text>}
+                                messageVariables={{ label: 'Job Title' }}
+                            >
+                                <Input ref={jobTitleInput} placeholder="Software Engineer"/>
+                            </Form.Item>
+                            <Form.Item
                                 name="email"
                                 label={<Text strong>Email</Text>}
                                 messageVariables={{ label: 'Email' }}
@@ -622,6 +673,13 @@ const About = () => {
                                         form.setFieldsValue({ description: content });
                                     }}
                                 />
+                            </Form.Item>
+                            <Form.Item
+                                name="hero_subtitle"
+                                label={<Text strong>Hero Subtitle</Text>}
+                                messageVariables={{ label: 'Hero Subtitle' }}
+                            >
+                                <Input.TextArea ref={heroSubtitleInput} placeholder="Short intro for the hero section" rows={3}/>
                             </Form.Item>
                             <AnimatedDiv animate={focusTaglines} ref={taglinesInput} tabIndex="-1">
                                 <Form.Item

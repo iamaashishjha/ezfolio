@@ -20,6 +20,8 @@
     $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
     $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
     $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $jobTitle = $about->job_title ?: 'Backend Software Engineer';
+    $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $socialLinks = [];
     $schemaSameAs = [];
     if (!empty($about->social_links)) {
@@ -36,7 +38,7 @@
         '@context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $about->name,
-        'jobTitle' => 'Backend Software Engineer',
+        'jobTitle' => $jobTitle,
         'url' => $baseUrl,
         'image' => asset($about->avatar),
     ];
@@ -172,13 +174,13 @@
             <section class="resume-section" id="about">
                 <div class="resume-section-content">
                     <h1 class="mb-2" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                        {{ $about->name }} <span class="hero-role">— Backend Software Engineer</span>
+                        {{ $about->name }} <span class="hero-role">— {{ $jobTitle }}</span>
                     </h1>
                     <div class="subheading mb-3">
                         {{ $about->address ? $about->address . ' · ' : '' }} {{ $about->phone ? $about->phone . ' · ' : '' }}
                         <a href="mailto:{{ $about->email }}">{{ $about->email }}</a>
                     </div>
-                    <p class="hero-subtitle mb-3">Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.</p>
+                    <p class="hero-subtitle mb-3">{{ $heroSubtitle }}</p>
                     <p>
                         <span id="typed-strings"></span>
                     </p>
