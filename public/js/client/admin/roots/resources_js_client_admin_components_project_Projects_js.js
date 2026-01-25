@@ -35341,6 +35341,119 @@ function previewImage(file) {
 
 /***/ }),
 
+/***/ "./resources/js/client/admin/components/common/SummernoteEditor.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/client/admin/components/common/SummernoteEditor.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var DEFAULT_TOOLBAR = [['style', ['style']], ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'help']]];
+var SummernoteEditor = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref, ref) {
+  var _ref$value = _ref.value,
+      value = _ref$value === void 0 ? '' : _ref$value,
+      _onChange = _ref.onChange,
+      _ref$placeholder = _ref.placeholder,
+      placeholder = _ref$placeholder === void 0 ? '' : _ref$placeholder,
+      _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 180 : _ref$height,
+      _ref$minHeight = _ref.minHeight,
+      minHeight = _ref$minHeight === void 0 ? null : _ref$minHeight,
+      _ref$maxHeight = _ref.maxHeight,
+      maxHeight = _ref$maxHeight === void 0 ? null : _ref$maxHeight,
+      _ref$toolbar = _ref.toolbar,
+      toolbar = _ref$toolbar === void 0 ? DEFAULT_TOOLBAR : _ref$toolbar,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className;
+  var editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var lastValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value || '');
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useImperativeHandle)(ref, function () {
+    return {
+      focus: function focus() {
+        var $ = window.$ || window.jQuery;
+
+        if (!$ || !editorRef.current) {
+          return;
+        }
+
+        var $el = $(editorRef.current);
+
+        if ($el.data('summernote')) {
+          $el.summernote('focus');
+        }
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote) {
+      return undefined;
+    }
+
+    var $el = $(editorRef.current);
+    $el.summernote({
+      placeholder: placeholder,
+      height: height,
+      minHeight: minHeight,
+      maxHeight: maxHeight,
+      toolbar: toolbar,
+      callbacks: {
+        onChange: function onChange(contents) {
+          lastValue.current = contents;
+
+          if (_onChange) {
+            _onChange(contents);
+          }
+        }
+      }
+    });
+    $el.summernote('code', value || '');
+    lastValue.current = value || '';
+    return function () {
+      if ($el.data('summernote')) {
+        $el.summernote('destroy');
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var nextValue = value || '';
+
+    if (nextValue === lastValue.current) {
+      return;
+    }
+
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote || !editorRef.current) {
+      return;
+    }
+
+    var $el = $(editorRef.current);
+
+    if ($el.data('summernote')) {
+      $el.summernote('code', nextValue);
+      lastValue.current = nextValue;
+    }
+  }, [value]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: className,
+    ref: editorRef
+  });
+});
+SummernoteEditor.displayName = 'SummernoteEditor';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SummernoteEditor);
+
+/***/ }),
+
 /***/ "./resources/js/client/admin/components/layout/PageWrapper.js":
 /*!********************************************************************!*\
   !*** ./resources/js/client/admin/components/layout/PageWrapper.js ***!
@@ -35411,23 +35524,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/drawer/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/spin/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/upload/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/drawer/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/spin/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/upload/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/helpers/HTTP */ "./resources/js/client/common/helpers/HTTP.js");
 /* harmony import */ var _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/helpers/Utils */ "./resources/js/client/common/helpers/Utils.js");
 /* harmony import */ var _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common/helpers/Routes */ "./resources/js/client/common/helpers/Routes.js");
 /* harmony import */ var _uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../uploader/FileUploaderFormInput */ "./resources/js/client/admin/components/uploader/FileUploaderFormInput.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/PlusOutlined.js");
+/* harmony import */ var _common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/SummernoteEditor */ "./resources/js/client/admin/components/common/SummernoteEditor.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject;
 
 
@@ -35463,8 +35577,9 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Option = antd__WEBPACK_IMPORTED_MODULE_7__["default"].Option;
-var StyledDrawer = (0,styled_components__WEBPACK_IMPORTED_MODULE_8__["default"])(antd__WEBPACK_IMPORTED_MODULE_9__["default"])(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .ant-drawer-content-wrapper {\n        width: 520px !important;\n        @media (max-width: 768px) {\n            max-width: calc(100vw - 16px) !important;\n        }\n    }\n"])));
+
+var Option = antd__WEBPACK_IMPORTED_MODULE_8__["default"].Option;
+var StyledDrawer = (0,styled_components__WEBPACK_IMPORTED_MODULE_9__["default"])(antd__WEBPACK_IMPORTED_MODULE_10__["default"])(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .ant-drawer-content-wrapper {\n        width: 520px !important;\n        @media (max-width: 768px) {\n            max-width: calc(100vw - 16px) !important;\n        }\n    }\n"])));
 
 var Project = function Project(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
@@ -35472,7 +35587,7 @@ var Project = function Project(props) {
       visible = _useState2[0],
       setVisible = _useState2[1];
 
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_10__["default"].useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_11__["default"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
@@ -35501,6 +35616,11 @@ var Project = function Project(props) {
       previewImage = _useState12[0],
       setPreviewImage = _useState12[1];
 
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState14 = _slicedToArray(_useState13, 2),
+      detailsValue = _useState14[0],
+      setDetailsValue = _useState14[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (props.itemToEdit) {
       var newImageArray = [];
@@ -35522,14 +35642,16 @@ var Project = function Project(props) {
       });
     }
 
+    var initialDetails = props.itemToEdit ? props.itemToEdit.details : '';
     form.setFieldsValue({
       id: props.itemToEdit ? props.itemToEdit.id : '',
       title: props.itemToEdit ? props.itemToEdit.title : '',
       thumbnail: props.itemToEdit ? props.itemToEdit.thumbnail : '',
-      details: props.itemToEdit ? props.itemToEdit.details : '',
+      details: initialDetails,
       link: props.itemToEdit ? props.itemToEdit.link : '',
       categories: props.itemToEdit ? JSON.parse(props.itemToEdit.categories) : []
     });
+    setDetailsValue(initialDetails);
   }, [props.itemToEdit]);
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     form.setFieldsValue({
@@ -35638,6 +35760,7 @@ var Project = function Project(props) {
                 _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_2__["default"].post(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__["default"].api.admin.projects + (values.id ? "/".concat(values.id) : ''), formData).then(function (response) {
                   _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].handleSuccessResponse(response, function () {
                     form.resetFields();
+                    setDetailsValue('');
                     _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].showNotification(response.data.message, 'success');
                     props.submitCallback();
                   });
@@ -35675,8 +35798,8 @@ var Project = function Project(props) {
     }));
   };
 
-  var uploadButton = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  var uploadButton = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {
         marginTop: 8
       },
@@ -35788,25 +35911,25 @@ var Project = function Project(props) {
     };
   }();
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(StyledDrawer, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(StyledDrawer, {
     title: props.title,
     onClose: handleClose,
     visible: visible,
     destroyOnClose: true,
     maskClosable: false,
     forceRender: true,
-    footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       style: {
         textAlign: 'right'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         disabled: componentLoading,
         onClick: handleClose,
         style: {
           marginRight: 8
         },
         children: "Cancel"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
         disabled: componentLoading,
         onClick: handleOk,
         type: "primary",
@@ -35814,66 +35937,66 @@ var Project = function Project(props) {
         children: "Save"
       })]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
       spinning: componentLoading,
       size: "large",
       delay: 500,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         preserve: false,
         form: form,
         layout: "vertical",
         name: "project",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "id",
           hidden: true,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "title",
           label: "Title",
           rules: [{
             required: true
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
             placeholder: "Enter Title"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "categories",
           label: "Category",
           rules: [{
             required: true,
             message: 'Please select project category'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
             mode: "tags",
             allowClear: true,
             placeholder: "Select Existing or Create New",
             children: props.categories.map(function (category, index) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Option, {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Option, {
                 value: category,
                 children: category
               }, index);
             })
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "thumbnail",
           label: "Thumbnail",
           rules: [{
             required: true,
             message: 'Please upload thumbnail'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
             onChangeCallback: thumbnailUploadOnChangeCallback,
             acceptedFileTypes: "image/*",
             previewFile: props.itemToEdit ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + props.itemToEdit.thumbnail : null
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "images",
           label: "Images",
           rules: [{
             required: true,
             message: 'Please upload images of the project'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
             accept: ['image/png', 'image/jpeg', 'image/jpg'],
             listType: "picture-card",
             fileList: imageFileList,
@@ -35884,25 +36007,32 @@ var Project = function Project(props) {
             onChange: imageListHandleChange,
             children: imageFileList.length >= 4 ? null : uploadButton
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "link",
           label: "Link",
           rules: [{
             type: 'url',
             message: 'Please enter a valid link'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
             placeholder: "Enter Link"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "details",
           label: "Details",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].TextArea, {
-            rows: 4,
-            placeholder: "Enter Details"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            value: detailsValue,
+            placeholder: "Enter Details",
+            height: 200,
+            onChange: function onChange(content) {
+              setDetailsValue(content);
+              form.setFieldsValue({
+                details: content
+              });
+            }
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
         visible: previewVisible,
         title: 'Preview',
         footer: null,
@@ -35910,7 +36040,7 @@ var Project = function Project(props) {
         onCancel: function onCancel() {
           return setPreviewVisible(false);
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
           alt: "example",
           style: {
             width: '100%'
@@ -35923,14 +36053,14 @@ var Project = function Project(props) {
 };
 
 Project.propTypes = {
-  handleCancel: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().func.isRequired),
-  submitCallback: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().func.isRequired),
-  visible: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().bool.isRequired),
-  itemToEdit: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().object),
-  loading: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().bool),
-  componentLoading: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().bool),
-  title: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().node),
-  categories: (prop_types__WEBPACK_IMPORTED_MODULE_17___default().array.isRequired)
+  handleCancel: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().func.isRequired),
+  submitCallback: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().func.isRequired),
+  visible: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool.isRequired),
+  itemToEdit: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().object),
+  loading: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+  componentLoading: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().bool),
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().node),
+  categories: (prop_types__WEBPACK_IMPORTED_MODULE_18___default().array.isRequired)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Project);
 

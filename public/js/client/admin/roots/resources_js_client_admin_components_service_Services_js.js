@@ -35341,6 +35341,119 @@ function previewImage(file) {
 
 /***/ }),
 
+/***/ "./resources/js/client/admin/components/common/SummernoteEditor.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/client/admin/components/common/SummernoteEditor.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var DEFAULT_TOOLBAR = [['style', ['style']], ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'help']]];
+var SummernoteEditor = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref, ref) {
+  var _ref$value = _ref.value,
+      value = _ref$value === void 0 ? '' : _ref$value,
+      _onChange = _ref.onChange,
+      _ref$placeholder = _ref.placeholder,
+      placeholder = _ref$placeholder === void 0 ? '' : _ref$placeholder,
+      _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 180 : _ref$height,
+      _ref$minHeight = _ref.minHeight,
+      minHeight = _ref$minHeight === void 0 ? null : _ref$minHeight,
+      _ref$maxHeight = _ref.maxHeight,
+      maxHeight = _ref$maxHeight === void 0 ? null : _ref$maxHeight,
+      _ref$toolbar = _ref.toolbar,
+      toolbar = _ref$toolbar === void 0 ? DEFAULT_TOOLBAR : _ref$toolbar,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className;
+  var editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var lastValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value || '');
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useImperativeHandle)(ref, function () {
+    return {
+      focus: function focus() {
+        var $ = window.$ || window.jQuery;
+
+        if (!$ || !editorRef.current) {
+          return;
+        }
+
+        var $el = $(editorRef.current);
+
+        if ($el.data('summernote')) {
+          $el.summernote('focus');
+        }
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote) {
+      return undefined;
+    }
+
+    var $el = $(editorRef.current);
+    $el.summernote({
+      placeholder: placeholder,
+      height: height,
+      minHeight: minHeight,
+      maxHeight: maxHeight,
+      toolbar: toolbar,
+      callbacks: {
+        onChange: function onChange(contents) {
+          lastValue.current = contents;
+
+          if (_onChange) {
+            _onChange(contents);
+          }
+        }
+      }
+    });
+    $el.summernote('code', value || '');
+    lastValue.current = value || '';
+    return function () {
+      if ($el.data('summernote')) {
+        $el.summernote('destroy');
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var nextValue = value || '';
+
+    if (nextValue === lastValue.current) {
+      return;
+    }
+
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote || !editorRef.current) {
+      return;
+    }
+
+    var $el = $(editorRef.current);
+
+    if ($el.data('summernote')) {
+      $el.summernote('code', nextValue);
+      lastValue.current = nextValue;
+    }
+  }, [value]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: className,
+    ref: editorRef
+  });
+});
+SummernoteEditor.displayName = 'SummernoteEditor';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SummernoteEditor);
+
+/***/ }),
+
 /***/ "./resources/js/client/admin/components/layout/PageWrapper.js":
 /*!********************************************************************!*\
   !*** ./resources/js/client/admin/components/layout/PageWrapper.js ***!
@@ -35409,18 +35522,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/drawer/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/spin/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/drawer/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/spin/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/helpers/HTTP */ "./resources/js/client/common/helpers/HTTP.js");
 /* harmony import */ var _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/helpers/Utils */ "./resources/js/client/common/helpers/Utils.js");
 /* harmony import */ var _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/helpers/Routes */ "./resources/js/client/common/helpers/Routes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/SummernoteEditor */ "./resources/js/client/admin/components/common/SummernoteEditor.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject;
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -35446,7 +35560,8 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var StyledDrawer = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(antd__WEBPACK_IMPORTED_MODULE_6__["default"])(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .ant-drawer-content-wrapper {\n        width: 520px !important;\n        @media (max-width: 768px) {\n            max-width: calc(100vw - 16px) !important;\n        }\n    }\n"])));
+
+var StyledDrawer = (0,styled_components__WEBPACK_IMPORTED_MODULE_6__["default"])(antd__WEBPACK_IMPORTED_MODULE_7__["default"])(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    .ant-drawer-content-wrapper {\n        width: 520px !important;\n        @media (max-width: 768px) {\n            max-width: calc(100vw - 16px) !important;\n        }\n    }\n"])));
 
 var Service = function Service(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
@@ -35454,7 +35569,7 @@ var Service = function Service(props) {
       visible = _useState2[0],
       setVisible = _useState2[1];
 
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_7__["default"].useForm(),
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_8__["default"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
@@ -35468,13 +35583,20 @@ var Service = function Service(props) {
       componentLoading = _useState6[0],
       setComponentLoading = _useState6[1];
 
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      detailsValue = _useState8[0],
+      setDetailsValue = _useState8[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var initialDetails = props.itemToEdit ? props.itemToEdit.details : '';
     form.setFieldsValue({
       id: props.itemToEdit ? props.itemToEdit.id : '',
       title: props.itemToEdit ? props.itemToEdit.title : '',
       icon: props.itemToEdit ? props.itemToEdit.icon : '',
-      details: props.itemToEdit ? props.itemToEdit.details : ''
+      details: initialDetails
     });
+    setDetailsValue(initialDetails);
   }, [props.itemToEdit]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setTimeout(function () {
@@ -35511,6 +35633,7 @@ var Service = function Service(props) {
       }).then(function (response) {
         _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].handleSuccessResponse(response, function () {
           form.resetFields();
+          setDetailsValue('');
           _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].showNotification(response.data.message, 'success');
           props.submitCallback();
         });
@@ -35524,25 +35647,25 @@ var Service = function Service(props) {
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StyledDrawer, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(StyledDrawer, {
     title: props.title,
     onClose: handleClose,
     visible: visible,
     destroyOnClose: true,
     maskClosable: false,
     forceRender: true,
-    footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    footer: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       style: {
         textAlign: 'right'
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
         disabled: componentLoading,
         onClick: handleClose,
         style: {
           marginRight: 8
         },
         children: "Cancel"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
         disabled: componentLoading,
         onClick: handleOk,
         type: "primary",
@@ -35550,39 +35673,39 @@ var Service = function Service(props) {
         children: "Save"
       })]
     }),
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
       spinning: componentLoading,
       size: "large",
       delay: 500,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
         preserve: false,
         form: form,
         layout: "vertical",
         name: "service",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "id",
           hidden: true,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "title",
           label: "Title",
           rules: [{
             required: true,
             message: 'Please input the title'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             placeholder: "Enter Title"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "icon",
           label: "Icon Class",
-          extra: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-            children: ["Find your suitable icon: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+          extra: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: ["Find your suitable icon: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
               href: "https://fontawesome.com/icons",
               target: "_blank",
               rel: "noreferrer",
               children: "Font Awesome"
-            }), "|", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+            }), "|", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
               href: "http://code.meta-platform.com/assets/mdi/preview.html",
               target: "_blank",
               rel: "noreferrer",
@@ -35593,19 +35716,26 @@ var Service = function Service(props) {
             required: true,
             message: 'Please input the icon class'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             placeholder: "Enter Icon Class"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__["default"].Item, {
           name: "details",
           label: "Details",
           rules: [{
             required: true,
             message: 'Please input the details'
           }],
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"].TextArea, {
-            rows: 4,
-            placeholder: "Enter Details"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            value: detailsValue,
+            placeholder: "Enter Details",
+            height: 200,
+            onChange: function onChange(content) {
+              setDetailsValue(content);
+              form.setFieldsValue({
+                details: content
+              });
+            }
           })
         })]
       })
@@ -35614,13 +35744,13 @@ var Service = function Service(props) {
 };
 
 Service.propTypes = {
-  handleCancel: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().func.isRequired),
-  submitCallback: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().func.isRequired),
-  visible: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool.isRequired),
-  itemToEdit: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().object),
-  loading: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
-  componentLoading: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().bool),
-  title: (prop_types__WEBPACK_IMPORTED_MODULE_11___default().node)
+  handleCancel: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().func.isRequired),
+  submitCallback: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().func.isRequired),
+  visible: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().bool.isRequired),
+  itemToEdit: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().object),
+  loading: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().bool),
+  componentLoading: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().bool),
+  title: (prop_types__WEBPACK_IMPORTED_MODULE_12___default().node)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Service);
 

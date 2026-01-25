@@ -4785,17 +4785,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/list/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/empty/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/list/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/form/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/input/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/empty/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/helpers/HTTP */ "./resources/js/client/common/helpers/HTTP.js");
 /* harmony import */ var _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/helpers/Routes */ "./resources/js/client/common/helpers/Routes.js");
 /* harmony import */ var _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/helpers/Utils */ "./resources/js/client/common/helpers/Utils.js");
@@ -4804,9 +4804,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var typed_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(typed_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rc-queue-anim */ "./node_modules/rc-queue-anim/es/index.js");
 /* harmony import */ var _SocialLinkPopup__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SocialLinkPopup */ "./resources/js/client/admin/components/about/SocialLinkPopup.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DownloadOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/DownloadOutlined.js");
 /* harmony import */ var _layout_PageWrapper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../layout/PageWrapper */ "./resources/js/client/admin/components/layout/PageWrapper.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../common/SummernoteEditor */ "./resources/js/client/admin/components/common/SummernoteEditor.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -4845,15 +4846,16 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var pulseAnimation = (0,styled_components__WEBPACK_IMPORTED_MODULE_10__.keyframes)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n0%,\n100% {\n-webkit-transform: translateX(0);\n        transform: translateX(0);\n}\n10%,\n30%,\n50%,\n70% {\n-webkit-transform: translateX(-10px);\n        transform: translateX(-10px);\n}\n20%,\n40%,\n60% {\n-webkit-transform: translateX(10px);\n        transform: translateX(10px);\n}\n80% {\n-webkit-transform: translateX(8px);\n        transform: translateX(8px);\n}\n90% {\n-webkit-transform: translateX(-8px);\n        transform: translateX(-8px);\n}\n"])));
-var AnimatedDiv = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nanimation: ", ";\n"])), function (props) {
-  return props.animate ? (0,styled_components__WEBPACK_IMPORTED_MODULE_10__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["", " 2s ease-in-out infinite;"])), pulseAnimation) : '';
+
+var pulseAnimation = (0,styled_components__WEBPACK_IMPORTED_MODULE_11__.keyframes)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n0%,\n100% {\n-webkit-transform: translateX(0);\n        transform: translateX(0);\n}\n10%,\n30%,\n50%,\n70% {\n-webkit-transform: translateX(-10px);\n        transform: translateX(-10px);\n}\n20%,\n40%,\n60% {\n-webkit-transform: translateX(10px);\n        transform: translateX(10px);\n}\n80% {\n-webkit-transform: translateX(8px);\n        transform: translateX(8px);\n}\n90% {\n-webkit-transform: translateX(-8px);\n        transform: translateX(-8px);\n}\n"])));
+var AnimatedDiv = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nanimation: ", ";\n"])), function (props) {
+  return props.animate ? (0,styled_components__WEBPACK_IMPORTED_MODULE_11__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["", " 2s ease-in-out infinite;"])), pulseAnimation) : '';
 });
-var Title = antd__WEBPACK_IMPORTED_MODULE_11__["default"].Title,
-    Text = antd__WEBPACK_IMPORTED_MODULE_11__["default"].Text,
-    Paragraph = antd__WEBPACK_IMPORTED_MODULE_11__["default"].Paragraph;
-var Item = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Item;
-var EditSpan = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].span(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\ni:hover, svg:hover {\n\ttransform: rotate(180deg);\n}\ni, svg {\n    text-decoration: none;\n    width: 20px;\n    height: 20px;\n    font-size: 10px;\n    line-height: 20px;\n    text-align: center;\n    border-radius: 50%;\n    padding: 0;\n    border: 0;\n    cursor: pointer;\n    background-color: #ddd;\n    margin-left: 5px;\n    opacity: 0.7;\n    flex-shrink: 0;\n    -webkit-transition: all 0.3s ease;\n    -moz-transition: all 0.3s ease;\n    -o-transition: all 0.3s ease;\n    transition: all 0.3s ease;\n}\n"])));
+var Title = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Title,
+    Text = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Text,
+    Paragraph = antd__WEBPACK_IMPORTED_MODULE_12__["default"].Paragraph;
+var Item = antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item;
+var EditSpan = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\ni:hover, svg:hover {\n\ttransform: rotate(180deg);\n}\ni, svg {\n    text-decoration: none;\n    width: 20px;\n    height: 20px;\n    font-size: 10px;\n    line-height: 20px;\n    text-align: center;\n    border-radius: 50%;\n    padding: 0;\n    border: 0;\n    cursor: pointer;\n    background-color: #ddd;\n    margin-left: 5px;\n    opacity: 0.7;\n    flex-shrink: 0;\n    -webkit-transition: all 0.3s ease;\n    -moz-transition: all 0.3s ease;\n    -o-transition: all 0.3s ease;\n    transition: all 0.3s ease;\n}\n"])));
 
 var About = function About() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
@@ -4868,84 +4870,107 @@ var About = function About() {
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      email = _useState6[0],
-      setEmail = _useState6[1];
+      jobTitle = _useState6[0],
+      setJobTitle = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      phone = _useState8[0],
-      setPhone = _useState8[1];
+      email = _useState8[0],
+      setEmail = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      address = _useState10[0],
-      setAddress = _useState10[1];
+      phone = _useState10[0],
+      setPhone = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      description = _useState12[0],
-      setDescription = _useState12[1];
+      address = _useState12[0],
+      setAddress = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState14 = _slicedToArray(_useState13, 2),
-      cv = _useState14[0],
-      setCv = _useState14[1];
+      description = _useState14[0],
+      setDescription = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState16 = _slicedToArray(_useState15, 2),
-      cover = _useState16[0],
-      setCover = _useState16[1];
+      heroSubtitle = _useState16[0],
+      setHeroSubtitle = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState18 = _slicedToArray(_useState17, 2),
-      taglines = _useState18[0],
-      setTagLines = _useState18[1];
+      cv = _useState18[0],
+      setCv = _useState18[1];
 
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      socialLinks = _useState20[0],
-      setSocialLinks = _useState20[1];
+      cover = _useState20[0],
+      setCover = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState22 = _slicedToArray(_useState21, 2),
-      focusTaglines = _useState22[0],
-      setFocusTaglines = _useState22[1];
+      taglines = _useState22[0],
+      setTagLines = _useState22[1];
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState24 = _slicedToArray(_useState23, 2),
-      focusSocialLinks = _useState24[0],
-      setFocusSocialLinks = _useState24[1];
+      aboutHighlights = _useState24[0],
+      setAboutHighlights = _useState24[1];
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState26 = _slicedToArray(_useState25, 2),
-      componentLoading = _useState26[0],
-      setComponentLoading = _useState26[1];
+      socialLinks = _useState26[0],
+      setSocialLinks = _useState26[1];
 
   var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState28 = _slicedToArray(_useState27, 2),
-      loading = _useState28[0],
-      setLoading = _useState28[1];
+      focusTaglines = _useState28[0],
+      setFocusTaglines = _useState28[1];
 
   var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState30 = _slicedToArray(_useState29, 2),
-      socialLinkPopupVisible = _useState30[0],
-      setSocialLinkPopupVisible = _useState30[1];
+      focusHighlights = _useState30[0],
+      setFocusHighlights = _useState30[1];
 
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState32 = _slicedToArray(_useState31, 2),
-      socialLinkToEdit = _useState32[0],
-      setSocialLinkToEdit = _useState32[1];
+      focusSocialLinks = _useState32[0],
+      setFocusSocialLinks = _useState32[1];
 
-  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_13__["default"].useForm(),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+      _useState34 = _slicedToArray(_useState33, 2),
+      componentLoading = _useState34[0],
+      setComponentLoading = _useState34[1];
+
+  var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState36 = _slicedToArray(_useState35, 2),
+      loading = _useState36[0],
+      setLoading = _useState36[1];
+
+  var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState38 = _slicedToArray(_useState37, 2),
+      socialLinkPopupVisible = _useState38[0],
+      setSocialLinkPopupVisible = _useState38[1];
+
+  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState40 = _slicedToArray(_useState39, 2),
+      socialLinkToEdit = _useState40[0],
+      setSocialLinkToEdit = _useState40[1];
+
+  var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_14__["default"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
   var nameInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var jobTitleInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var emailInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var phoneInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var addressInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var descriptionInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var heroSubtitleInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var taglinesInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var highlightsInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var socialLinksInput = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var typedElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var typed = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
@@ -4980,6 +5005,13 @@ var About = function About() {
     }
   }, [focusTaglines]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (focusHighlights === true) {
+      setTimeout(function () {
+        setFocusHighlights(false);
+      }, 900);
+    }
+  }, [focusHighlights]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (focusSocialLinks === true) {
       setTimeout(function () {
         setFocusSocialLinks(false);
@@ -4996,21 +5028,26 @@ var About = function About() {
       _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].handleSuccessResponse(response, function () {
         setAvatar(response.data.payload.avatar);
         setName(response.data.payload.name);
+        setJobTitle(response.data.payload.job_title);
         setEmail(response.data.payload.email);
         setPhone(response.data.payload.phone);
         setAddress(response.data.payload.address);
         setDescription(response.data.payload.description);
+        setHeroSubtitle(response.data.payload.hero_subtitle);
         setCv(response.data.payload.cv);
         setCover(response.data.payload.cover);
         setTagLines(response.data.payload.taglines ? JSON.parse(response.data.payload.taglines) : []);
+        setAboutHighlights(response.data.payload.about_highlights ? JSON.parse(response.data.payload.about_highlights) : []);
         setSocialLinks(response.data.payload.social_links ? JSON.parse(response.data.payload.social_links) : []); //set form values
 
         form.setFieldsValue({
           name: response.data.payload.name,
+          job_title: response.data.payload.job_title,
           email: response.data.payload.email,
           phone: response.data.payload.phone,
           address: response.data.payload.address,
-          description: response.data.payload.description
+          description: response.data.payload.description,
+          hero_subtitle: response.data.payload.hero_subtitle
         });
       });
     })["catch"](function (error) {
@@ -5023,6 +5060,8 @@ var About = function About() {
   var focusInput = function focusInput(input) {
     if (input === 'name') {
       nameInput.current.focus();
+    } else if (input === 'jobTitle') {
+      jobTitleInput.current.focus();
     } else if (input === 'email') {
       emailInput.current.focus();
     } else if (input === 'phone') {
@@ -5030,10 +5069,19 @@ var About = function About() {
     } else if (input === 'address') {
       addressInput.current.focus();
     } else if (input === 'description') {
-      descriptionInput.current.focus();
+      if (descriptionInput.current) {
+        descriptionInput.current.focus();
+      }
+    } else if (input === 'heroSubtitle') {
+      if (heroSubtitleInput.current) {
+        heroSubtitleInput.current.focus();
+      }
     } else if (input === 'taglines') {
       setFocusTaglines(true);
       taglinesInput.current.focus();
+    } else if (input === 'highlights') {
+      setFocusHighlights(true);
+      highlightsInput.current.focus();
     } else if (input === 'socialLinks') {
       setFocusSocialLinks(true);
       socialLinksInput.current.focus();
@@ -5046,11 +5094,14 @@ var About = function About() {
       setLoading(true);
       _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_1__["default"].post(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_2__["default"].api.admin.about, {
         name: values.name,
+        job_title: values.job_title,
         email: values.email,
         phone: values.phone,
         address: values.address,
         description: values.description,
+        hero_subtitle: values.hero_subtitle,
         taglines: taglines,
+        about_highlights: aboutHighlights,
         social_links: socialLinks
       }).then(function (response) {
         _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].handleSuccessResponse(response, function () {
@@ -5069,6 +5120,8 @@ var About = function About() {
   var onFormValuesChange = function onFormValuesChange(changedValues) {
     if (typeof changedValues.name !== 'undefined') {
       setName(changedValues.name);
+    } else if (typeof changedValues.job_title !== 'undefined') {
+      setJobTitle(changedValues.job_title);
     } else if (typeof changedValues.email !== 'undefined') {
       setEmail(changedValues.email);
     } else if (typeof changedValues.phone !== 'undefined') {
@@ -5077,6 +5130,8 @@ var About = function About() {
       setAddress(changedValues.address);
     } else if (typeof changedValues.description !== 'undefined') {
       setDescription(changedValues.description);
+    } else if (typeof changedValues.hero_subtitle !== 'undefined') {
+      setHeroSubtitle(changedValues.hero_subtitle);
     }
   };
 
@@ -5101,6 +5156,29 @@ var About = function About() {
 
     array[index] = e.target.value;
     setTagLines(array);
+  };
+
+  var highlightNewHandler = function highlightNewHandler() {
+    var array = _toConsumableArray(aboutHighlights);
+
+    array.push('');
+    setAboutHighlights(array);
+  };
+
+  var highlightDeleteHandler = function highlightDeleteHandler(index) {
+    var array = _toConsumableArray(aboutHighlights);
+
+    if (index !== -1) {
+      array.splice(index, 1);
+      setAboutHighlights(array);
+    }
+  };
+
+  var highlightEditHandler = function highlightEditHandler(e, index) {
+    var array = _toConsumableArray(aboutHighlights);
+
+    array[index] = e.target.value;
+    setAboutHighlights(array);
   };
 
   var socialLinksNewHandler = function socialLinksNewHandler() {
@@ -5137,10 +5215,10 @@ var About = function About() {
     setSocialLinkPopupVisible(true);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
       gutter: 24,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
         xl: 10,
         lg: 10,
         md: 24,
@@ -5149,19 +5227,19 @@ var About = function About() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_layout_PageWrapper__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_layout_PageWrapper__WEBPACK_IMPORTED_MODULE_8__["default"], {
           loading: componentLoading,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
             itemLayout: "horizontal",
             size: "large",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
                 direction: "vertical",
                 align: "center",
                 style: {
                   width: '100%'
                 },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: true,
                   isAvatar: true,
                   previewAvatar: avatar && _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + avatar,
@@ -5171,87 +5249,105 @@ var About = function About() {
                   serverUrl: _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_2__["default"].api.admin.avatar,
                   afterUploadCallback: avatarUploadCallback,
                   afterRevertCallback: avatarUploadCallback
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(Title, {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Title, {
                   level: 4,
-                  children: [name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+                  children: [name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
                       focusInput('name');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 })]
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Email", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Job Title", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
-                      focusInput('email');
+                      focusInput('jobTitle');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
+                  type: "secondary",
+                  children: jobTitle || 'Not set'
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Email", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                    onClick: function onClick() {
+                      focusInput('email');
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
+                      className: "fa fa-pencil-alt",
+                      title: "Edit"
+                    })
+                  })]
+                }),
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                   type: "secondary",
                   children: email
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Phone", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Phone", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
                       focusInput('phone');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                   type: "secondary",
                   children: phone
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Address", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Address", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
                       focusInput('address');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                   type: "secondary",
                   children: address
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Description", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Description", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
                       focusInput('description');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Paragraph, {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Paragraph, {
                   type: "secondary",
                   style: {
                     textAlign: 'justify'
@@ -5259,58 +5355,105 @@ var About = function About() {
                   children: description
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Taglines", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Hero Subtitle", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
-                      focusInput('taglines');
+                      focusInput('heroSubtitle');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Paragraph, {
+                  type: "secondary",
+                  style: {
+                    textAlign: 'justify'
+                  },
+                  children: heroSubtitle || 'Not set'
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Taglines", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                    onClick: function onClick() {
+                      focusInput('taglines');
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
+                      className: "fa fa-pencil-alt",
+                      title: "Edit"
+                    })
+                  })]
+                }),
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
                     ref: typedElement
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-                  children: ["Social Links", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Highlights", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: function onClick() {
-                      focusInput('socialLinks');
+                      focusInput('highlights');
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-pencil-alt",
                       title: "Edit"
                     })
                   })]
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+                description: aboutHighlights.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                  wrap: true,
+                  children: aboutHighlights.map(function (highlight, index) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
+                      type: "secondary",
+                      children: highlight
+                    }, index);
+                  })
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
+                  type: "secondary",
+                  children: "No highlights set"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+                  children: ["Social Links", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                    onClick: function onClick() {
+                      focusInput('socialLinks');
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
+                      className: "fa fa-pencil-alt",
+                      title: "Edit"
+                    })
+                  })]
+                }),
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
                   wrap: true,
                   children: socialLinks.map(function (socialLink, index) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
                       href: socialLink.link,
                       target: "_blank",
                       rel: "noreferrer",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                         className: socialLink.iconClass
                       })
                     }, index);
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
                   children: "CV"
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: false,
                   previewFile: cv !== null ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cv : null,
                   acceptedFileTypes: ['text/plain', 'application/pdf', 'application/doc', 'application/rtf'],
@@ -5322,12 +5465,12 @@ var About = function About() {
                   afterRevertCallback: cvUploadCallback
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item, {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                title: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
                   children: "Cover Photo"
                 }),
-                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+                description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: false,
                   previewFile: cover !== null ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cover : null,
                   acceptedFileTypes: "image/*",
@@ -5343,7 +5486,7 @@ var About = function About() {
             })]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
         xl: 14,
         lg: 14,
         md: 24,
@@ -5352,9 +5495,9 @@ var About = function About() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_layout_PageWrapper__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_layout_PageWrapper__WEBPACK_IMPORTED_MODULE_8__["default"], {
           loading: componentLoading,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
             preserve: false,
             form: form,
             onValuesChange: onFormValuesChange,
@@ -5362,9 +5505,9 @@ var About = function About() {
             layout: "vertical",
             name: "about",
             requiredMark: true,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               name: "name",
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "Full Name"
               }),
@@ -5375,13 +5518,26 @@ var About = function About() {
                 required: true,
                 message: 'Please enter your name'
               }],
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 ref: nameInput,
                 placeholder: "Full Name"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+              name: "job_title",
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
+                strong: true,
+                children: "Job Title"
+              }),
+              messageVariables: {
+                label: 'Job Title'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                ref: jobTitleInput,
+                placeholder: "Software Engineer"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               name: "email",
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "Email"
               }),
@@ -5395,39 +5551,39 @@ var About = function About() {
                 type: 'email',
                 message: 'Invalid email address'
               }],
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 ref: emailInput,
                 placeholder: "Email"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               name: "phone",
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "Phone"
               }),
               messageVariables: {
                 label: 'Phone'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 ref: phoneInput,
                 placeholder: "Phone"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               name: "address",
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "Address"
               }),
               messageVariables: {
                 label: 'Address'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
                 ref: addressInput,
                 placeholder: "Address"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               name: "description",
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "Description"
               }),
@@ -5438,37 +5594,58 @@ var About = function About() {
                 required: true,
                 message: 'Please enter your description'
               }],
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"].TextArea, {
-                rows: "4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_common_SummernoteEditor__WEBPACK_IMPORTED_MODULE_9__["default"], {
                 ref: descriptionInput,
-                placeholder: "Description"
+                value: description,
+                placeholder: "Description",
+                height: 220,
+                onChange: function onChange(content) {
+                  setDescription(content);
+                  form.setFieldsValue({
+                    description: content
+                  });
+                }
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(AnimatedDiv, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+              name: "hero_subtitle",
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
+                strong: true,
+                children: "Hero Subtitle"
+              }),
+              messageVariables: {
+                label: 'Hero Subtitle'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"].TextArea, {
+                ref: heroSubtitleInput,
+                placeholder: "Short intro for the hero section",
+                rows: 3
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(AnimatedDiv, {
               animate: focusTaglines,
               ref: taglinesInput,
               tabIndex: "-1",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
-                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(Text, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Text, {
                   strong: true,
-                  children: ["Taglines", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
+                  children: ["Taglines", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
                     onClick: taglineNewHandler,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-plus",
                       title: "Edit"
                     })
                   })]
                 }),
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
                   size: "small",
                   bordered: true,
-                  children: taglines.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  children: taglines.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__["default"], {
                     type: ['right', 'left'],
                     leaveReverse: true,
                     children: taglines.map(function (item, index) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Item, {
-                          actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+                          actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                               className: "fas fa-times",
                               style: {
                                 color: 'red'
@@ -5478,8 +5655,8 @@ var About = function About() {
                               }
                             })
                           }, 'delete')],
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                            description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                            description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
                               placeholder: "Enter tag line",
                               value: item,
                               bordered: false,
@@ -5491,44 +5668,97 @@ var About = function About() {
                         })
                       }, index);
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
-                    image: antd__WEBPACK_IMPORTED_MODULE_18__["default"].PRESENTED_IMAGE_SIMPLE
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                    image: antd__WEBPACK_IMPORTED_MODULE_19__["default"].PRESENTED_IMAGE_SIMPLE
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(AnimatedDiv, {
-              animate: focusSocialLinks,
-              ref: socialLinksInput,
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(AnimatedDiv, {
+              animate: focusHighlights,
+              ref: highlightsInput,
               tabIndex: "-1",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
-                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(Text, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Text, {
                   strong: true,
-                  children: ["Social Links", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
-                    onClick: socialLinksNewHandler,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                  children: ["Highlights", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                    onClick: highlightNewHandler,
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                       className: "fa fa-plus",
                       title: "Edit"
                     })
                   })]
                 }),
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
                   size: "small",
                   bordered: true,
-                  children: socialLinks.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  children: aboutHighlights.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    type: ['right', 'left'],
+                    leaveReverse: true,
+                    children: aboutHighlights.map(function (item, index) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+                          actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
+                              className: "fas fa-times",
+                              style: {
+                                color: 'red'
+                              },
+                              onClick: function onClick() {
+                                return highlightDeleteHandler(index);
+                              }
+                            })
+                          }, 'delete')],
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                            description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                              placeholder: "Enter highlight",
+                              value: item,
+                              bordered: false,
+                              onChange: function onChange(e) {
+                                return highlightEditHandler(e, index);
+                              }
+                            })
+                          })
+                        })
+                      }, index);
+                    })
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                    image: antd__WEBPACK_IMPORTED_MODULE_19__["default"].PRESENTED_IMAGE_SIMPLE
+                  })
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(AnimatedDiv, {
+              animate: focusSocialLinks,
+              ref: socialLinksInput,
+              tabIndex: "-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+                label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(Text, {
+                  strong: true,
+                  children: ["Social Links", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                    onClick: socialLinksNewHandler,
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
+                      className: "fa fa-plus",
+                      title: "Edit"
+                    })
+                  })]
+                }),
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+                  size: "small",
+                  bordered: true,
+                  children: socialLinks.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(rc_queue_anim__WEBPACK_IMPORTED_MODULE_6__["default"], {
                     type: ['right', 'left'],
                     leaveReverse: true,
                     children: socialLinks.map(function (item, index) {
-                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"].Item, {
-                          actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+                          actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                               className: "fas fa-pen-square",
                               onClick: function onClick() {
                                 return socialLinkEditHandler(index);
                               }
                             })
-                          }, 'edit'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(EditSpan, {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                          }, 'edit'), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(EditSpan, {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                               className: "fas fa-times",
                               style: {
                                 color: 'red'
@@ -5538,13 +5768,13 @@ var About = function About() {
                               }
                             })
                           }, 'delete')],
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Item.Meta, {
-                            description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Item.Meta, {
+                            description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
                               href: item.link,
                               target: "_blank",
                               rel: "noreferrer",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("i", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("i", {
                                   className: item.iconClass
                                 }), " ", item.title]
                               })
@@ -5553,32 +5783,32 @@ var About = function About() {
                         })
                       }, index);
                     })
-                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
-                    image: antd__WEBPACK_IMPORTED_MODULE_18__["default"].PRESENTED_IMAGE_SIMPLE
+                  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                    image: antd__WEBPACK_IMPORTED_MODULE_19__["default"].PRESENTED_IMAGE_SIMPLE
                   })
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
-              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Text, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+              label: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Text, {
                 strong: true,
                 children: "CV"
               }),
-              children: cv ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("a", {
+              children: cv ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
                 href: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cv,
                 download: true,
                 target: "_blank",
                 rel: "noreferrer",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_20__["default"], {
                   type: "default",
-                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_20__["default"], {}),
+                  icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_21__["default"], {}),
                   children: "Download"
                 })
               }) : ''
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
               style: {
                 textAlign: 'center'
               },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(antd__WEBPACK_IMPORTED_MODULE_20__["default"], {
                 type: "primary",
                 htmlType: "submit",
                 loading: loading,
@@ -5588,7 +5818,7 @@ var About = function About() {
           })
         })
       })]
-    }), socialLinkPopupVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_SocialLinkPopup__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), socialLinkPopupVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_SocialLinkPopup__WEBPACK_IMPORTED_MODULE_7__["default"], {
       title: 'Social Link',
       socialLink: socialLinkToEdit,
       visible: socialLinkPopupVisible,
@@ -5833,6 +6063,119 @@ SocialLinkPopup.propTypes = {
   title: (prop_types__WEBPACK_IMPORTED_MODULE_8___default().node)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SocialLinkPopup);
+
+/***/ }),
+
+/***/ "./resources/js/client/admin/components/common/SummernoteEditor.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/client/admin/components/common/SummernoteEditor.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+var DEFAULT_TOOLBAR = [['style', ['style']], ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']], ['para', ['ul', 'ol', 'paragraph']], ['insert', ['link', 'picture', 'video']], ['view', ['fullscreen', 'codeview', 'help']]];
+var SummernoteEditor = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref, ref) {
+  var _ref$value = _ref.value,
+      value = _ref$value === void 0 ? '' : _ref$value,
+      _onChange = _ref.onChange,
+      _ref$placeholder = _ref.placeholder,
+      placeholder = _ref$placeholder === void 0 ? '' : _ref$placeholder,
+      _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 180 : _ref$height,
+      _ref$minHeight = _ref.minHeight,
+      minHeight = _ref$minHeight === void 0 ? null : _ref$minHeight,
+      _ref$maxHeight = _ref.maxHeight,
+      maxHeight = _ref$maxHeight === void 0 ? null : _ref$maxHeight,
+      _ref$toolbar = _ref.toolbar,
+      toolbar = _ref$toolbar === void 0 ? DEFAULT_TOOLBAR : _ref$toolbar,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className;
+  var editorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var lastValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value || '');
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useImperativeHandle)(ref, function () {
+    return {
+      focus: function focus() {
+        var $ = window.$ || window.jQuery;
+
+        if (!$ || !editorRef.current) {
+          return;
+        }
+
+        var $el = $(editorRef.current);
+
+        if ($el.data('summernote')) {
+          $el.summernote('focus');
+        }
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote) {
+      return undefined;
+    }
+
+    var $el = $(editorRef.current);
+    $el.summernote({
+      placeholder: placeholder,
+      height: height,
+      minHeight: minHeight,
+      maxHeight: maxHeight,
+      toolbar: toolbar,
+      callbacks: {
+        onChange: function onChange(contents) {
+          lastValue.current = contents;
+
+          if (_onChange) {
+            _onChange(contents);
+          }
+        }
+      }
+    });
+    $el.summernote('code', value || '');
+    lastValue.current = value || '';
+    return function () {
+      if ($el.data('summernote')) {
+        $el.summernote('destroy');
+      }
+    };
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var nextValue = value || '';
+
+    if (nextValue === lastValue.current) {
+      return;
+    }
+
+    var $ = window.$ || window.jQuery;
+
+    if (!$ || !$.fn || !$.fn.summernote || !editorRef.current) {
+      return;
+    }
+
+    var $el = $(editorRef.current);
+
+    if ($el.data('summernote')) {
+      $el.summernote('code', nextValue);
+      lastValue.current = nextValue;
+    }
+  }, [value]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: className,
+    ref: editorRef
+  });
+});
+SummernoteEditor.displayName = 'SummernoteEditor';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SummernoteEditor);
 
 /***/ }),
 
