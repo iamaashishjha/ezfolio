@@ -637,6 +637,14 @@ class PortfolioSeeder extends Seeder
                         'browser' => $faker->randomElement(['Chrome', 'Firefox', 'Safari', 'Opera', 'Edge']),
                         'platform' => $faker->randomElement(['Windows', 'OS X', 'AndroidOS', 'iOS']),
                         'location' => $faker->country,
+                        'country_code' => $faker->countryCode,
+                        'region' => $faker->state,
+                        'region_code' => $faker->stateAbbr,
+                        'city' => $faker->city,
+                        'zip' => $faker->postcode,
+                        'latitude' => $faker->latitude,
+                        'longitude' => $faker->longitude,
+                        'timezone' => $faker->timezone,
                         'created_at' => $faker->dateTimeThisMonth()->format('Y-m-d H:i:s'),
                     ];
                     $visitor->forceStore($data);

@@ -109,7 +109,15 @@ class VisitorService implements VisitorInterface
             $newData['is_desktop'] = $isDesktop;
             $newData['browser'] = $browser;
             $newData['platform'] = $platform;
-            $newData['location'] = $locationJson ? $locationJson->countryName : 'Unknown';
+            $newData['location'] = $locationJson && $locationJson->countryName ? $locationJson->countryName : 'Unknown';
+            $newData['country_code'] = $locationJson ? $locationJson->countryCode : null;
+            $newData['region'] = $locationJson ? $locationJson->regionName : null;
+            $newData['region_code'] = $locationJson ? $locationJson->regionCode : null;
+            $newData['city'] = $locationJson ? $locationJson->cityName : null;
+            $newData['zip'] = $locationJson ? $locationJson->zipCode : null;
+            $newData['latitude'] = $locationJson ? $locationJson->latitude : null;
+            $newData['longitude'] = $locationJson ? $locationJson->longitude : null;
+            $newData['timezone'] = $locationJson ? $locationJson->timezone : null;
             
             if (isset($data['id'])) {
                 $result = $this->getById($data['id'], ['id']);
@@ -180,6 +188,14 @@ class VisitorService implements VisitorInterface
             $newData['browser'] = $data['browser'];
             $newData['platform'] = $data['platform'];
             $newData['location'] = $data['location'];
+            isset($data['country_code']) && $newData['country_code'] = $data['country_code'];
+            isset($data['region']) && $newData['region'] = $data['region'];
+            isset($data['region_code']) && $newData['region_code'] = $data['region_code'];
+            isset($data['city']) && $newData['city'] = $data['city'];
+            isset($data['zip']) && $newData['zip'] = $data['zip'];
+            isset($data['latitude']) && $newData['latitude'] = $data['latitude'];
+            isset($data['longitude']) && $newData['longitude'] = $data['longitude'];
+            isset($data['timezone']) && $newData['timezone'] = $data['timezone'];
             isset($data['created_at']) && $newData['created_at'] = $data['created_at'];
 
             $response = $this->model->create($newData);
@@ -422,7 +438,61 @@ class VisitorService implements VisitorInterface
 
             //platform
             $data['platform'] = (clone $result)->select('platform', DB::raw('count(*) as total'))->groupBy('platform')->get();
-            
+
+            //ip
+            $data['ip']['unique'] = (clone $result)
+                ->whereNotNull('ip')
+                ->where('ip', '<>', '')
+                ->distinct()
+                ->count('ip');
+            $data['ip']['top'] = (clone $result)
+                ->select('ip', DB::raw('count(*) as total'))
+                ->whereNotNull('ip')
+                ->where('ip', '<>', '')
+                ->groupBy('ip')
+                ->orderByDesc('total')
+                ->limit(5)
+                ->get();
+
+            //city
+            $data['city']['unique'] = (clone $result)
+                ->whereNotNull('city')
+                ->where('city', '<>', '')
+                ->distinct()
+                ->count('city');
+            $data['city']['top'] = (clone $result)
+                ->select('city', DB::raw('count(*) as total'))
+                ->whereNotNull('city')
+                ->where('city', '<>', '')
+                ->groupBy('city')
+                ->orderByDesc('total')
+                ->limit(5)
+                ->get();
+
+            //recent visitors
+            $data['recent'] = (clone $result)
+                ->select([
+                    'id',
+                    'is_new',
+                    'ip',
+                    'is_desktop',
+                    'browser',
+                    'platform',
+                    'location',
+                    'country_code',
+                    'region',
+                    'region_code',
+                    'city',
+                    'zip',
+                    'latitude',
+                    'longitude',
+                    'timezone',
+                    'created_at',
+                ])
+                ->orderBy('created_at', 'desc')
+                ->limit(10)
+                ->get();
+
 
             return [
                 'message' => 'Data is fetched Successfully',

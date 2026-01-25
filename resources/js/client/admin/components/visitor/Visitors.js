@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Space, Modal, Row, Col, Card, DatePicker, Statistic, Empty } from 'antd';
+import { Button, Space, Modal, Row, Col, Card, DatePicker, Statistic, Empty, List, Table, Tag, Typography, Tooltip } from 'antd';
 import moment from 'moment';
 import { useIsMounted } from '../../../common/hooks/IsMounted';
 import HTTP from '../../../common/helpers/HTTP';
@@ -16,6 +16,7 @@ import styled from 'styled-components';
 import { Pie, WordCloud } from '@ant-design/charts';
 
 const { confirm } = Modal;
+const { Text } = Typography;
 
 const pieConfig = {
     appendPadding: 10,
@@ -95,6 +96,15 @@ const Visitors = () => {
     const [deviceData, setDeviceData] = useState([]);
     const [browserData, setBrowserData] = useState([]);
     const [platformData, setPlatformData] = useState([]);
+    const [ipStats, setIpStats] = useState({
+        unique: 0,
+        top: []
+    });
+    const [cityStats, setCityStats] = useState({
+        unique: 0,
+        top: []
+    });
+    const [recentVisitors, setRecentVisitors] = useState([]);
 
     useEffect(() => {
         loadData();
@@ -175,6 +185,23 @@ const Visitors = () => {
                         })
                     });
                     setPlatformData(platformArray);
+
+                    //ip stats
+                    const ipUnique = result.ip && typeof result.ip.unique !== 'undefined' ? parseInt(result.ip.unique) : 0;
+                    setIpStats({
+                        unique: ipUnique,
+                        top: result.ip && Array.isArray(result.ip.top) ? result.ip.top : []
+                    });
+
+                    //city stats
+                    const cityUnique = result.city && typeof result.city.unique !== 'undefined' ? parseInt(result.city.unique) : 0;
+                    setCityStats({
+                        unique: cityUnique,
+                        top: result.city && Array.isArray(result.city.top) ? result.city.top : []
+                    });
+
+                    //recent visitors
+                    setRecentVisitors(Array.isArray(result.recent) ? result.recent : []);
                 }
             });
         })
@@ -238,6 +265,21 @@ const Visitors = () => {
                             //platform
                             setPlatformData([]);
 
+                            //ip stats
+                            setIpStats({
+                                unique: 0,
+                                top: []
+                            });
+
+                            //city stats
+                            setCityStats({
+                                unique: 0,
+                                top: []
+                            });
+
+                            //recent visitors
+                            setRecentVisitors([]);
+
                             Utils.showNotification(response.data.message, 'success', false);
                         });
                     })
@@ -250,6 +292,119 @@ const Visitors = () => {
             });
         }
     }
+
+    const formatLocation = (record) => {
+        const parts = [record.city, record.region, record.location].filter(part => part && part !== 'Unknown');
+        if (parts.length) {
+            return parts.join(', ');
+        }
+        return record.location || 'Unknown';
+    };
+
+    const renderTopList = (data, valueKey) => {
+        if (!data.length) {
+            return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+        }
+
+        return (
+            <List
+                size="small"
+                dataSource={data}
+                renderItem={(item) => (
+                    <List.Item>
+                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                            <Text>{item[valueKey] || 'Unknown'}</Text>
+                            <Text type="secondary">{item.total}</Text>
+                        </div>
+                    </List.Item>
+                )}
+            />
+        );
+    };
+
+    const recentColumns = [
+        {
+            title: 'IP',
+            dataIndex: 'ip',
+            key: 'ip',
+            width: 160,
+            render: (value) => value || 'Unknown',
+        },
+        {
+            title: 'Location',
+            key: 'location',
+            render: (_, record) => (
+                <Space direction="vertical" size={0}>
+                    <Text>{formatLocation(record)}</Text>
+                    {record.timezone ? <Text type="secondary">{record.timezone}</Text> : null}
+                </Space>
+            ),
+        },
+        {
+            title: 'Device',
+            dataIndex: 'is_desktop',
+            key: 'device',
+            width: 120,
+            render: (value) => {
+                let label = 'Unknown';
+                let color = 'default';
+
+                if (value === 1 || value === '1' || value === true) {
+                    label = 'Desktop';
+                    color = 'geekblue';
+                } else if (value === 0 || value === '0' || value === false) {
+                    label = 'Mobile';
+                    color = 'green';
+                }
+
+                return <Tag color={color}>{label}</Tag>;
+            },
+        },
+        {
+            title: 'Browser',
+            dataIndex: 'browser',
+            key: 'browser',
+            render: (value) => value || 'Unknown',
+        },
+        {
+            title: 'Platform',
+            dataIndex: 'platform',
+            key: 'platform',
+            render: (value) => value || 'Unknown',
+        },
+        {
+            title: 'Visited',
+            dataIndex: 'created_at',
+            key: 'created_at',
+            width: 140,
+            render: (value) => (
+                value ? (
+                    <Tooltip title={moment(value).format('YYYY-MM-DD HH:mm:ss')}>
+                        {moment(value).fromNow()}
+                    </Tooltip>
+                ) : 'Unknown'
+            ),
+        },
+        {
+            title: 'Type',
+            dataIndex: 'is_new',
+            key: 'is_new',
+            width: 120,
+            render: (value) => {
+                let label = 'Unknown';
+                let color = 'default';
+
+                if (value === 1 || value === '1' || value === true) {
+                    label = 'New';
+                    color = 'blue';
+                } else if (value === 0 || value === '0' || value === false) {
+                    label = 'Returning';
+                }
+
+                return <Tag color={color}>{label}</Tag>;
+            },
+        },
+    ];
 
     return (
         <React.Fragment>
@@ -483,6 +638,107 @@ const Visitors = () => {
                             </Card>
                         </Col>
                     </Row>
+                </Col>
+                <Col
+                    xl={24}
+                    lg={24}
+                    md={24}
+                    sm={24}
+                    xs={24}
+                    style={{
+                        marginBottom: 24,
+                    }}
+                >
+                    <Row gutter={24}>
+                        <Col
+                            xl={12}
+                            lg={12}
+                            md={24}
+                            sm={24}
+                            xs={24}
+                            style={{
+                                marginBottom: 24,
+                            }}
+                        >
+                            <Card
+                                style={{cursor: 'default'}}
+                                title={"IP Insights"}
+                                loading={loading}
+                                bordered={false}
+                                hoverable
+                                className="z-shadow"
+                            >
+                                <div style={{ marginBottom: 16 }}>
+                                    <Statistic
+                                        title={'Unique IPs'}
+                                        value={ipStats.unique}
+                                    />
+                                </div>
+                                {renderTopList(ipStats.top, 'ip')}
+                            </Card>
+                        </Col>
+                        <Col
+                            xl={12}
+                            lg={12}
+                            md={24}
+                            sm={24}
+                            xs={24}
+                            style={{
+                                marginBottom: 24,
+                            }}
+                        >
+                            <Card
+                                style={{cursor: 'default'}}
+                                title={"Top Cities"}
+                                loading={loading}
+                                bordered={false}
+                                hoverable
+                                className="z-shadow"
+                            >
+                                <div style={{ marginBottom: 16 }}>
+                                    <Statistic
+                                        title={'Unique Cities'}
+                                        value={cityStats.unique}
+                                    />
+                                </div>
+                                {renderTopList(cityStats.top, 'city')}
+                            </Card>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col
+                    xl={24}
+                    lg={24}
+                    md={24}
+                    sm={24}
+                    xs={24}
+                    style={{
+                        marginBottom: 24,
+                    }}
+                >
+                    <Card
+                        style={{cursor: 'default'}}
+                        title={"Recent Visitors"}
+                        loading={loading}
+                        bordered={false}
+                        hoverable
+                        className="z-shadow"
+                    >
+                        {
+                            recentVisitors.length !== 0 ? (
+                                <Table
+                                    size="small"
+                                    rowKey="id"
+                                    dataSource={recentVisitors}
+                                    columns={recentColumns}
+                                    pagination={false}
+                                    scroll={{ x: 900 }}
+                                />
+                            ) : (
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                            )
+                        }
+                    </Card>
                 </Col>
             </Row>
         </React.Fragment>

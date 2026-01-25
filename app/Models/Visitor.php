@@ -21,6 +21,14 @@ class Visitor extends Model
         'is_desktop',
         'browser',
         'platform',
-        'location'
+        'location',
+        'country_code',
+        'region',
+        'region_code',
+        'city',
+        'zip',
+        'latitude',
+        'longitude',
+        'timezone'
     ];
 }
