@@ -162,6 +162,9 @@
                 @if ($portfolioConfig['visibility']['projects'])
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
                 @endif
+                @if ($portfolioConfig['visibility']['blog'])
+                    <li class="nav-item"><a class="nav-link" href="{{ route('blog.index') }}">Blog</a></li>
+                @endif
                 @if ($portfolioConfig['visibility']['services'])
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
                 @endif

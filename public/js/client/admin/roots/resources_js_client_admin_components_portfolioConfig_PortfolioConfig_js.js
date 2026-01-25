@@ -7851,6 +7851,11 @@ var Visibility = function Visibility(props) {
       skillProficiency = _useState24[0],
       setSkillProficiency = _useState24[1];
 
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState26 = _slicedToArray(_useState25, 2),
+      blog = _useState26[0],
+      setBlog = _useState26[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.mountedCallBack();
   }, []);
@@ -7866,6 +7871,7 @@ var Visibility = function Visibility(props) {
       setFooter(parseInt(props.config.visibility.footer));
       setCv(parseInt(props.config.visibility.cv));
       setSkillProficiency(parseInt(props.config.visibility.skillProficiency));
+      setBlog(parseInt(props.config.visibility.blog));
     }
   }, [props.config]);
 
@@ -8127,6 +8133,29 @@ var Visibility = function Visibility(props) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Item.Meta, {
               title: 'Skill Proficiency',
               description: 'Display proficiency bar of skills.'
+            })
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          delay: 500,
+          size: "small",
+          spinning: loading && currentSettingToChange === _common_helpers_CoreConstants__WEBPACK_IMPORTED_MODULE_4__["default"].portfolioConfig.VISIBILITY_BLOG,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(StyledListItem, {
+            actions: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
+              loading: loading && currentSettingToChange === _common_helpers_CoreConstants__WEBPACK_IMPORTED_MODULE_4__["default"].portfolioConfig.VISIBILITY_BLOG,
+              checkedChildren: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_11__["default"], {}),
+              unCheckedChildren: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}),
+              checked: blog,
+              onChange: function onChange(checked) {
+                var callback = function callback() {
+                  setBlog(checked);
+                };
+
+                submitData(_common_helpers_CoreConstants__WEBPACK_IMPORTED_MODULE_4__["default"].portfolioConfig.VISIBILITY_BLOG, checked, callback);
+              }
+            }, 'blog')],
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(Item.Meta, {
+              title: 'Blog',
+              description: 'Display blog link and pages.'
             })
           })
         })]

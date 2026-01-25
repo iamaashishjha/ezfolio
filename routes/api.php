@@ -51,6 +51,28 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('/visitors/stats', ['App\Http\Controllers\Admin\Api\PortfolioController', 'visitorsStats']);
             Route::delete('/visitors/stats', ['App\Http\Controllers\Admin\Api\PortfolioController', 'visitorsStats']);
 
+            Route::get('/blog/categories', ['App\Http\Controllers\Admin\Api\BlogCategoryController', 'index']);
+            Route::post('/blog/categories', ['App\Http\Controllers\Admin\Api\BlogCategoryController', 'store']);
+            Route::get('/blog/categories/{id}', ['App\Http\Controllers\Admin\Api\BlogCategoryController', 'show']);
+            Route::put('/blog/categories/{id}', ['App\Http\Controllers\Admin\Api\BlogCategoryController', 'update']);
+            Route::delete('/blog/categories', ['App\Http\Controllers\Admin\Api\BlogCategoryController', 'destroy']);
+
+            Route::get('/blog/tags', ['App\Http\Controllers\Admin\Api\BlogTagController', 'index']);
+            Route::post('/blog/tags', ['App\Http\Controllers\Admin\Api\BlogTagController', 'store']);
+            Route::get('/blog/tags/{id}', ['App\Http\Controllers\Admin\Api\BlogTagController', 'show']);
+            Route::put('/blog/tags/{id}', ['App\Http\Controllers\Admin\Api\BlogTagController', 'update']);
+            Route::delete('/blog/tags', ['App\Http\Controllers\Admin\Api\BlogTagController', 'destroy']);
+
+            Route::get('/blog/posts', ['App\Http\Controllers\Admin\Api\BlogPostController', 'index']);
+            Route::post('/blog/posts', ['App\Http\Controllers\Admin\Api\BlogPostController', 'store']);
+            Route::get('/blog/posts/{id}', ['App\Http\Controllers\Admin\Api\BlogPostController', 'show']);
+            Route::put('/blog/posts/{id}', ['App\Http\Controllers\Admin\Api\BlogPostController', 'update']);
+            Route::delete('/blog/posts', ['App\Http\Controllers\Admin\Api\BlogPostController', 'destroy']);
+
+            Route::get('/blog/comments', ['App\Http\Controllers\Admin\Api\BlogCommentController', 'index']);
+            Route::put('/blog/comments/{id}', ['App\Http\Controllers\Admin\Api\BlogCommentController', 'update']);
+            Route::delete('/blog/comments', ['App\Http\Controllers\Admin\Api\BlogCommentController', 'destroy']);
+
             Route::get('/skills', ['App\Http\Controllers\Admin\Api\SkillController', 'index']);
             Route::post('/skills', ['App\Http\Controllers\Admin\Api\SkillController', 'store']);
             Route::get('/skills/{id}', ['App\Http\Controllers\Admin\Api\SkillController', 'show']);

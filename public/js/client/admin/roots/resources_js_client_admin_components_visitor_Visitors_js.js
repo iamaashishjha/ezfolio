@@ -100142,26 +100142,41 @@ var Visitors = function Visitors() {
       platformData = _useState14[0],
       setPlatformData = _useState14[1];
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    unique: 0,
-    top: []
-  }),
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      ipStats = _useState16[0],
-      setIpStats = _useState16[1];
+      countryStats = _useState16[0],
+      setCountryStats = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    unique: 0,
-    top: []
-  }),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState18 = _slicedToArray(_useState17, 2),
-      cityStats = _useState18[0],
-      setCityStats = _useState18[1];
+      regionStats = _useState18[0],
+      setRegionStats = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState20 = _slicedToArray(_useState19, 2),
-      recentVisitors = _useState20[0],
-      setRecentVisitors = _useState20[1];
+      regionDeviceStats = _useState20[0],
+      setRegionDeviceStats = _useState20[1];
+
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    unique: 0,
+    top: []
+  }),
+      _useState22 = _slicedToArray(_useState21, 2),
+      ipStats = _useState22[0],
+      setIpStats = _useState22[1];
+
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    unique: 0,
+    top: []
+  }),
+      _useState24 = _slicedToArray(_useState23, 2),
+      cityStats = _useState24[0],
+      setCityStats = _useState24[1];
+
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState26 = _slicedToArray(_useState25, 2),
+      recentVisitors = _useState26[0],
+      setRecentVisitors = _useState26[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     loadData();
@@ -100236,7 +100251,38 @@ var Visitors = function Visitors() {
               value: parseInt(element.total)
             });
           });
-          setPlatformData(platformArray); //ip stats
+          setPlatformData(platformArray); //country stats
+
+          setCountryStats(result.country && Array.isArray(result.country.top) ? result.country.top : []); //region stats
+
+          setRegionStats(result.region && Array.isArray(result.region.top) ? result.region.top : []); //region device stats
+
+          var regionDeviceRows = result.region_device && Array.isArray(result.region_device) ? result.region_device : [];
+          var regionDeviceMap = {};
+          regionDeviceRows.forEach(function (row) {
+            var region = row.region || 'Unknown';
+            var count = parseInt(row.total, 10) || 0;
+
+            if (!regionDeviceMap[region]) {
+              regionDeviceMap[region] = {
+                region: region,
+                desktop: 0,
+                mobile: 0,
+                total: 0
+              };
+            }
+
+            if (row.is_desktop === 1 || row.is_desktop === '1' || row.is_desktop === true) {
+              regionDeviceMap[region].desktop += count;
+            } else if (row.is_desktop === 0 || row.is_desktop === '0' || row.is_desktop === false) {
+              regionDeviceMap[region].mobile += count;
+            }
+
+            regionDeviceMap[region].total += count;
+          });
+          setRegionDeviceStats(Object.values(regionDeviceMap).sort(function (a, b) {
+            return b.total - a.total;
+          })); //ip stats
 
           var ipUnique = result.ip && typeof result.ip.unique !== 'undefined' ? parseInt(result.ip.unique) : 0;
           setIpStats({
@@ -100304,7 +100350,13 @@ var Visitors = function Visitors() {
 
               setBrowserData([]); //platform
 
-              setPlatformData([]); //ip stats
+              setPlatformData([]); //country stats
+
+              setCountryStats([]); //region stats
+
+              setRegionStats([]); //region device stats
+
+              setRegionDeviceStats([]); //ip stats
 
               setIpStats({
                 unique: 0,
@@ -100462,6 +100514,29 @@ var Visitors = function Visitors() {
         children: label
       });
     }
+  }];
+  var regionDeviceColumns = [{
+    title: 'Region',
+    dataIndex: 'region',
+    key: 'region',
+    render: function render(value) {
+      return value || 'Unknown';
+    }
+  }, {
+    title: 'Desktop',
+    dataIndex: 'desktop',
+    key: 'desktop',
+    width: 120
+  }, {
+    title: 'Mobile',
+    dataIndex: 'mobile',
+    key: 'mobile',
+    width: 120
+  }, {
+    title: 'Total',
+    dataIndex: 'total',
+    key: 'total',
+    width: 120
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
@@ -100696,6 +100771,90 @@ var Visitors = function Visitors() {
               })
             })
           })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        xl: 24,
+        lg: 24,
+        md: 24,
+        sm: 24,
+        xs: 24,
+        style: {
+          marginBottom: 24
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          gutter: 24,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            xl: 12,
+            lg: 12,
+            md: 24,
+            sm: 24,
+            xs: 24,
+            style: {
+              marginBottom: 24
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              style: {
+                cursor: 'default'
+              },
+              title: "Top Countries",
+              loading: loading,
+              bordered: false,
+              hoverable: true,
+              className: "z-shadow",
+              children: renderTopList(countryStats, 'location')
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            xl: 12,
+            lg: 12,
+            md: 24,
+            sm: 24,
+            xs: 24,
+            style: {
+              marginBottom: 24
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+              style: {
+                cursor: 'default'
+              },
+              title: "Top Regions",
+              loading: loading,
+              bordered: false,
+              hoverable: true,
+              className: "z-shadow",
+              children: renderTopList(regionStats, 'region')
+            })
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        xl: 24,
+        lg: 24,
+        md: 24,
+        sm: 24,
+        xs: 24,
+        style: {
+          marginBottom: 24
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+          style: {
+            cursor: 'default'
+          },
+          title: "Device by Region",
+          loading: loading,
+          bordered: false,
+          hoverable: true,
+          className: "z-shadow",
+          children: regionDeviceStats.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_28__["default"], {
+            size: "small",
+            rowKey: "region",
+            dataSource: regionDeviceStats,
+            columns: regionDeviceColumns,
+            pagination: false,
+            scroll: {
+              x: 520
+            }
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
+            image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+          })
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,

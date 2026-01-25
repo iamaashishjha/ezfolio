@@ -48,6 +48,7 @@ class CoreConstants
 
     const PORTFOLIO_CONFIG__VISIBILITY_CV = 19;
     const PORTFOLIO_CONFIG__VISIBILITY_SKILL_PROFICIENCY = 20;
+    const PORTFOLIO_CONFIG__VISIBILITY_BLOG = 21;
 
     #endregion
 

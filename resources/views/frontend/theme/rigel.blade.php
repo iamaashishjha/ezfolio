@@ -153,6 +153,9 @@
                 @if ($portfolioConfig['visibility']['projects'])
                 <li><a href="#projects"><i class='bx bxs-package'></i> <span>Projects</span></a></li>
                 @endif
+                @if ($portfolioConfig['visibility']['blog'])
+                <li><a href="{{ route('blog.index') }}"><i class='bx bx-notepad'></i> <span>Blog</span></a></li>
+                @endif
                 @if ($portfolioConfig['visibility']['services'])
                 <li><a href="#services"><i class="bx bx-server"></i> <span>Services</span></a></li>
                 @endif

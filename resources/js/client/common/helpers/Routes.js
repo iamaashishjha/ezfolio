@@ -17,6 +17,10 @@ const web = {
         portfolioExperiences: '/admin/portfolio/experiences',
         portfolioProjects: '/admin/portfolio/projects',
         portfolioServices: '/admin/portfolio/services',
+        blogPosts: '/admin/blog/posts',
+        blogCategories: '/admin/blog/categories',
+        blogTags: '/admin/blog/tags',
+        blogComments: '/admin/blog/comments',
         visitors: '/admin/visitors',
         messages: '/admin/messages',
         systemLogs: '/admin/system-logs',
@@ -25,6 +29,7 @@ const web = {
         home: '/',
         optimize: '/optimize',
         notFound: '/not-found',
+        blog: '/blog',
     }
 };
 
@@ -50,6 +55,10 @@ const api = {
         experiences: Utils.backend+'/api/'+Utils.apiVersion+'/admin/experiences',
         projects: Utils.backend+'/api/'+Utils.apiVersion+'/admin/projects',
         services: Utils.backend+'/api/'+Utils.apiVersion+'/admin/services',
+        blogPosts: Utils.backend+'/api/'+Utils.apiVersion+'/admin/blog/posts',
+        blogCategories: Utils.backend+'/api/'+Utils.apiVersion+'/admin/blog/categories',
+        blogTags: Utils.backend+'/api/'+Utils.apiVersion+'/admin/blog/tags',
+        blogComments: Utils.backend+'/api/'+Utils.apiVersion+'/admin/blog/comments',
         visitorsStats: Utils.backend+'/api/'+Utils.apiVersion+'/admin/visitors/stats',
         messages: Utils.backend+'/api/'+Utils.apiVersion+'/admin/messages',
         stats: Utils.backend+'/api/'+Utils.apiVersion+'/admin/stats',

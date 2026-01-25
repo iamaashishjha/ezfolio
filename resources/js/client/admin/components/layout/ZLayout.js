@@ -13,6 +13,7 @@ import {
   TeamOutlined,
   MailOutlined,
   ThunderboltOutlined,
+  BookOutlined,
 } from '@ant-design/icons';
 import { message } from 'antd';
 import NavContent from './NavContent';
@@ -118,6 +119,33 @@ const ZLayout = ({ children }) => {
                             path: Routes.web.admin.portfolioServices,
                             key: Routes.web.admin.portfolioServices,
                             name: 'Service',
+                        },
+                    ],
+                },
+                {
+                    path: 'blog',
+                    name: 'Blog',
+                    icon: <BookOutlined />,
+                    routes: [
+                        {
+                            path: Routes.web.admin.blogPosts,
+                            key: Routes.web.admin.blogPosts,
+                            name: 'Posts',
+                        },
+                        {
+                            path: Routes.web.admin.blogCategories,
+                            key: Routes.web.admin.blogCategories,
+                            name: 'Categories',
+                        },
+                        {
+                            path: Routes.web.admin.blogTags,
+                            key: Routes.web.admin.blogTags,
+                            name: 'Tags',
+                        },
+                        {
+                            path: Routes.web.admin.blogComments,
+                            key: Routes.web.admin.blogComments,
+                            name: 'Comments',
                         },
                     ],
                 },

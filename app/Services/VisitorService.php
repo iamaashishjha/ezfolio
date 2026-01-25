@@ -433,6 +433,32 @@ class VisitorService implements VisitorInterface
                 $data['device']['mobile'] = 0;
             }
 
+            //country
+            $data['country']['top'] = (clone $result)
+                ->select('location', DB::raw('count(*) as total'))
+                ->whereNotNull('location')
+                ->where('location', '<>', '')
+                ->groupBy('location')
+                ->orderByDesc('total')
+                ->limit(10)
+                ->get();
+
+            //region
+            $data['region']['top'] = (clone $result)
+                ->select('region', DB::raw('count(*) as total'))
+                ->whereNotNull('region')
+                ->where('region', '<>', '')
+                ->groupBy('region')
+                ->orderByDesc('total')
+                ->limit(10)
+                ->get();
+
+            //device by region
+            $data['region_device'] = (clone $result)
+                ->select('region', 'is_desktop', DB::raw('count(*) as total'))
+                ->groupBy('region', 'is_desktop')
+                ->get();
+
             //browser
             $data['browser'] = (clone $result)->select('browser', DB::raw('count(*) as total'))->groupBy('browser')->get();
 

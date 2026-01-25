@@ -158,6 +158,9 @@
                     @if ($portfolioConfig['visibility']['projects'])
                     <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
                     @endif
+                    @if ($portfolioConfig['visibility']['blog'])
+                    <li class="nav-item"><a href="{{ route('blog.index') }}" class="nav-link"><span>Blog</span></a></li>
+                    @endif
                     @if ($portfolioConfig['visibility']['contact'])
                     <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
                     @endif
@@ -193,6 +196,9 @@
                     @endif
                     @if ($portfolioConfig['visibility']['projects'])
                     <li class="nav-item"><a href="#projects-section" class="nav-link"><span>Projects</span></a></li>
+                    @endif
+                    @if ($portfolioConfig['visibility']['blog'])
+                    <li class="nav-item"><a href="{{ route('blog.index') }}" class="nav-link"><span>Blog</span></a></li>
                     @endif
                     @if ($portfolioConfig['visibility']['contact'])
                     <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>

@@ -27,6 +27,7 @@ const Visibility = (props) => {
     const [footer, setFooter] = useState(false);
     const [cv, setCv] = useState(false);
     const [skillProficiency, setSkillProficiency] = useState(false);
+    const [blog, setBlog] = useState(false);
 
     useEffect(() => {
         props.mountedCallBack();
@@ -44,6 +45,7 @@ const Visibility = (props) => {
             setFooter(parseInt(props.config.visibility.footer));
             setCv(parseInt(props.config.visibility.cv));
             setSkillProficiency(parseInt(props.config.visibility.skillProficiency));
+            setBlog(parseInt(props.config.visibility.blog));
         }
     }, [props.config])
 
@@ -270,6 +272,25 @@ const Visibility = (props) => {
                             />
                         ]}>
                             <Item.Meta title={'Skill Proficiency'} description={'Display proficiency bar of skills.'}/>
+                        </StyledListItem>
+                    </Spin>
+                    <Spin delay={500} size="small" spinning={loading && currentSettingToChange === CoreConstants.portfolioConfig.VISIBILITY_BLOG}>
+                        <StyledListItem actions={[
+                            <Switch
+                                key={'blog'}
+                                loading={loading && currentSettingToChange === CoreConstants.portfolioConfig.VISIBILITY_BLOG}
+                                checkedChildren={<CheckOutlined />}
+                                unCheckedChildren={<CloseOutlined />}
+                                checked={blog}
+                                onChange={(checked) => {
+                                    const callback = () => {
+                                        setBlog(checked);
+                                    }
+                                    submitData(CoreConstants.portfolioConfig.VISIBILITY_BLOG, checked, callback);
+                                }}
+                            />
+                        ]}>
+                            <Item.Meta title={'Blog'} description={'Display blog link and pages.'}/>
                         </StyledListItem>
                     </Spin>
                 </List>

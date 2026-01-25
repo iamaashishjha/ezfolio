@@ -20,6 +20,10 @@ const Projects = loadable(() => import('../../admin/components/project/Projects'
 const Services = loadable(() => import('../../admin/components/service/Services'));
 const Visitors = loadable(() => import('../../admin/components/visitor/Visitors'));
 const Messages = loadable(() => import('../../admin/components/message/Messages'));
+const BlogPosts = loadable(() => import('../../admin/components/blog/Posts'));
+const BlogCategories = loadable(() => import('../../admin/components/blog/Categories'));
+const BlogTags = loadable(() => import('../../admin/components/blog/Tags'));
+const BlogComments = loadable(() => import('../../admin/components/blog/Comments'));
 
 const RedirectLogin = () => {
     const apiToken = useSelector(state => state.globalState.apiToken);
@@ -130,6 +134,34 @@ const admin = [
         path: Routes.web.admin.portfolioServices,
         exact: true,
         component: Services,
+        private: true
+    },
+    {
+        title: 'blogPosts',
+        path: Routes.web.admin.blogPosts,
+        exact: true,
+        component: BlogPosts,
+        private: true
+    },
+    {
+        title: 'blogCategories',
+        path: Routes.web.admin.blogCategories,
+        exact: true,
+        component: BlogCategories,
+        private: true
+    },
+    {
+        title: 'blogTags',
+        path: Routes.web.admin.blogTags,
+        exact: true,
+        component: BlogTags,
+        private: true
+    },
+    {
+        title: 'blogComments',
+        path: Routes.web.admin.blogComments,
+        exact: true,
+        component: BlogComments,
         private: true
     },
     {

@@ -145,6 +145,13 @@ class PortfolioSeeder extends Seeder
             ];
             $portfolioConfig->insertOrUpdate($data);
 
+            $data = [
+                'setting_key' => CoreConstants::PORTFOLIO_CONFIG__VISIBILITY_BLOG,
+                'setting_value' => CoreConstants::TRUE,
+                'default_value' => CoreConstants::TRUE,
+            ];
+            $portfolioConfig->insertOrUpdate($data);
+
             //header script
             $data = [
                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__SCRIPT_HEADER,

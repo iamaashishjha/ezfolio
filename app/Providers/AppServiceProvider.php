@@ -13,6 +13,10 @@ use App\Services\ServiceService;
 use App\Services\SettingService;
 use App\Services\VisitorService;
 use App\Services\FrontendService;
+use App\Services\BlogPostService;
+use App\Services\BlogTagService;
+use App\Services\BlogCommentService;
+use App\Services\BlogCategoryService;
 use App\Services\EducationService;
 use App\Services\ExperienceService;
 use Illuminate\Support\Facades\URL;
@@ -28,6 +32,10 @@ use App\Services\Contracts\ServiceInterface;
 use App\Services\Contracts\SettingInterface;
 use App\Services\Contracts\VisitorInterface;
 use App\Services\Contracts\FrontendInterface;
+use App\Services\Contracts\BlogPostInterface;
+use App\Services\Contracts\BlogTagInterface;
+use App\Services\Contracts\BlogCommentInterface;
+use App\Services\Contracts\BlogCategoryInterface;
 use App\Services\Contracts\EducationInterface;
 use App\Services\Contracts\ExperienceInterface;
 use App\Services\Contracts\PortfolioConfigInterface;
@@ -57,6 +65,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FrontendInterface::class, FrontendService::class);
         $this->app->bind(VisitorInterface::class, VisitorService::class);
         $this->app->bind(MessageInterface::class, MessageService::class);
+        $this->app->bind(BlogCategoryInterface::class, BlogCategoryService::class);
+        $this->app->bind(BlogTagInterface::class, BlogTagService::class);
+        $this->app->bind(BlogPostInterface::class, BlogPostService::class);
+        $this->app->bind(BlogCommentInterface::class, BlogCommentService::class);
     }
 
     /**

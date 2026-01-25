@@ -254,6 +254,13 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 } else {
                     $data['visibility']['skillProficiency'] = CoreConstants::TRUE;
                 }
+
+                $result = $this->getConfigByKey(CoreConstants::PORTFOLIO_CONFIG__VISIBILITY_BLOG, ['setting_value']);
+                if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+                    $data['visibility']['blog'] = $result['payload']->setting_value;
+                } else {
+                    $data['visibility']['blog'] = CoreConstants::TRUE;
+                }
             }
 
             if ($script) {

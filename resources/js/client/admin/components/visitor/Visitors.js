@@ -96,6 +96,9 @@ const Visitors = () => {
     const [deviceData, setDeviceData] = useState([]);
     const [browserData, setBrowserData] = useState([]);
     const [platformData, setPlatformData] = useState([]);
+    const [countryStats, setCountryStats] = useState([]);
+    const [regionStats, setRegionStats] = useState([]);
+    const [regionDeviceStats, setRegionDeviceStats] = useState([]);
     const [ipStats, setIpStats] = useState({
         unique: 0,
         top: []
@@ -186,6 +189,37 @@ const Visitors = () => {
                     });
                     setPlatformData(platformArray);
 
+                    //country stats
+                    setCountryStats(result.country && Array.isArray(result.country.top) ? result.country.top : []);
+
+                    //region stats
+                    setRegionStats(result.region && Array.isArray(result.region.top) ? result.region.top : []);
+
+                    //region device stats
+                    const regionDeviceRows = result.region_device && Array.isArray(result.region_device) ? result.region_device : [];
+                    const regionDeviceMap = {};
+                    regionDeviceRows.forEach(row => {
+                        const region = row.region || 'Unknown';
+                        const count = parseInt(row.total, 10) || 0;
+                        if (!regionDeviceMap[region]) {
+                            regionDeviceMap[region] = {
+                                region,
+                                desktop: 0,
+                                mobile: 0,
+                                total: 0,
+                            };
+                        }
+
+                        if (row.is_desktop === 1 || row.is_desktop === '1' || row.is_desktop === true) {
+                            regionDeviceMap[region].desktop += count;
+                        } else if (row.is_desktop === 0 || row.is_desktop === '0' || row.is_desktop === false) {
+                            regionDeviceMap[region].mobile += count;
+                        }
+
+                        regionDeviceMap[region].total += count;
+                    });
+                    setRegionDeviceStats(Object.values(regionDeviceMap).sort((a, b) => b.total - a.total));
+
                     //ip stats
                     const ipUnique = result.ip && typeof result.ip.unique !== 'undefined' ? parseInt(result.ip.unique) : 0;
                     setIpStats({
@@ -264,6 +298,15 @@ const Visitors = () => {
 
                             //platform
                             setPlatformData([]);
+
+                            //country stats
+                            setCountryStats([]);
+
+                            //region stats
+                            setRegionStats([]);
+
+                            //region device stats
+                            setRegionDeviceStats([]);
 
                             //ip stats
                             setIpStats({
@@ -403,6 +446,33 @@ const Visitors = () => {
 
                 return <Tag color={color}>{label}</Tag>;
             },
+        },
+    ];
+
+    const regionDeviceColumns = [
+        {
+            title: 'Region',
+            dataIndex: 'region',
+            key: 'region',
+            render: (value) => value || 'Unknown',
+        },
+        {
+            title: 'Desktop',
+            dataIndex: 'desktop',
+            key: 'desktop',
+            width: 120,
+        },
+        {
+            title: 'Mobile',
+            dataIndex: 'mobile',
+            key: 'mobile',
+            width: 120,
+        },
+        {
+            title: 'Total',
+            dataIndex: 'total',
+            key: 'total',
+            width: 120,
         },
     ];
 
@@ -638,6 +708,95 @@ const Visitors = () => {
                             </Card>
                         </Col>
                     </Row>
+                </Col>
+                <Col
+                    xl={24}
+                    lg={24}
+                    md={24}
+                    sm={24}
+                    xs={24}
+                    style={{
+                        marginBottom: 24,
+                    }}
+                >
+                    <Row gutter={24}>
+                        <Col
+                            xl={12}
+                            lg={12}
+                            md={24}
+                            sm={24}
+                            xs={24}
+                            style={{
+                                marginBottom: 24,
+                            }}
+                        >
+                            <Card
+                                style={{cursor: 'default'}}
+                                title={"Top Countries"}
+                                loading={loading}
+                                bordered={false}
+                                hoverable
+                                className="z-shadow"
+                            >
+                                {renderTopList(countryStats, 'location')}
+                            </Card>
+                        </Col>
+                        <Col
+                            xl={12}
+                            lg={12}
+                            md={24}
+                            sm={24}
+                            xs={24}
+                            style={{
+                                marginBottom: 24,
+                            }}
+                        >
+                            <Card
+                                style={{cursor: 'default'}}
+                                title={"Top Regions"}
+                                loading={loading}
+                                bordered={false}
+                                hoverable
+                                className="z-shadow"
+                            >
+                                {renderTopList(regionStats, 'region')}
+                            </Card>
+                        </Col>
+                    </Row>
+                </Col>
+                <Col
+                    xl={24}
+                    lg={24}
+                    md={24}
+                    sm={24}
+                    xs={24}
+                    style={{
+                        marginBottom: 24,
+                    }}
+                >
+                    <Card
+                        style={{cursor: 'default'}}
+                        title={"Device by Region"}
+                        loading={loading}
+                        bordered={false}
+                        hoverable
+                        className="z-shadow"
+                    >
+                        {
+                            regionDeviceStats.length !== 0 ? (
+                                <Table
+                                    size="small"
+                                    rowKey="region"
+                                    dataSource={regionDeviceStats}
+                                    columns={regionDeviceColumns}
+                                    pagination={false}
+                                    scroll={{ x: 520 }}
+                                />
+                            ) : (
+                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                            )
+                        }
+                    </Card>
                 </Col>
                 <Col
                     xl={24}
