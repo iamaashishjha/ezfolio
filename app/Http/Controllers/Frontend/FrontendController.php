@@ -73,6 +73,9 @@ class FrontendController extends Controller
             FrontendVisited::dispatch($request->all());
         }
         
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
         header('Content-type: image/gif');
         echo base64_decode('R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
     }
