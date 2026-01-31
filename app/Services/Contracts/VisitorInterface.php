@@ -62,7 +62,7 @@ interface VisitorInterface
      * @param string $endEnd UTC end date
      * @return array
      */
-    public function getVisitorsStats($startDate = null, $endEnd = null);
+    public function getVisitorsStats($startDate = null, $endEnd = null, $countryLimit = 5, $regionLimit = 5);
 
     /**
      * Delete all entries

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Space, Modal, Row, Col, Card, DatePicker, Statistic, Empty, List, Table, Tag, Typography, Tooltip } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Button, Space, Modal, Row, Col, Card, DatePicker, Statistic, Empty, List, Table, Tag, Typography, Tooltip, Select } from 'antd';
 import moment from 'moment';
 import { useIsMounted } from '../../../common/hooks/IsMounted';
 import HTTP from '../../../common/helpers/HTTP';
 import Routes from '../../../common/helpers/Routes';
 import Utils from '../../../common/helpers/Utils';
 import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { 
     TeamOutlined, 
     UserAddOutlined, 
@@ -76,9 +77,23 @@ text-align: ${props => props.align ? props.align : 'left'};
 }
 `;
 
+const EqualHeightCard = styled(Card)`
+height: 100%;
+display: flex;
+flex-direction: column;
+
+.ant-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+`;
+
 const Visitors = () => {
     const isMounted = useIsMounted();
     const { demoMode } = useSelector(state => state.globalState);
+    const history = useHistory();
+    const location = useLocation();
     const [loading, setLoading] = useState(false);
 
     const [date, setDate] = useState({
@@ -108,6 +123,8 @@ const Visitors = () => {
         top: []
     });
     const [recentVisitors, setRecentVisitors] = useState([]);
+    const [countryLimit, setCountryLimit] = useState(5);
+    const [regionLimit, setRegionLimit] = useState(5);
 
     useEffect(() => {
         loadData();
@@ -117,15 +134,25 @@ const Visitors = () => {
         if (isMounted) {
             loadData();
         }
-    }, [date]);
+    }, [date, countryLimit, regionLimit, selectedCard]);
+
+    const selectedCard = useMemo(() => {
+        const params = new URLSearchParams(location.search);
+        return params.get('card');
+    }, [location.search]);
+    const isFocusView = ['country', 'region', 'ip', 'city'].includes(selectedCard);
 
     const loadData = (_loading = true) => {
         setLoading(_loading);
+        const countryLimitParam = selectedCard === 'country' ? countryLimit : 5;
+        const regionLimitParam = selectedCard === 'region' ? regionLimit : 5;
 
         HTTP.get(Routes.api.admin.visitorsStats, {
             params: {
                 startDate: date.startDate,
                 endDate: date.endDate,
+                countryLimit: countryLimitParam,
+                regionLimit: regionLimitParam,
             }
         })
         .then(response => {
@@ -365,6 +392,47 @@ const Visitors = () => {
         );
     };
 
+    const renderLimitSelect = (value, onChange) => (
+        <div onClick={(event) => event.stopPropagation()}>
+            <Select
+                size="small"
+                value={value}
+                onChange={onChange}
+                style={{ width: 88 }}
+                options={[
+                    { value: 5, label: 'Top 5' },
+                    { value: 10, label: 'Top 10' },
+                    { value: 20, label: 'Top 20' },
+                    { value: 50, label: 'Top 50' },
+                ]}
+            />
+        </div>
+    );
+
+    const handleCardClick = (card) => {
+        history.push(`${Routes.web.admin.visitors}?card=${card}`);
+    };
+
+    const handleBackToAll = () => {
+        setCountryLimit(5);
+        setRegionLimit(5);
+        history.push(Routes.web.admin.visitors);
+    };
+
+    const regionDeviceSummary = useMemo(() => {
+        const summary = regionDeviceStats.reduce((acc, row) => {
+            acc.desktop += row.desktop || 0;
+            acc.mobile += row.mobile || 0;
+            acc.total += row.total || 0;
+            return acc;
+        }, { desktop: 0, mobile: 0, total: 0 });
+
+        return {
+            regions: regionDeviceStats.length,
+            ...summary,
+        };
+    }, [regionDeviceStats]);
+
     const recentColumns = [
         {
             title: 'IP',
@@ -520,206 +588,8 @@ const Visitors = () => {
                         </Row>
                     </Card>
                 </Col>
-                <Col
-                    xl={12}
-                    lg={12}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Row>
-                        <Col
-                            xl={24}
-                            lg={24}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Count"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                <Row>
-                                    <Col md={8} sm={12} xs={24}>
-                                        <Statistic
-                                            className="text-center"
-                                            title={'Total Visitors'}
-                                            value={visitorsData.total}
-                                            prefix={<TeamOutlined />}
-                                        />
-                                    </Col>
-                                    <Col md={8} sm={12} xs={24}>
-                                        <Statistic
-                                            className="text-center"
-                                            title={'New Visitors'}
-                                            value={visitorsData.new}
-                                            prefix={<UserAddOutlined />}
-                                        />
-                                    </Col>
-                                    <Col md={8} sm={12} xs={24}>
-                                        <Statistic
-                                            className="text-center"
-                                            title={'Returning Visitors'}
-                                            value={visitorsData.old}
-                                            prefix={<UserSwitchOutlined />}
-                                        />
-                                    </Col>
-                                </Row>
-                            </Card>
-                        </Col>
-                        <Col
-                            xl={24}
-                            lg={24}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Platform"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {
-                                    platformData.length !== 0 ? (
-                                        <Pie 
-                                            {...pieConfig} 
-                                            data={platformData} 
-                                        />
-                                    ) : (
-                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                    )
-                                }
-                            </Card>
-                        </Col>
-                        <Col
-                            xl={24}
-                            lg={24}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Browser"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {
-                                    browserData.length !== 0 ? (
-                                        <Pie 
-                                            {...pieConfig} 
-                                            data={browserData} 
-                                        />
-                                    ) : (
-                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                    )
-                                }
-                            </Card>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col
-                    xl={12}
-                    lg={12}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Row>
-                        <Col
-                            xl={24}
-                            lg={24}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Location"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {
-                                    locationData.length !== 0 ? (
-                                        <WordCloud {...wordCloudConfig} data={locationData} height={391}/>
-                                    ) : (
-                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                    )
-                                }
-                            </Card>
-                        </Col>
-                        <Col
-                            xl={24}
-                            lg={24}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Device"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {
-                                    deviceData.length !== 0 ? (
-                                        <Pie 
-                                            {...pieConfig} 
-                                            data={deviceData} 
-                                        />
-                                    ) : (
-                                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                                    )
-                                }
-                            </Card>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col
-                    xl={24}
-                    lg={24}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Row gutter={24}>
+                {!isFocusView ? (
+                    <React.Fragment>
                         <Col
                             xl={12}
                             lg={12}
@@ -730,16 +600,114 @@ const Visitors = () => {
                                 marginBottom: 24,
                             }}
                         >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Top Countries"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {renderTopList(countryStats, 'location')}
-                            </Card>
+                            <Row>
+                                <Col
+                                    xl={24}
+                                    lg={24}
+                                    md={24}
+                                    sm={24}
+                                    xs={24}
+                                    style={{
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Card
+                                        style={{cursor: 'default'}}
+                                        title={"Count"}
+                                        loading={loading}
+                                        bordered={false}
+                                        hoverable
+                                        className="z-shadow"
+                                    >
+                                        <Row>
+                                            <Col md={8} sm={12} xs={24}>
+                                                <Statistic
+                                                    className="text-center"
+                                                    title={'Total Visitors'}
+                                                    value={visitorsData.total}
+                                                    prefix={<TeamOutlined />}
+                                                />
+                                            </Col>
+                                            <Col md={8} sm={12} xs={24}>
+                                                <Statistic
+                                                    className="text-center"
+                                                    title={'New Visitors'}
+                                                    value={visitorsData.new}
+                                                    prefix={<UserAddOutlined />}
+                                                />
+                                            </Col>
+                                            <Col md={8} sm={12} xs={24}>
+                                                <Statistic
+                                                    className="text-center"
+                                                    title={'Returning Visitors'}
+                                                    value={visitorsData.old}
+                                                    prefix={<UserSwitchOutlined />}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Card>
+                                </Col>
+                                <Col
+                                    xl={24}
+                                    lg={24}
+                                    md={24}
+                                    sm={24}
+                                    xs={24}
+                                    style={{
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Card
+                                        style={{cursor: 'default'}}
+                                        title={"Platform"}
+                                        loading={loading}
+                                        bordered={false}
+                                        hoverable
+                                        className="z-shadow"
+                                    >
+                                        {
+                                            platformData.length !== 0 ? (
+                                                <Pie 
+                                                    {...pieConfig} 
+                                                    data={platformData} 
+                                                />
+                                            ) : (
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            )
+                                        }
+                                    </Card>
+                                </Col>
+                                <Col
+                                    xl={24}
+                                    lg={24}
+                                    md={24}
+                                    sm={24}
+                                    xs={24}
+                                    style={{
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Card
+                                        style={{cursor: 'default'}}
+                                        title={"Browser"}
+                                        loading={loading}
+                                        bordered={false}
+                                        hoverable
+                                        className="z-shadow"
+                                    >
+                                        {
+                                            browserData.length !== 0 ? (
+                                                <Pie 
+                                                    {...pieConfig} 
+                                                    data={browserData} 
+                                                />
+                                            ) : (
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            )
+                                        }
+                                    </Card>
+                                </Col>
+                            </Row>
                         </Col>
                         <Col
                             xl={12}
@@ -751,154 +719,368 @@ const Visitors = () => {
                                 marginBottom: 24,
                             }}
                         >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Top Regions"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                {renderTopList(regionStats, 'region')}
-                            </Card>
+                            <Row>
+                                <Col
+                                    xl={24}
+                                    lg={24}
+                                    md={24}
+                                    sm={24}
+                                    xs={24}
+                                    style={{
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Card
+                                        style={{cursor: 'default'}}
+                                        title={"Location"}
+                                        loading={loading}
+                                        bordered={false}
+                                        hoverable
+                                        className="z-shadow"
+                                    >
+                                        {
+                                            locationData.length !== 0 ? (
+                                                <WordCloud {...wordCloudConfig} data={locationData} height={391}/>
+                                            ) : (
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            )
+                                        }
+                                    </Card>
+                                </Col>
+                                <Col
+                                    xl={24}
+                                    lg={24}
+                                    md={24}
+                                    sm={24}
+                                    xs={24}
+                                    style={{
+                                        marginBottom: 24,
+                                    }}
+                                >
+                                    <Card
+                                        style={{cursor: 'default'}}
+                                        title={"Device"}
+                                        loading={loading}
+                                        bordered={false}
+                                        hoverable
+                                        className="z-shadow"
+                                    >
+                                        {
+                                            deviceData.length !== 0 ? (
+                                                <Pie 
+                                                    {...pieConfig} 
+                                                    data={deviceData} 
+                                                />
+                                            ) : (
+                                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                            )
+                                        }
+                                    </Card>
+                                </Col>
+                            </Row>
                         </Col>
-                    </Row>
-                </Col>
-                <Col
-                    xl={24}
-                    lg={24}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Card
-                        style={{cursor: 'default'}}
-                        title={"Device by Region"}
-                        loading={loading}
-                        bordered={false}
-                        hoverable
-                        className="z-shadow"
+                    </React.Fragment>
+                ) : null}
+                {selectedCard ? (
+                    <Col
+                        xl={24}
+                        lg={24}
+                        md={24}
+                        sm={24}
+                        xs={24}
+                        style={{
+                            marginBottom: 24,
+                        }}
                     >
-                        {
-                            regionDeviceStats.length !== 0 ? (
-                                <Table
-                                    size="small"
-                                    rowKey="region"
-                                    dataSource={regionDeviceStats}
-                                    columns={regionDeviceColumns}
-                                    pagination={false}
-                                    scroll={{ x: 520 }}
-                                />
-                            ) : (
-                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                            )
-                        }
-                    </Card>
-                </Col>
-                <Col
-                    xl={24}
-                    lg={24}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Row gutter={24}>
-                        <Col
-                            xl={12}
-                            lg={12}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
+                        <Card
+                            style={{cursor: 'default'}}
+                            title={selectedCard === 'country' ? 'Top Countries' : selectedCard === 'region' ? 'Top Regions' : selectedCard === 'ip' ? 'IP Insights' : 'Top Cities'}
+                            loading={loading}
+                            bordered={false}
+                            hoverable
+                            className="z-shadow"
+                            extra={<Button onClick={handleBackToAll}>Back to All Stats</Button>}
                         >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"IP Insights"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                <div style={{ marginBottom: 16 }}>
-                                    <Statistic
-                                        title={'Unique IPs'}
-                                        value={ipStats.unique}
-                                    />
-                                </div>
-                                {renderTopList(ipStats.top, 'ip')}
-                            </Card>
-                        </Col>
-                        <Col
-                            xl={12}
-                            lg={12}
-                            md={24}
-                            sm={24}
-                            xs={24}
-                            style={{
-                                marginBottom: 24,
-                            }}
-                        >
-                            <Card
-                                style={{cursor: 'default'}}
-                                title={"Top Cities"}
-                                loading={loading}
-                                bordered={false}
-                                hoverable
-                                className="z-shadow"
-                            >
-                                <div style={{ marginBottom: 16 }}>
-                                    <Statistic
-                                        title={'Unique Cities'}
-                                        value={cityStats.unique}
-                                    />
-                                </div>
-                                {renderTopList(cityStats.top, 'city')}
-                            </Card>
-                        </Col>
-                    </Row>
-                </Col>
-                <Col
-                    xl={24}
-                    lg={24}
-                    md={24}
-                    sm={24}
-                    xs={24}
-                    style={{
-                        marginBottom: 24,
-                    }}
-                >
-                    <Card
-                        style={{cursor: 'default'}}
-                        title={"Recent Visitors"}
-                        loading={loading}
-                        bordered={false}
-                        hoverable
-                        className="z-shadow"
+                            {selectedCard === 'country' ? (
+                                <React.Fragment>
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+                                        {renderLimitSelect(countryLimit, setCountryLimit)}
+                                    </div>
+                                    {renderTopList(countryStats, 'location')}
+                                </React.Fragment>
+                            ) : null}
+                            {selectedCard === 'region' ? (
+                                <React.Fragment>
+                                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
+                                        {renderLimitSelect(regionLimit, setRegionLimit)}
+                                    </div>
+                                    {renderTopList(regionStats, 'region')}
+                                </React.Fragment>
+                            ) : null}
+                            {selectedCard === 'ip' ? (
+                                <React.Fragment>
+                                    <div style={{ marginBottom: 16 }}>
+                                        <Statistic
+                                            title={'Unique IPs'}
+                                            value={ipStats.unique}
+                                        />
+                                    </div>
+                                    {renderTopList(ipStats.top, 'ip')}
+                                </React.Fragment>
+                            ) : null}
+                            {selectedCard === 'city' ? (
+                                <React.Fragment>
+                                    <div style={{ marginBottom: 16 }}>
+                                        <Statistic
+                                            title={'Unique Cities'}
+                                            value={cityStats.unique}
+                                        />
+                                    </div>
+                                    {renderTopList(cityStats.top, 'city')}
+                                </React.Fragment>
+                            ) : null}
+                        </Card>
+                    </Col>
+                ) : (
+                    <Col
+                        xl={24}
+                        lg={24}
+                        md={24}
+                        sm={24}
+                        xs={24}
+                        style={{
+                            marginBottom: 24,
+                        }}
                     >
-                        {
-                            recentVisitors.length !== 0 ? (
-                                <Table
-                                    size="small"
-                                    rowKey="id"
-                                    dataSource={recentVisitors}
-                                    columns={recentColumns}
-                                    pagination={false}
-                                    scroll={{ x: 900 }}
-                                />
-                            ) : (
-                                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-                            )
-                        }
-                    </Card>
-                </Col>
+                        <Row gutter={24}>
+                            <Col
+                                xl={12}
+                                lg={12}
+                                md={24}
+                                sm={24}
+                                xs={24}
+                                style={{
+                                    marginBottom: 24,
+                                }}
+                            >
+                                <EqualHeightCard
+                                    style={{cursor: 'pointer'}}
+                                    title={"Top Countries"}
+                                    loading={loading}
+                                    bordered={false}
+                                    hoverable
+                                    className="z-shadow"
+                                    onClick={() => handleCardClick('country')}
+                                >
+                                    <div style={{ flex: 1 }}>
+                                        {renderTopList(countryStats, 'location')}
+                                    </div>
+                                </EqualHeightCard>
+                            </Col>
+                            <Col
+                                xl={12}
+                                lg={12}
+                                md={24}
+                                sm={24}
+                                xs={24}
+                                style={{
+                                    marginBottom: 24,
+                                }}
+                            >
+                                <EqualHeightCard
+                                    style={{cursor: 'pointer'}}
+                                    title={"Top Regions"}
+                                    loading={loading}
+                                    bordered={false}
+                                    hoverable
+                                    className="z-shadow"
+                                    onClick={() => handleCardClick('region')}
+                                >
+                                    <div style={{ flex: 1 }}>
+                                        {renderTopList(regionStats, 'region')}
+                                    </div>
+                                </EqualHeightCard>
+                            </Col>
+                        </Row>
+                    </Col>
+                )}
+                {!isFocusView ? (
+                    <Col
+                        xl={24}
+                        lg={24}
+                        md={24}
+                        sm={24}
+                        xs={24}
+                        style={{
+                            marginBottom: 24,
+                        }}
+                    >
+                        <Card
+                            style={{cursor: 'default'}}
+                            title={"Device by Region"}
+                            loading={loading}
+                            bordered={false}
+                            hoverable
+                            className="z-shadow"
+                        >
+                            <Row style={{ marginBottom: 16 }}>
+                                <Col md={6} sm={12} xs={24}>
+                                    <Statistic
+                                        className="text-center"
+                                        title={'Regions'}
+                                        value={regionDeviceSummary.regions}
+                                    />
+                                </Col>
+                                <Col md={6} sm={12} xs={24}>
+                                    <Statistic
+                                        className="text-center"
+                                        title={'Desktop'}
+                                        value={regionDeviceSummary.desktop}
+                                    />
+                                </Col>
+                                <Col md={6} sm={12} xs={24}>
+                                    <Statistic
+                                        className="text-center"
+                                        title={'Mobile'}
+                                        value={regionDeviceSummary.mobile}
+                                    />
+                                </Col>
+                                <Col md={6} sm={12} xs={24}>
+                                    <Statistic
+                                        className="text-center"
+                                        title={'Total Visitors'}
+                                        value={regionDeviceSummary.total}
+                                    />
+                                </Col>
+                            </Row>
+                            {
+                                regionDeviceStats.length !== 0 ? (
+                                    <Table
+                                        size="small"
+                                        rowKey="region"
+                                        dataSource={regionDeviceStats}
+                                        columns={regionDeviceColumns}
+                                        pagination={false}
+                                        scroll={{ x: 520 }}
+                                    />
+                                ) : (
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                )
+                            }
+                        </Card>
+                    </Col>
+                ) : null}
+                {!selectedCard ? (
+                    <Col
+                        xl={24}
+                        lg={24}
+                        md={24}
+                        sm={24}
+                        xs={24}
+                        style={{
+                            marginBottom: 24,
+                        }}
+                    >
+                        <Row gutter={24}>
+                            <Col
+                                xl={12}
+                                lg={12}
+                                md={24}
+                                sm={24}
+                                xs={24}
+                                style={{
+                                    marginBottom: 24,
+                                }}
+                            >
+                                <EqualHeightCard
+                                    style={{cursor: 'pointer'}}
+                                    title={"IP Insights"}
+                                    loading={loading}
+                                    bordered={false}
+                                    hoverable
+                                    className="z-shadow"
+                                    onClick={() => handleCardClick('ip')}
+                                >
+                                    <div style={{ marginBottom: 16 }}>
+                                        <Statistic
+                                            title={'Unique IPs'}
+                                            value={ipStats.unique}
+                                        />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        {renderTopList(ipStats.top, 'ip')}
+                                    </div>
+                                </EqualHeightCard>
+                            </Col>
+                            <Col
+                                xl={12}
+                                lg={12}
+                                md={24}
+                                sm={24}
+                                xs={24}
+                                style={{
+                                    marginBottom: 24,
+                                }}
+                            >
+                                <EqualHeightCard
+                                    style={{cursor: 'pointer'}}
+                                    title={"Top Cities"}
+                                    loading={loading}
+                                    bordered={false}
+                                    hoverable
+                                    className="z-shadow"
+                                    onClick={() => handleCardClick('city')}
+                                >
+                                    <div style={{ marginBottom: 16 }}>
+                                        <Statistic
+                                            title={'Unique Cities'}
+                                            value={cityStats.unique}
+                                        />
+                                    </div>
+                                    <div style={{ flex: 1 }}>
+                                        {renderTopList(cityStats.top, 'city')}
+                                    </div>
+                                </EqualHeightCard>
+                            </Col>
+                        </Row>
+                    </Col>
+                ) : null}
+                {!isFocusView ? (
+                    <Col
+                        xl={24}
+                        lg={24}
+                        md={24}
+                        sm={24}
+                        xs={24}
+                        style={{
+                            marginBottom: 24,
+                        }}
+                    >
+                        <Card
+                            style={{cursor: 'default'}}
+                            title={"Recent Visitors"}
+                            loading={loading}
+                            bordered={false}
+                            hoverable
+                            className="z-shadow"
+                        >
+                            {
+                                recentVisitors.length !== 0 ? (
+                                    <Table
+                                        size="small"
+                                        rowKey="id"
+                                        dataSource={recentVisitors}
+                                        columns={recentColumns}
+                                        pagination={false}
+                                        scroll={{ x: 900 }}
+                                    />
+                                ) : (
+                                    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                                )
+                            }
+                        </Card>
+                    </Col>
+                ) : null}
             </Row>
         </React.Fragment>
     )

@@ -99971,17 +99971,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/modal/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/typography/index.js");
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/col/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/empty/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/list/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/card/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/empty/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/list/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/select/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/space/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tag/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/tooltip/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/row/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/button/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/statistic/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/table/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _common_hooks_IsMounted__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/hooks/IsMounted */ "./resources/js/client/common/hooks/IsMounted.js");
@@ -99989,15 +99990,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common/helpers/Routes */ "./resources/js/client/common/helpers/Routes.js");
 /* harmony import */ var _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../common/helpers/Utils */ "./resources/js/client/common/helpers/Utils.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/TeamOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserAddOutlined.js");
-/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserSwitchOutlined.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/ExclamationCircleOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/TeamOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserAddOutlined.js");
+/* harmony import */ var _ant_design_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/icons */ "./node_modules/@ant-design/icons/es/icons/UserSwitchOutlined.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _ant_design_charts__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ant-design/charts */ "./node_modules/@ant-design/plots/es/components/pie/index.js");
-/* harmony import */ var _ant_design_charts__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ant-design/charts */ "./node_modules/@ant-design/plots/es/components/wordCloud/index.js");
+/* harmony import */ var _ant_design_charts__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ant-design/charts */ "./node_modules/@ant-design/plots/es/components/pie/index.js");
+/* harmony import */ var _ant_design_charts__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ant-design/charts */ "./node_modules/@ant-design/plots/es/components/wordCloud/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject;
+var _templateObject, _templateObject2;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -100018,6 +100020,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 
 
 
@@ -100091,6 +100094,7 @@ var StyledCol = (0,styled_components__WEBPACK_IMPORTED_MODULE_10__["default"])(a
 }, function (props) {
   return props.mobilePaddingTop && "padding-top: ".concat(props.mobilePaddingTop, ";");
 });
+var EqualHeightCard = (0,styled_components__WEBPACK_IMPORTED_MODULE_10__["default"])(antd__WEBPACK_IMPORTED_MODULE_12__["default"])(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\nheight: 100%;\ndisplay: flex;\nflex-direction: column;\n\n.ant-card-body {\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n}\n"])));
 
 var Visitors = function Visitors() {
   var isMounted = (0,_common_hooks_IsMounted__WEBPACK_IMPORTED_MODULE_2__.useIsMounted)();
@@ -100099,6 +100103,9 @@ var Visitors = function Visitors() {
     return state.globalState;
   }),
       demoMode = _useSelector.demoMode;
+
+  var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useHistory)();
+  var location = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useLocation)();
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -100178,6 +100185,16 @@ var Visitors = function Visitors() {
       recentVisitors = _useState26[0],
       setRecentVisitors = _useState26[1];
 
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
+      _useState28 = _slicedToArray(_useState27, 2),
+      countryLimit = _useState28[0],
+      setCountryLimit = _useState28[1];
+
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(5),
+      _useState30 = _slicedToArray(_useState29, 2),
+      regionLimit = _useState30[0],
+      setRegionLimit = _useState30[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     loadData();
   }, []);
@@ -100185,16 +100202,25 @@ var Visitors = function Visitors() {
     if (isMounted) {
       loadData();
     }
-  }, [date]);
+  }, [date, countryLimit, regionLimit, selectedCard]);
+  var selectedCard = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    var params = new URLSearchParams(location.search);
+    return params.get('card');
+  }, [location.search]);
+  var isFocusView = ['country', 'region', 'ip', 'city'].includes(selectedCard);
 
   var loadData = function loadData() {
     var _loading = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
     setLoading(_loading);
+    var countryLimitParam = selectedCard === 'country' ? countryLimit : 5;
+    var regionLimitParam = selectedCard === 'region' ? regionLimit : 5;
     _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_3__["default"].get(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__["default"].api.admin.visitorsStats, {
       params: {
         startDate: date.startDate,
-        endDate: date.endDate
+        endDate: date.endDate,
+        countryLimit: countryLimitParam,
+        regionLimit: regionLimitParam
       }
     }).then(function (response) {
       _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_5__["default"].handleSuccessResponse(response, function () {
@@ -100331,7 +100357,7 @@ var Visitors = function Visitors() {
         confirmLoading: loading,
         title: 'Are you sure?',
         content: 'By pressing OK, all stats related to visitors will be removed. Please proceed with cautions.',
-        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_12__["default"], {}),
+        icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_14__["default"], {}),
         mask: true,
         onOk: function onOk() {
           setLoading(true);
@@ -100395,16 +100421,16 @@ var Visitors = function Visitors() {
 
   var renderTopList = function renderTopList(data, valueKey) {
     if (!data.length) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-        image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
       });
     }
 
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
       size: "small",
       dataSource: data,
       renderItem: function renderItem(item) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__["default"].Item, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"].Item, {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             style: {
               display: 'flex',
@@ -100423,6 +100449,58 @@ var Visitors = function Visitors() {
     });
   };
 
+  var renderLimitSelect = function renderLimitSelect(value, onChange) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      onClick: function onClick(event) {
+        return event.stopPropagation();
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        size: "small",
+        value: value,
+        onChange: onChange,
+        style: {
+          width: 88
+        },
+        options: [{
+          value: 5,
+          label: 'Top 5'
+        }, {
+          value: 10,
+          label: 'Top 10'
+        }, {
+          value: 20,
+          label: 'Top 20'
+        }, {
+          value: 50,
+          label: 'Top 50'
+        }]
+      })
+    });
+  };
+
+  var handleCardClick = function handleCardClick(card) {
+    history.push("".concat(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__["default"].web.admin.visitors, "?card=").concat(card));
+  };
+
+  var handleBackToAll = function handleBackToAll() {
+    history.push(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__["default"].web.admin.visitors);
+  };
+
+  var regionDeviceSummary = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    var summary = regionDeviceStats.reduce(function (acc, row) {
+      acc.desktop += row.desktop || 0;
+      acc.mobile += row.mobile || 0;
+      acc.total += row.total || 0;
+      return acc;
+    }, {
+      desktop: 0,
+      mobile: 0,
+      total: 0
+    });
+    return _objectSpread({
+      regions: regionDeviceStats.length
+    }, summary);
+  }, [regionDeviceStats]);
   var recentColumns = [{
     title: 'IP',
     dataIndex: 'ip',
@@ -100435,7 +100513,7 @@ var Visitors = function Visitors() {
     title: 'Location',
     key: 'location',
     render: function render(_, record) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
         direction: "vertical",
         size: 0,
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Text, {
@@ -100463,7 +100541,7 @@ var Visitors = function Visitors() {
         color = 'green';
       }
 
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
         color: color,
         children: label
       });
@@ -100488,7 +100566,7 @@ var Visitors = function Visitors() {
     key: 'created_at',
     width: 140,
     render: function render(value) {
-      return value ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_17__["default"], {
+      return value ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_20__["default"], {
         title: moment__WEBPACK_IMPORTED_MODULE_1___default()(value).format('YYYY-MM-DD HH:mm:ss'),
         children: moment__WEBPACK_IMPORTED_MODULE_1___default()(value).fromNow()
       }) : 'Unknown';
@@ -100509,7 +100587,7 @@ var Visitors = function Visitors() {
         label = 'Returning';
       }
 
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
         color: color,
         children: label
       });
@@ -100539,7 +100617,7 @@ var Visitors = function Visitors() {
     width: 120
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
       gutter: 24,
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,
@@ -100550,20 +100628,20 @@ var Visitors = function Visitors() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           bordered: false,
           hoverable: true,
           style: {
             cursor: 'default'
           },
           className: "z-shadow",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(StyledCol, {
               md: 12,
               sm: 12,
               xs: 24,
               align: 'left',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_20__["default"].RangePicker, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"].RangePicker, {
                 bordered: false,
                 ranges: {
                   "Today": [moment__WEBPACK_IMPORTED_MODULE_1___default()(), moment__WEBPACK_IMPORTED_MODULE_1___default()()],
@@ -100582,14 +100660,14 @@ var Visitors = function Visitors() {
               xs: 24,
               align: 'right',
               mobilePaddingTop: '1rem',
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   type: "primary",
                   danger: true,
                   onClick: showResetConfirm,
                   disabled: loading,
                   children: "Reset All Stats"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_23__["default"], {
                   type: "primary",
                   onClick: loadData,
                   disabled: loading,
@@ -100599,180 +100677,182 @@ var Visitors = function Visitors() {
             })]
           })
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        xl: 12,
-        lg: 12,
-        md: 24,
-        sm: 24,
-        xs: 24,
-        style: {
-          marginBottom: 24
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            xl: 24,
-            lg: 24,
-            md: 24,
-            sm: 24,
-            xs: 24,
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+      }), !isFocusView ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          xl: 12,
+          lg: 12,
+          md: 24,
+          sm: 24,
+          xs: 24,
+          style: {
+            marginBottom: 24
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
               style: {
-                cursor: 'default'
+                marginBottom: 24
               },
-              title: "Count",
-              loading: loading,
-              bordered: false,
-              hoverable: true,
-              className: "z-shadow",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                  md: 8,
-                  sm: 12,
-                  xs: 24,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"], {
-                    className: "text-center",
-                    title: 'Total Visitors',
-                    value: visitorsData.total,
-                    prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {})
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                  md: 8,
-                  sm: 12,
-                  xs: 24,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"], {
-                    className: "text-center",
-                    title: 'New Visitors',
-                    value: visitorsData["new"],
-                    prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {})
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-                  md: 8,
-                  sm: 12,
-                  xs: 24,
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"], {
-                    className: "text-center",
-                    title: 'Returning Visitors',
-                    value: visitorsData.old,
-                    prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {})
-                  })
-                })]
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                style: {
+                  cursor: 'default'
+                },
+                title: "Count",
+                loading: loading,
+                bordered: false,
+                hoverable: true,
+                className: "z-shadow",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    md: 8,
+                    sm: 12,
+                    xs: 24,
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                      className: "text-center",
+                      title: 'Total Visitors',
+                      value: visitorsData.total,
+                      prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_25__["default"], {})
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    md: 8,
+                    sm: 12,
+                    xs: 24,
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                      className: "text-center",
+                      title: 'New Visitors',
+                      value: visitorsData["new"],
+                      prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_26__["default"], {})
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                    md: 8,
+                    sm: 12,
+                    xs: 24,
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                      className: "text-center",
+                      title: 'Returning Visitors',
+                      value: visitorsData.old,
+                      prefix: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_icons__WEBPACK_IMPORTED_MODULE_27__["default"], {})
+                    })
+                  })]
+                })
               })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            xl: 24,
-            lg: 24,
-            md: 24,
-            sm: 24,
-            xs: 24,
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
               style: {
-                cursor: 'default'
+                marginBottom: 24
               },
-              title: "Platform",
-              loading: loading,
-              bordered: false,
-              hoverable: true,
-              className: "z-shadow",
-              children: platformData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_26__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
-                data: platformData
-              })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                style: {
+                  cursor: 'default'
+                },
+                title: "Platform",
+                loading: loading,
+                bordered: false,
+                hoverable: true,
+                className: "z-shadow",
+                children: platformData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_28__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
+                  data: platformData
+                })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
+                })
               })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            xl: 24,
-            lg: 24,
-            md: 24,
-            sm: 24,
-            xs: 24,
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
               style: {
-                cursor: 'default'
+                marginBottom: 24
               },
-              title: "Browser",
-              loading: loading,
-              bordered: false,
-              hoverable: true,
-              className: "z-shadow",
-              children: browserData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_26__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
-                data: browserData
-              })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                style: {
+                  cursor: 'default'
+                },
+                title: "Browser",
+                loading: loading,
+                bordered: false,
+                hoverable: true,
+                className: "z-shadow",
+                children: browserData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_28__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
+                  data: browserData
+                })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
+                })
               })
-            })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-        xl: 12,
-        lg: 12,
-        md: 24,
-        sm: 24,
-        xs: 24,
-        style: {
-          marginBottom: 24
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            xl: 24,
-            lg: 24,
-            md: 24,
-            sm: 24,
-            xs: 24,
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+          xl: 12,
+          lg: 12,
+          md: 24,
+          sm: 24,
+          xs: 24,
+          style: {
+            marginBottom: 24
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
               style: {
-                cursor: 'default'
+                marginBottom: 24
               },
-              title: "Location",
-              loading: loading,
-              bordered: false,
-              hoverable: true,
-              className: "z-shadow",
-              children: locationData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_27__["default"], _objectSpread(_objectSpread({}, wordCloudConfig), {}, {
-                data: locationData,
-                height: 391
-              })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                style: {
+                  cursor: 'default'
+                },
+                title: "Location",
+                loading: loading,
+                bordered: false,
+                hoverable: true,
+                className: "z-shadow",
+                children: locationData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_29__["default"], _objectSpread(_objectSpread({}, wordCloudConfig), {}, {
+                  data: locationData,
+                  height: 391
+                })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
+                })
               })
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
-            xl: 24,
-            lg: 24,
-            md: 24,
-            sm: 24,
-            xs: 24,
-            style: {
-              marginBottom: 24
-            },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              xl: 24,
+              lg: 24,
+              md: 24,
+              sm: 24,
+              xs: 24,
               style: {
-                cursor: 'default'
+                marginBottom: 24
               },
-              title: "Device",
-              loading: loading,
-              bordered: false,
-              hoverable: true,
-              className: "z-shadow",
-              children: deviceData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_26__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
-                data: deviceData
-              })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-                image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+                style: {
+                  cursor: 'default'
+                },
+                title: "Device",
+                loading: loading,
+                bordered: false,
+                hoverable: true,
+                className: "z-shadow",
+                children: deviceData.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_charts__WEBPACK_IMPORTED_MODULE_28__["default"], _objectSpread(_objectSpread({}, pieConfig), {}, {
+                  data: deviceData
+                })) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+                  image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
+                })
               })
-            })
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            })]
+          })
+        })]
+      }) : null, selectedCard ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,
         lg: 24,
         md: 24,
@@ -100781,7 +100861,69 @@ var Visitors = function Visitors() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
+          style: {
+            cursor: 'default'
+          },
+          title: selectedCard === 'country' ? 'Top Countries' : selectedCard === 'region' ? 'Top Regions' : selectedCard === 'ip' ? 'IP Insights' : 'Top Cities',
+          loading: loading,
+          bordered: false,
+          hoverable: true,
+          className: "z-shadow",
+          extra: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_23__["default"], {
+            onClick: handleBackToAll,
+            children: "Back to All Stats"
+          }),
+          children: [selectedCard === 'country' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              style: {
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: 12
+              },
+              children: renderLimitSelect(countryLimit, setCountryLimit)
+            }), renderTopList(countryStats, 'location')]
+          }) : null, selectedCard === 'region' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              style: {
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginBottom: 12
+              },
+              children: renderLimitSelect(regionLimit, setRegionLimit)
+            }), renderTopList(regionStats, 'region')]
+          }) : null, selectedCard === 'ip' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              style: {
+                marginBottom: 16
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                title: 'Unique IPs',
+                value: ipStats.unique
+              })
+            }), renderTopList(ipStats.top, 'ip')]
+          }) : null, selectedCard === 'city' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              style: {
+                marginBottom: 16
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                title: 'Unique Cities',
+                value: cityStats.unique
+              })
+            }), renderTopList(cityStats.top, 'city')]
+          }) : null]
+        })
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        xl: 24,
+        lg: 24,
+        md: 24,
+        sm: 24,
+        xs: 24,
+        style: {
+          marginBottom: 24
+        },
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
           gutter: 24,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             xl: 12,
@@ -100792,16 +100934,24 @@ var Visitors = function Visitors() {
             style: {
               marginBottom: 24
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EqualHeightCard, {
               style: {
-                cursor: 'default'
+                cursor: 'pointer'
               },
               title: "Top Countries",
               loading: loading,
               bordered: false,
               hoverable: true,
               className: "z-shadow",
-              children: renderTopList(countryStats, 'location')
+              onClick: function onClick() {
+                return handleCardClick('country');
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                style: {
+                  flex: 1
+                },
+                children: renderTopList(countryStats, 'location')
+              })
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             xl: 12,
@@ -100812,20 +100962,28 @@ var Visitors = function Visitors() {
             style: {
               marginBottom: 24
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(EqualHeightCard, {
               style: {
-                cursor: 'default'
+                cursor: 'pointer'
               },
               title: "Top Regions",
               loading: loading,
               bordered: false,
               hoverable: true,
               className: "z-shadow",
-              children: renderTopList(regionStats, 'region')
+              onClick: function onClick() {
+                return handleCardClick('region');
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                style: {
+                  flex: 1
+                },
+                children: renderTopList(regionStats, 'region')
+              })
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), !isFocusView ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,
         lg: 24,
         md: 24,
@@ -100834,7 +100992,7 @@ var Visitors = function Visitors() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           style: {
             cursor: 'default'
           },
@@ -100843,7 +101001,48 @@ var Visitors = function Visitors() {
           bordered: false,
           hoverable: true,
           className: "z-shadow",
-          children: regionDeviceStats.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_28__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
+            style: {
+              marginBottom: 16
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              md: 6,
+              sm: 12,
+              xs: 24,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                className: "text-center",
+                title: 'Regions',
+                value: regionDeviceSummary.regions
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              md: 6,
+              sm: 12,
+              xs: 24,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                className: "text-center",
+                title: 'Desktop',
+                value: regionDeviceSummary.desktop
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              md: 6,
+              sm: 12,
+              xs: 24,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                className: "text-center",
+                title: 'Mobile',
+                value: regionDeviceSummary.mobile
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+              md: 6,
+              sm: 12,
+              xs: 24,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
+                className: "text-center",
+                title: 'Total Visitors',
+                value: regionDeviceSummary.total
+              })
+            })]
+          }), regionDeviceStats.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_30__["default"], {
             size: "small",
             rowKey: "region",
             dataSource: regionDeviceStats,
@@ -100852,11 +101051,11 @@ var Visitors = function Visitors() {
             scroll: {
               x: 520
             }
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-            image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
-          })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
+          })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }) : null, !selectedCard ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,
         lg: 24,
         md: 24,
@@ -100865,7 +101064,7 @@ var Visitors = function Visitors() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_21__["default"], {
           gutter: 24,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             xl: 12,
@@ -100876,24 +101075,32 @@ var Visitors = function Visitors() {
             style: {
               marginBottom: 24
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(EqualHeightCard, {
               style: {
-                cursor: 'default'
+                cursor: 'pointer'
               },
               title: "IP Insights",
               loading: loading,
               bordered: false,
               hoverable: true,
               className: "z-shadow",
+              onClick: function onClick() {
+                return handleCardClick('ip');
+              },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 style: {
                   marginBottom: 16
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   title: 'Unique IPs',
                   value: ipStats.unique
                 })
-              }), renderTopList(ipStats.top, 'ip')]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                style: {
+                  flex: 1
+                },
+                children: renderTopList(ipStats.top, 'ip')
+              })]
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
             xl: 12,
@@ -100904,28 +101111,36 @@ var Visitors = function Visitors() {
             style: {
               marginBottom: 24
             },
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(EqualHeightCard, {
               style: {
-                cursor: 'default'
+                cursor: 'pointer'
               },
               title: "Top Cities",
               loading: loading,
               bordered: false,
               hoverable: true,
               className: "z-shadow",
+              onClick: function onClick() {
+                return handleCardClick('city');
+              },
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 style: {
                   marginBottom: 16
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_22__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_24__["default"], {
                   title: 'Unique Cities',
                   value: cityStats.unique
                 })
-              }), renderTopList(cityStats.top, 'city')]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                style: {
+                  flex: 1
+                },
+                children: renderTopList(cityStats.top, 'city')
+              })]
             })
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }) : null, !isFocusView ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         xl: 24,
         lg: 24,
         md: 24,
@@ -100934,7 +101149,7 @@ var Visitors = function Visitors() {
         style: {
           marginBottom: 24
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_12__["default"], {
           style: {
             cursor: 'default'
           },
@@ -100943,7 +101158,7 @@ var Visitors = function Visitors() {
           bordered: false,
           hoverable: true,
           className: "z-shadow",
-          children: recentVisitors.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_28__["default"], {
+          children: recentVisitors.length !== 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_30__["default"], {
             size: "small",
             rowKey: "id",
             dataSource: recentVisitors,
@@ -100952,11 +101167,11 @@ var Visitors = function Visitors() {
             scroll: {
               x: 900
             }
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"], {
-            image: antd__WEBPACK_IMPORTED_MODULE_13__["default"].PRESENTED_IMAGE_SIMPLE
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__["default"], {
+            image: antd__WEBPACK_IMPORTED_MODULE_15__["default"].PRESENTED_IMAGE_SIMPLE
           })
         })
-      })]
+      }) : null]
     })
   });
 };

@@ -400,10 +400,14 @@ class VisitorService implements VisitorInterface
      * @param string $endEnd UTC end date
      * @return array
      */
-    public function getVisitorsStats($startDate = null, $endEnd = null)
+    public function getVisitorsStats($startDate = null, $endEnd = null, $countryLimit = 5, $regionLimit = 5)
     {
         try {
             $result = $this->model;
+            $countryLimit = (int) $countryLimit;
+            $regionLimit = (int) $regionLimit;
+            $countryLimit = $countryLimit > 0 ? $countryLimit : 5;
+            $regionLimit = $regionLimit > 0 ? $regionLimit : 5;
 
             if ($startDate) {
                 $startDate = Carbon::parse($startDate)->format('Y-m-d H:i:s');
@@ -440,7 +444,7 @@ class VisitorService implements VisitorInterface
                 ->where('location', '<>', '')
                 ->groupBy('location')
                 ->orderByDesc('total')
-                ->limit(10)
+                ->limit($countryLimit)
                 ->get();
 
             //region
@@ -450,7 +454,7 @@ class VisitorService implements VisitorInterface
                 ->where('region', '<>', '')
                 ->groupBy('region')
                 ->orderByDesc('total')
-                ->limit(10)
+                ->limit($regionLimit)
                 ->get();
 
             //device by region

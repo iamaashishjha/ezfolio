@@ -146,7 +146,9 @@ class PortfolioController extends Controller
         $visitor = resolve(VisitorInterface::class);
         
         if ($request->isMethod('get')) {
-            $result = $visitor->getVisitorsStats($request->startDate, $request->endDate);
+            $countryLimit = $request->countryLimit ?? 5;
+            $regionLimit = $request->regionLimit ?? 5;
+            $result = $visitor->getVisitorsStats($request->startDate, $request->endDate, $countryLimit, $regionLimit);
         } elseif ($request->isMethod('delete')) {
             $result = $visitor->deleteAll();
         }
