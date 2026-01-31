@@ -100483,6 +100483,8 @@ var Visitors = function Visitors() {
   };
 
   var handleBackToAll = function handleBackToAll() {
+    setCountryLimit(5);
+    setRegionLimit(5);
     history.push(_common_helpers_Routes__WEBPACK_IMPORTED_MODULE_4__["default"].web.admin.visitors);
   };
 
