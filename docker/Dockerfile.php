@@ -1,28 +1,37 @@
 # ------------------------------
-# Base PHP image
+# Build PHP extensions
+# ------------------------------
+FROM php:8.1-fpm-alpine AS php-ext
+
+RUN apk add --no-cache --virtual .build-deps \
+      $PHPIZE_DEPS \
+      icu-dev oniguruma-dev libzip-dev \
+      freetype-dev libjpeg-turbo-dev libpng-dev \
+      postgresql-dev \
+  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-install \
+      pdo pdo_mysql \
+      intl mbstring zip opcache gd \
+      sockets \
+      calendar \
+  && apk del .build-deps
+
+
+# ------------------------------
+# Base PHP runtime image
 # ------------------------------
 FROM php:8.1-fpm-alpine AS base
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
 RUN apk add --no-cache \
-        bash git nodejs npm unzip \
-        icu-dev oniguruma-dev libzip-dev \
-        freetype-dev libjpeg-turbo-dev libpng-dev \
-        postgresql-dev \
-    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-        pdo pdo_mysql \
-        intl mbstring zip opcache gd \
-        sockets \
-        calendar \
-    && apk del .build-deps
+      icu-libs oniguruma libzip \
+      freetype libjpeg-turbo libpng \
+      libpq
 
 WORKDIR /var/www/html
 
-# Composer (2.2 LTS)
-COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+# Copy compiled extensions + ini config from build stage
+COPY --from=php-ext /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=php-ext /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
 
 
 # ------------------------------
@@ -30,6 +39,11 @@ COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 # ------------------------------
 FROM base AS vendor
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN apk add --no-cache git unzip
+
+COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 COPY composer.json composer.lock ./
 
 RUN composer install \
@@ -77,16 +91,20 @@ RUN npm run production
 # ------------------------------
 # Final runtime image
 # ------------------------------
-FROM base
+FROM base AS runtime
 
 WORKDIR /var/www/html
 
+# Non-root user
+RUN addgroup -g 1000 app \
+  && adduser -G app -g app -s /bin/sh -D app -u 1000
+
 # Copy full source
-COPY . .
+COPY --chown=app:app . .
 
 # Bring in vendor + built public assets
-COPY --from=vendor /var/www/html/vendor ./vendor
-COPY --from=assets /var/www/html/public ./public
+COPY --from=vendor --chown=app:app /var/www/html/vendor ./vendor
+COPY --from=assets --chown=app:app /var/www/html/public ./public
 
 # Laravel required dirs + perms
 RUN mkdir -p \
@@ -95,14 +113,6 @@ RUN mkdir -p \
       storage/framework/views \
       bootstrap/cache \
   && chmod -R 775 storage bootstrap/cache
-
-# Git safe directory (optional)
-RUN git config --global --add safe.directory /var/www/html || true
-
-# Non-root user
-RUN addgroup -g 1000 app \
-  && adduser -G app -g app -s /bin/sh -D app -u 1000 \
-  && chown -R app:app /var/www/html
 
 USER app
 
