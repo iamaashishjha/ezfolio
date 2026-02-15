@@ -74,27 +74,33 @@ const General = (props) => {
       </Paragraph>
     )
 
-    const logoUploadCallback = (file) => {
+    const logoUploadCallback = (file, payload = null) => {
         setTimeout(() => {
             props.setGlobalState({
-                logo: file
+                logo: file,
+                logoUrl: payload && payload.url ? payload.url : (file ? Utils.backend + '/' + file : null),
             });
         }, 2000);
     }
 
-    const faviconUploadCallback = (file) => {
+    const faviconUploadCallback = (file, payload = null) => {
+        const faviconUrl = payload && payload.url ? payload.url : (file ? Utils.backend + '/' + file : null);
         setTimeout(() => {
             props.setGlobalState({
-                favicon: file
+                favicon: file,
+                faviconUrl: faviconUrl,
             });
         }, 2000);
-        document.getElementById("favicon").href = Utils.backend + '/' + file;
+
+        if (faviconUrl) {
+            document.getElementById("favicon").href = faviconUrl;
+        }
     }
 
     const changeLogo = (
         <FileUploader
             allowRevert={false}
-            previewFile={Utils.backend + '/' + props.globalState.logo}
+            previewFile={props.globalState.logoUrl ? props.globalState.logoUrl : (props.globalState.logo ? Utils.backend + '/' + props.globalState.logo : null)}
             acceptedFileTypes={"image/*"}
             allowMultiple={false}
             name={'file'}
@@ -108,7 +114,7 @@ const General = (props) => {
     const changeFavicon = (
         <FileUploader
             allowRevert={false}
-            previewFile={Utils.backend + '/' + props.globalState.favicon}
+            previewFile={props.globalState.faviconUrl ? props.globalState.faviconUrl : (props.globalState.favicon ? Utils.backend + '/' + props.globalState.favicon : null)}
             acceptedFileTypes={"image/*"}
             allowMultiple={false}
             name={'file'}

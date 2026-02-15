@@ -7,7 +7,6 @@ use App\Models\Project;
 use App\Services\Contracts\ProjectInterface;
 use Illuminate\Http\UploadedFile;
 use Log;
-use Str;
 use Validator;
 
 class ProjectService implements ProjectInterface
@@ -20,14 +19,20 @@ class ProjectService implements ProjectInterface
     private $model;
 
     /**
+     * @var MediaStorageService
+     */
+    private $mediaStorage;
+
+    /**
      * Create a new service instance
      *
      * @param Project $project
      * @return void
      */
-    public function __construct(Project $project)
+    public function __construct(Project $project, MediaStorageService $mediaStorage)
     {
         $this->model = $project;
+        $this->mediaStorage = $mediaStorage;
     }
 
     /**
@@ -99,10 +104,12 @@ class ProjectService implements ProjectInterface
             $newData['link'] = isset($data['link']) ? $data['link'] : null;
             $newData['details'] = isset($data['details']) ? $data['details'] : null;
 
+            $project = null;
             if (isset($data['seeder_thumbnail']) && isset($data['seeder_images'])) {
                 $newData['thumbnail'] = $data['seeder_thumbnail'];
                 $newData['images'] = json_encode($data['seeder_images']);
-                $result = $this->model->create($newData);
+                $project = $this->model->create($newData);
+                $result = $project;
             } else {
                 if (!empty($data['id'])) {
                     $result = $this->getById($data['id'], ['*']);
@@ -126,6 +133,7 @@ class ProjectService implements ProjectInterface
                     $newData['images'] = json_encode($processImages['payload']['files']);
 
                     $result = $existingData->update($newData);
+                    $project = $existingData;
                 } else {
                     //process thumbnail
                     $processThumbnail = $this->processThumbnail($data['thumbnail']);
@@ -141,7 +149,21 @@ class ProjectService implements ProjectInterface
 
                     $newData['thumbnail'] = $processThumbnail['payload']['file'];
                     $newData['images'] = json_encode($processImages['payload']['files']);
-                    $result = $this->model->create($newData);
+                    $project = $this->model->create($newData);
+                    $result = $project;
+                }
+
+                if ($project && !empty($newData['thumbnail'])) {
+                    $this->mediaStorage->attachToOwner($newData['thumbnail'], $project, 'thumbnail');
+                }
+
+                if ($project && !empty($newData['images'])) {
+                    $images = json_decode($newData['images'], true);
+                    if (is_array($images)) {
+                        foreach ($images as $path) {
+                            $this->mediaStorage->attachToOwner($path, $project, 'images');
+                        }
+                    }
                 }
             }
 
@@ -177,39 +199,27 @@ class ProjectService implements ProjectInterface
      */
     private function processThumbnail(UploadedFile $file, $project = null)
     {
-        if ($project) {
-            //delete previous
-            try {
-                if (file_exists($project->thumbnail)) {
-                    unlink($project->thumbnail);
-                }
-            } catch (\Throwable $th) {
-                Log::error($th->getMessage());
-            }
-        }
-        //new entry
         try {
-            $fileName = time().'_'.Str::random(10).'.png';
-            $pathName = 'assets/common/img/projects/';
-            
-            if (!file_exists($pathName)) {
-                mkdir($pathName, 0777, true);
+            $oldPath = $project ? $project->thumbnail : null;
+            $upload = $this->mediaStorage->upload($file, 'projects/thumbnail', [
+                'owner' => $project,
+                'collection' => 'thumbnail',
+            ]);
+            if ($upload['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $upload;
             }
-            if ($file->move($pathName, $fileName)) {
-                return [
-                    'message' => 'File is successfully saved',
-                    'payload' => [
-                        'file' => $pathName.$fileName
-                    ],
-                    'status' => CoreConstants::STATUS_CODE_SUCCESS
-                ];
-            } else {
-                return [
-                    'message' => 'File could not be saved',
-                    'payload' => null,
-                    'status' => CoreConstants::STATUS_CODE_ERROR
-                ];
+
+            if ($oldPath) {
+                $this->mediaStorage->deleteByPath($oldPath);
             }
+
+            return [
+                'message' => 'File is successfully saved',
+                'payload' => [
+                    'file' => $upload['payload']['path']
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
+            ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return [
@@ -229,32 +239,20 @@ class ProjectService implements ProjectInterface
      */
     private function processImages(Array $fileArray, $project = null)
     {
-        if ($project) {
-            //delete previous
-            try {
-                $existingImages = json_decode($project->images, true);
-                foreach ($existingImages as $key => $existingImage) {
-                    if (file_exists($existingImage)) {
-                        unlink($existingImage);
-                    }
-                }
-            } catch (\Throwable $th) {
-                Log::error($th->getMessage());
-            }
-        }
-        //new entry
         try {
             $savedFileArray = [];
+            $oldPaths = $project ? json_decode($project->images, true) : [];
+
             foreach ($fileArray as $key => $file) {
                 try {
-                    $fileName = time().'_'.Str::random(10).'.png';
-                    $pathName = 'assets/common/img/projects/';
-                    
-                    if (!file_exists($pathName)) {
-                        mkdir($pathName, 0777, true);
-                    }
-                    if ($file->move($pathName, $fileName)) {
-                        array_push($savedFileArray, $pathName.$fileName);
+                    if ($file instanceof UploadedFile) {
+                        $upload = $this->mediaStorage->upload($file, 'projects/images', [
+                            'owner' => $project,
+                            'collection' => 'images',
+                        ]);
+                        if ($upload['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+                            array_push($savedFileArray, $upload['payload']['path']);
+                        }
                     }
                 } catch (\Throwable $th) {
                     Log::error($th->getMessage());
@@ -262,6 +260,12 @@ class ProjectService implements ProjectInterface
             }
 
             if (count($savedFileArray)) {
+                if (is_array($oldPaths)) {
+                    foreach ($oldPaths as $oldPath) {
+                        $this->mediaStorage->deleteByPath($oldPath);
+                    }
+                }
+
                 return [
                     'message' => 'Files are successfully saved',
                     'payload' => [
@@ -400,24 +404,13 @@ class ProjectService implements ProjectInterface
             $deleted = 0;
 
             foreach ($entries as $key => $entry) {
-                //delete thumbnail
-                try {
-                    if (file_exists($entry->thumbnail)) {
-                        unlink($entry->thumbnail);
+                $this->mediaStorage->deleteByPath($entry->thumbnail);
+
+                $existingImages = json_decode($entry->images, true);
+                if (is_array($existingImages)) {
+                    foreach ($existingImages as $existingImage) {
+                        $this->mediaStorage->deleteByPath($existingImage);
                     }
-                } catch (\Throwable $th) {
-                    Log::error($th->getMessage());
-                }
-                //delete images
-                try {
-                    $existingImages = json_decode($entry->images, true);
-                    foreach ($existingImages as $key => $existingImage) {
-                        if (file_exists($existingImage)) {
-                            unlink($existingImage);
-                        }
-                    }
-                } catch (\Throwable $th) {
-                    Log::error($th->getMessage());
                 }
                 $entry->delete();
                 $deleted++;

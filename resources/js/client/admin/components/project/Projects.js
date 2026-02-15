@@ -40,7 +40,7 @@ const Projects = () => {
                     <Avatar
                         shape="circle"
                         size="large"
-                        src={Utils.backend + '/' + row.thumbnail}
+                        src={row.thumbnail_url ? row.thumbnail_url : (Utils.backend + '/' + row.thumbnail)}
                     />
                 </Space>
                 :

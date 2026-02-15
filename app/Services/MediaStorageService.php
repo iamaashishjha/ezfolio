@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\MediaUrl;
 use App\Models\MediaFile;
 use CoreConstants;
 use Illuminate\Database\Eloquent\Model;
@@ -162,7 +163,7 @@ class MediaStorageService
         }
 
         try {
-            return Storage::disk($disk)->url($path);
+            return MediaUrl::forPath($path);
         } catch (\Throwable $th) {
             Log::warning($th->getMessage());
             return asset($path);

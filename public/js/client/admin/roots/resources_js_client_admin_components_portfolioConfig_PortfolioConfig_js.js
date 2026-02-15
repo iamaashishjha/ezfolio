@@ -6805,7 +6805,7 @@ var SeoPopup = function SeoPopup(props) {
         label: "Meta Image",
         name: "image",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          previewFile: props.data && props.data.image && _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.data.image,
+          previewFile: props.data && (props.data.image_url ? props.data.image_url : props.data.image && _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.data.image),
           onChangeCallback: imageOnChange,
           acceptedFileTypes: "image/*",
           labelIdle: 'Drag & Drop your image or <span class="filepond--label-action">Browse</span>'

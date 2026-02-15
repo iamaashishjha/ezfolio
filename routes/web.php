@@ -44,6 +44,10 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'text/xml');
 })->name('sitemap');
 
+Route::get('/media/{path}', ['App\Http\Controllers\MediaController', 'show'])
+    ->where('path', '.*')
+    ->name('media.show');
+
 #region [frontend]
 
 Route::get('/', ['App\Http\Controllers\Frontend\FrontendController', 'index'])->name('frontend');

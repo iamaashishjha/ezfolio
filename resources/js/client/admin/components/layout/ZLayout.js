@@ -25,6 +25,7 @@ const ZLayout = ({ children }) => {
     const location = useLocation();
     const globalState = useSelector(state => state.globalState);
     const logo = globalState.logo;
+    const logoUrl = globalState.logoUrl;
     const siteName = globalState.siteName;
     const menuColor = globalState.menuColor;
     const navColor = globalState.navColor;
@@ -71,7 +72,7 @@ const ZLayout = ({ children }) => {
         onCollapse: (_collapsed) => {
             setCollapsed(_collapsed)
         },
-        logo: `${Utils.backend}/${logo}`,
+        logo: logoUrl ? logoUrl : `${Utils.backend}/${logo}`,
         route: {
             routes: [
                 {

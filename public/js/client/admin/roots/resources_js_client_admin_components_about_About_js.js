@@ -4863,100 +4863,115 @@ var About = function About() {
       avatar = _useState2[0],
       setAvatar = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      name = _useState4[0],
-      setName = _useState4[1];
+      avatarUrl = _useState4[0],
+      setAvatarUrl = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      jobTitle = _useState6[0],
-      setJobTitle = _useState6[1];
+      name = _useState6[0],
+      setName = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      email = _useState8[0],
-      setEmail = _useState8[1];
+      jobTitle = _useState8[0],
+      setJobTitle = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      phone = _useState10[0],
-      setPhone = _useState10[1];
+      email = _useState10[0],
+      setEmail = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      address = _useState12[0],
-      setAddress = _useState12[1];
+      phone = _useState12[0],
+      setPhone = _useState12[1];
 
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState14 = _slicedToArray(_useState13, 2),
-      description = _useState14[0],
-      setDescription = _useState14[1];
+      address = _useState14[0],
+      setAddress = _useState14[1];
 
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState16 = _slicedToArray(_useState15, 2),
-      heroSubtitle = _useState16[0],
-      setHeroSubtitle = _useState16[1];
+      description = _useState16[0],
+      setDescription = _useState16[1];
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
       _useState18 = _slicedToArray(_useState17, 2),
-      cv = _useState18[0],
-      setCv = _useState18[1];
+      heroSubtitle = _useState18[0],
+      setHeroSubtitle = _useState18[1];
 
   var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      cover = _useState20[0],
-      setCover = _useState20[1];
+      cv = _useState20[0],
+      setCv = _useState20[1];
 
-  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState22 = _slicedToArray(_useState21, 2),
-      taglines = _useState22[0],
-      setTagLines = _useState22[1];
+      cvUrl = _useState22[0],
+      setCvUrl = _useState22[1];
 
-  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState24 = _slicedToArray(_useState23, 2),
-      aboutHighlights = _useState24[0],
-      setAboutHighlights = _useState24[1];
+      cover = _useState24[0],
+      setCover = _useState24[1];
 
-  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState26 = _slicedToArray(_useState25, 2),
-      socialLinks = _useState26[0],
-      setSocialLinks = _useState26[1];
+      coverUrl = _useState26[0],
+      setCoverUrl = _useState26[1];
 
-  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState27 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState28 = _slicedToArray(_useState27, 2),
-      focusTaglines = _useState28[0],
-      setFocusTaglines = _useState28[1];
+      taglines = _useState28[0],
+      setTagLines = _useState28[1];
 
-  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState29 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState30 = _slicedToArray(_useState29, 2),
-      focusHighlights = _useState30[0],
-      setFocusHighlights = _useState30[1];
+      aboutHighlights = _useState30[0],
+      setAboutHighlights = _useState30[1];
 
-  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState31 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
       _useState32 = _slicedToArray(_useState31, 2),
-      focusSocialLinks = _useState32[0],
-      setFocusSocialLinks = _useState32[1];
+      socialLinks = _useState32[0],
+      setSocialLinks = _useState32[1];
 
-  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+  var _useState33 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState34 = _slicedToArray(_useState33, 2),
-      componentLoading = _useState34[0],
-      setComponentLoading = _useState34[1];
+      focusTaglines = _useState34[0],
+      setFocusTaglines = _useState34[1];
 
   var _useState35 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState36 = _slicedToArray(_useState35, 2),
-      loading = _useState36[0],
-      setLoading = _useState36[1];
+      focusHighlights = _useState36[0],
+      setFocusHighlights = _useState36[1];
 
   var _useState37 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
       _useState38 = _slicedToArray(_useState37, 2),
-      socialLinkPopupVisible = _useState38[0],
-      setSocialLinkPopupVisible = _useState38[1];
+      focusSocialLinks = _useState38[0],
+      setFocusSocialLinks = _useState38[1];
 
-  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState39 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
       _useState40 = _slicedToArray(_useState39, 2),
-      socialLinkToEdit = _useState40[0],
-      setSocialLinkToEdit = _useState40[1];
+      componentLoading = _useState40[0],
+      setComponentLoading = _useState40[1];
+
+  var _useState41 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState42 = _slicedToArray(_useState41, 2),
+      loading = _useState42[0],
+      setLoading = _useState42[1];
+
+  var _useState43 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+      _useState44 = _slicedToArray(_useState43, 2),
+      socialLinkPopupVisible = _useState44[0],
+      setSocialLinkPopupVisible = _useState44[1];
+
+  var _useState45 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+      _useState46 = _slicedToArray(_useState45, 2),
+      socialLinkToEdit = _useState46[0],
+      setSocialLinkToEdit = _useState46[1];
 
   var _Form$useForm = antd__WEBPACK_IMPORTED_MODULE_14__["default"].useForm(),
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
@@ -5020,7 +5035,9 @@ var About = function About() {
   }, [focusSocialLinks]);
 
   var avatarUploadCallback = function avatarUploadCallback(file) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     setAvatar(file);
+    setAvatarUrl(payload && payload.url ? payload.url : file ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + file : null);
   };
 
   var loadData = function loadData() {
@@ -5035,7 +5052,10 @@ var About = function About() {
         setDescription(response.data.payload.description);
         setHeroSubtitle(response.data.payload.hero_subtitle);
         setCv(response.data.payload.cv);
+        setCvUrl(response.data.payload.cv_url ? response.data.payload.cv_url : response.data.payload.cv ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + response.data.payload.cv : null);
         setCover(response.data.payload.cover);
+        setCoverUrl(response.data.payload.cover_url ? response.data.payload.cover_url : response.data.payload.cover ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + response.data.payload.cover : null);
+        setAvatarUrl(response.data.payload.avatar_url ? response.data.payload.avatar_url : response.data.payload.avatar ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + response.data.payload.avatar : null);
         setTagLines(response.data.payload.taglines ? JSON.parse(response.data.payload.taglines) : []);
         setAboutHighlights(response.data.payload.about_highlights ? JSON.parse(response.data.payload.about_highlights) : []);
         setSocialLinks(response.data.payload.social_links ? JSON.parse(response.data.payload.social_links) : []); //set form values
@@ -5196,14 +5216,18 @@ var About = function About() {
   };
 
   var cvUploadCallback = function cvUploadCallback(file) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     setTimeout(function () {
       setCv(file);
+      setCvUrl(payload && payload.url ? payload.url : file ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + file : null);
     }, 2000);
   };
 
   var coverUploadCallback = function coverUploadCallback(file) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     setTimeout(function () {
       setCover(file);
+      setCoverUrl(payload && payload.url ? payload.url : file ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + file : null);
     }, 2000);
   };
 
@@ -5242,7 +5266,7 @@ var About = function About() {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: true,
                   isAvatar: true,
-                  previewAvatar: avatar && _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + avatar,
+                  previewAvatar: avatarUrl,
                   acceptedFileTypes: "image/*",
                   allowMultiple: false,
                   name: 'file',
@@ -5455,7 +5479,7 @@ var About = function About() {
                 }),
                 description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: false,
-                  previewFile: cv !== null ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cv : null,
+                  previewFile: cvUrl,
                   acceptedFileTypes: ['text/plain', 'application/pdf', 'application/doc', 'application/rtf'],
                   allowMultiple: false,
                   name: 'file',
@@ -5472,7 +5496,7 @@ var About = function About() {
                 }),
                 description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   allowRevert: false,
-                  previewFile: cover !== null ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cover : null,
+                  previewFile: coverUrl,
                   acceptedFileTypes: "image/*",
                   allowMultiple: false,
                   name: 'file',
@@ -5794,7 +5818,7 @@ var About = function About() {
                 children: "CV"
               }),
               children: cv ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-                href: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + cv,
+                href: cvUrl,
                 download: true,
                 target: "_blank",
                 rel: "noreferrer",
@@ -6426,7 +6450,7 @@ var FileUploader = function FileUploader(props) {
           _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_8__["default"].post(props.serverUrl, formData, config).then(function (response) {
             _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].handleSuccessResponse(response, function () {
               if (props.afterUploadCallback) {
-                props.afterUploadCallback(response.data.payload.file);
+                props.afterUploadCallback(response.data.payload.file, response.data.payload);
               }
 
               load(response.data.payload.file);
@@ -6453,7 +6477,7 @@ var FileUploader = function FileUploader(props) {
           }).then(function (response) {
             _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].handleSuccessResponse(response, function () {
               if (props.afterRevertCallback) {
-                props.afterRevertCallback(response.data.payload.file);
+                props.afterRevertCallback(response.data.payload.file, response.data.payload);
               }
 
               load();

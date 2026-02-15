@@ -4,7 +4,7 @@
     $template = $portfolioConfig['template'] ?? 'procyon';
     $pageTitle = $pageTitle ?? ($portfolioConfig['seo']['title'] ?: $about->name);
     $pageDescription = $pageDescription ?? $portfolioConfig['seo']['description'];
-    $pageImage = $pageImage ?? $portfolioConfig['seo']['image'];
+    $pageImage = $pageImage ?? ($portfolioConfig['seo']['image_url'] ?? $portfolioConfig['seo']['image']);
     $canonicalUrl = $canonicalUrl ?? url()->current();
 @endphp
 
@@ -25,11 +25,11 @@
     <meta property="og:description" content="{{ $pageDescription }}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{ asset($pageImage) }}" />
+    <meta property="og:image" content="{{ $pageImage }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $pageTitle }}" />
     <meta name="twitter:description" content="{{ $pageDescription }}" />
-    <meta name="twitter:image" content="{{ asset($pageImage) }}" />
+    <meta name="twitter:image" content="{{ $pageImage }}" />
     <link rel="canonical" href="{{ $canonicalUrl }}" />
     <title>{{ $pageTitle }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ Utils::getFavicon() }}">

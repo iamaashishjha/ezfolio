@@ -2,7 +2,7 @@
     <a class="navbar-brand js-scroll-trigger" href="{{ route('frontend') }}#page-top">
         <span class="d-block d-lg-none">{{ $about->name }}</span>
         <span class="d-none d-lg-block">
-            <img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{ asset($about->avatar) }}" src="{{ asset('assets/common/img/lazyloader.gif') }}" alt="Portrait of {{ $about->name }}" loading="lazy" decoding="async" />
+            <img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{ $about->avatar_url }}" src="{{ asset('assets/common/img/lazyloader.gif') }}" alt="Portrait of {{ $about->name }}" loading="lazy" decoding="async" />
         </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

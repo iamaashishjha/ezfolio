@@ -9,9 +9,17 @@
 @php
     $accentColor = $portfolioConfig['accentColor'];
     $accentColorRGB = Utils::getRgbValue($accentColor);
-    $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
-    $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
-    $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $resumePdfPath = $about->cv ?: 'assets/common/cv/default.pdf';
+    $resumePdf = $about->cv_url ?: asset('assets/common/cv/default.pdf');
+    $resumeDocx = null;
+    $hasResumeDocx = false;
+    if (!empty($resumePdfPath) && str_starts_with($resumePdfPath, 'assets/')) {
+        $resumeDocxPath = preg_replace('/\\.pdf$/i', '.docx', $resumePdfPath);
+        if (!empty($resumeDocxPath) && file_exists(public_path($resumeDocxPath))) {
+            $hasResumeDocx = true;
+            $resumeDocx = asset($resumeDocxPath);
+        }
+    }
     $jobTitle = $about->job_title ?: 'Backend Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $recaptchaSiteKey = config('services.recaptcha.site_key');
@@ -33,7 +41,7 @@
         'name' => $about->name,
         'jobTitle' => $jobTitle,
         'url' => $baseUrl,
-        'image' => asset($about->avatar),
+        'image' => $about->avatar_url,
     ];
     if (!empty($about->email)) {
         $personSchema['email'] = 'mailto:' . $about->email;
@@ -68,18 +76,18 @@
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
+    <meta property="og:image:secure_url" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{$portfolioConfig['seo']['title']}}" />
     <meta name="twitter:description" content="{{$portfolioConfig['seo']['description']}}" />
-    <meta name="twitter:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta name="twitter:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <link rel="canonical" href="{{ url()->current() }}" />
 
     <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
 
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
-    <link rel="preload" as="image" href="{{ asset($about->cover) }}">
+    <link rel="preload" as="image" href="{{ $about->cover_url }}">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/common/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -167,7 +175,7 @@
     </header><!-- End Header -->
 
     <!-- ======= hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{asset($about->cover)}}');">
+    <section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{ $about->cover_url }}');">
         <div class="container" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <h1 class="mb-2">{{ $about->name }} <span class="hero-role">— {{ $jobTitle }}</span></h1>
             <p class="hero-subtitle mb-3">{{ $heroSubtitle }}</p>
@@ -209,7 +217,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 text-center">
-                        <img data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async">
+                        <img data-src="{{ $about->avatar_url }}" src="{{asset('assets/common/img/lazyloader.gif')}}" class="lazy img-fluid rounded-circle img-profile" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async">
                     </div>
                     <div class="col-lg-8 pt-4 pt-lg-0 content my-lg-auto">
                         <div class="row">

@@ -73,10 +73,10 @@ const ProjectPopup = (props) => {
                     <Col span={24}>
                         <Carousel autoplay pauseOnHover={false}>
                             {
-                                JSON.parse(props.project.images).map((image, index) => (
+                                (props.project.images_urls && props.project.images_urls.length ? props.project.images_urls : JSON.parse(props.project.images).map(image => Utils.backend + '/' + image)).map((image, index) => (
                                     <div key={index}>
                                         <Image
-                                            src={Utils.backend + '/' + image}
+                                            src={image}
                                             preview={false}
                                             width='100%'
                                             placeholder={true}

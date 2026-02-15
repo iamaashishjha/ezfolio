@@ -7,9 +7,9 @@ use App\Models\Setting;
 use App\Services\Contracts\AboutInterface;
 use App\Services\Contracts\SettingInterface;
 use Config;
+use Illuminate\Support\Str as SupportStr;
 use Log;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
-use Str;
 use Validator;
 
 class SettingService implements SettingInterface
@@ -22,14 +22,20 @@ class SettingService implements SettingInterface
     private $model;
 
     /**
+     * @var MediaStorageService
+     */
+    private $mediaStorage;
+
+    /**
      * Create a new service instance.
      *
      * @param Setting $setting
      * @return void
      */
-    public function __construct(Setting $setting)
+    public function __construct(Setting $setting, MediaStorageService $mediaStorage)
     {
         $this->model = $setting;
+        $this->mediaStorage = $mediaStorage;
     }
 
     /**
@@ -195,6 +201,7 @@ class SettingService implements SettingInterface
             } else {
                 $data['logo'] = 'assets/common/img/logo/default.png';
             }
+            $data['logo_url'] = $this->resolveMediaUrl($data['logo']);
 
             //get favicon
             $result = $this->getSettingByKey(CoreConstants::SETTING__FAVICON, ['setting_value']);
@@ -204,6 +211,7 @@ class SettingService implements SettingInterface
             } else {
                 $data['favicon'] = 'assets/common/img/favicon/default.png';
             }
+            $data['favicon_url'] = $this->resolveMediaUrl($data['favicon']);
 
             //get cover photo
             $about = resolve(AboutInterface::class);
@@ -212,8 +220,10 @@ class SettingService implements SettingInterface
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                 $data['cover'] = $result['payload']->cover;
+                $data['cover_url'] = $result['payload']->cover_url;
             } else {
                 $data['cover'] = 'assets/common/img/cover/default.png';
+                $data['cover_url'] = asset('assets/common/img/cover/default.png');
             }
 
             //get avatar
@@ -221,8 +231,10 @@ class SettingService implements SettingInterface
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                 $data['avatar'] = $result['payload']->avatar;
+                $data['avatar_url'] = $result['payload']->avatar_url;
             } else {
                 $data['avatar'] = 'assets/common/img/avatar/default.png';
+                $data['avatar_url'] = asset('assets/common/img/avatar/default.png');
             }
 
             //get mail setting
@@ -350,48 +362,40 @@ class SettingService implements SettingInterface
                 ];
             }
             $file = $data['file'];
-            $extension = $file->extension() ? $file->extension() : 'png';
-            $fileName = Str::random(10). '_'. time() .'.'. $extension;
-            $pathName = 'assets/common/img/logo/';
-            
-            if (!file_exists($pathName)) {
-                mkdir($pathName, 0777, true);
+            $oldPath = $this->getCurrentSettingValue(CoreConstants::SETTING__LOGO);
+            $uploadResult = $this->mediaStorage->upload($file, 'settings/logo', [
+                'collection' => 'logo',
+                'metadata' => ['setting_key' => CoreConstants::SETTING__LOGO],
+            ]);
+
+            if ($uploadResult['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $uploadResult;
             }
 
-            if ($file->move($pathName, $fileName)) {
-                //delete previous logo
-                try {
-                    $oldLogoResponse = $this->getSettingByKey(CoreConstants::SETTING__LOGO);
-                    if ($oldLogoResponse['status'] === CoreConstants::STATUS_CODE_SUCCESS && $oldLogoResponse['payload']->setting_value !== 'assets/common/img/logo/default.png' && file_exists($oldLogoResponse['payload']->setting_value)) {
-                        unlink($oldLogoResponse['payload']->setting_value);
-                    }
-                } catch (\Throwable $th) {
-                    Log::error($th->getMessage());
-                }
+            $path = $uploadResult['payload']['path'];
+            $url = $uploadResult['payload']['url'];
 
-                $result  = $this->setSettingData([
-                    'setting_key'  => CoreConstants::SETTING__LOGO,
-                    'setting_value' => $pathName.$fileName,
-                ]);
+            $result  = $this->setSettingData([
+                'setting_key'  => CoreConstants::SETTING__LOGO,
+                'setting_value' => $path,
+            ]);
 
-                if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                    return [
-                        'message' => 'File is successfully saved',
-                        'payload' => [
-                            'file' => $pathName.$fileName
-                        ],
-                        'status' => CoreConstants::STATUS_CODE_SUCCESS
-                    ];
-                } else {
-                    return $result;
-                }
-            } else {
-                return [
-                    'message' => 'File could not be saved',
-                    'payload' => null,
-                    'status' => CoreConstants::STATUS_CODE_ERROR
-                ];
+            if ($result['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                $this->mediaStorage->deleteByPath($path);
+                return $result;
             }
+
+            $this->mediaStorage->attachToOwner($path, $result['payload'], 'logo');
+            $this->mediaStorage->deleteByPath($oldPath);
+
+            return [
+                'message' => 'File is successfully saved',
+                'payload' => [
+                    'file' => $path,
+                    'url' => $url,
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
+            ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return [
@@ -411,39 +415,28 @@ class SettingService implements SettingInterface
     public function processDeleteLogoRequest(string $file)
     {
         try {
-            if (!file_exists($file)) {
-                return [
-                    'message' => 'The file can\'t be found',
-                    'payload' => $file,
-                    'status' => CoreConstants::STATUS_CODE_NOT_FOUND
-                ];
-            }
-            if (unlink($file)) {
-                $defaultLogo = 'assets/common/img/logo/default.png';
+            $oldPath = $this->getCurrentSettingValue(CoreConstants::SETTING__LOGO);
+            $defaultLogo = 'assets/common/img/logo/default.png';
 
-                $result  = $this->setSettingData([
-                    'setting_key' => CoreConstants::SETTING__LOGO,
-                    'setting_value' => $defaultLogo,
-                ]);
+            $result  = $this->setSettingData([
+                'setting_key' => CoreConstants::SETTING__LOGO,
+                'setting_value' => $defaultLogo,
+            ]);
 
-                if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                    return [
-                        'message' => 'Logo is deleted successfully',
-                        'payload' => [
-                            'file' => $defaultLogo
-                        ],
-                        'status' => CoreConstants::STATUS_CODE_SUCCESS
-                    ];
-                } else {
-                    return $result;
-                }
-            } else {
-                return [
-                    'message' => 'Logo could not be deleted',
-                    'payload' => null,
-                    'status' => CoreConstants::STATUS_CODE_ERROR
-                ];
+            if ($result['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $result;
             }
+
+            $this->mediaStorage->deleteByPath($oldPath);
+
+            return [
+                'message' => 'Logo is deleted successfully',
+                'payload' => [
+                    'file' => $defaultLogo,
+                    'url' => $this->resolveMediaUrl($defaultLogo),
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
+            ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return [
@@ -476,48 +469,40 @@ class SettingService implements SettingInterface
             }
 
             $file = $data['file'];
-            $extension = $file->extension() ? $file->extension() : 'png';
-            $fileName = Str::random(10). '_'. time() .'.'. $extension;
-            $pathName = 'assets/common/img/favicon/';
-            
-            if (!file_exists($pathName)) {
-                mkdir($pathName, 0777, true);
+            $oldPath = $this->getCurrentSettingValue(CoreConstants::SETTING__FAVICON);
+            $uploadResult = $this->mediaStorage->upload($file, 'settings/favicon', [
+                'collection' => 'favicon',
+                'metadata' => ['setting_key' => CoreConstants::SETTING__FAVICON],
+            ]);
+
+            if ($uploadResult['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $uploadResult;
             }
 
-            if ($file->move($pathName, $fileName)) {
-                //delete previous favicon
-                try {
-                    $oldFaviconResponse = $this->getSettingByKey(CoreConstants::SETTING__FAVICON);
-                    if ($oldFaviconResponse['status'] === CoreConstants::STATUS_CODE_SUCCESS && $oldFaviconResponse['payload']->setting_value !== 'assets/common/img/favicon/default.png' && file_exists($oldFaviconResponse['payload']->setting_value)) {
-                        unlink($oldFaviconResponse['payload']->setting_value);
-                    }
-                } catch (\Throwable $th) {
-                    Log::error($th->getMessage());
-                }
+            $path = $uploadResult['payload']['path'];
+            $url = $uploadResult['payload']['url'];
 
-                $result  = $this->setSettingData([
-                    'setting_key' => CoreConstants::SETTING__FAVICON,
-                    'setting_value' => $pathName.$fileName,
-                ]);
+            $result  = $this->setSettingData([
+                'setting_key' => CoreConstants::SETTING__FAVICON,
+                'setting_value' => $path,
+            ]);
 
-                if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                    return [
-                        'message' => 'Favicon is successfully saved',
-                        'payload' => [
-                            'file' => $pathName.$fileName
-                        ],
-                        'status' => CoreConstants::STATUS_CODE_SUCCESS
-                    ];
-                } else {
-                    return $result;
-                }
-            } else {
-                return [
-                    'message' => 'Favicon could not be saved',
-                    'payload' => null,
-                    'status' => CoreConstants::STATUS_CODE_ERROR
-                ];
+            if ($result['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                $this->mediaStorage->deleteByPath($path);
+                return $result;
             }
+
+            $this->mediaStorage->attachToOwner($path, $result['payload'], 'favicon');
+            $this->mediaStorage->deleteByPath($oldPath);
+
+            return [
+                'message' => 'Favicon is successfully saved',
+                'payload' => [
+                    'file' => $path,
+                    'url' => $url,
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
+            ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return [
@@ -537,38 +522,27 @@ class SettingService implements SettingInterface
     public function processDeleteFaviconRequest(string $file)
     {
         try {
-            if (!file_exists($file)) {
-                return [
-                    'message' => 'The file can\'t be found',
-                    'payload' => $file,
-                    'status' => CoreConstants::STATUS_CODE_NOT_FOUND
-                ];
-            }
-            if (unlink($file)) {
-                $defaultFavicon = 'assets/common/img/favicon/default.png';
-                $result  = $this->setSettingData([
-                    'setting_key' => CoreConstants::SETTING__FAVICON,
-                    'setting_value' => $defaultFavicon,
-                ]);
+            $oldPath = $this->getCurrentSettingValue(CoreConstants::SETTING__FAVICON);
+            $defaultFavicon = 'assets/common/img/favicon/default.png';
+            $result  = $this->setSettingData([
+                'setting_key' => CoreConstants::SETTING__FAVICON,
+                'setting_value' => $defaultFavicon,
+            ]);
 
-                if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                    return [
-                        'message' => 'File is deleted successfully',
-                        'payload' => [
-                            'file' => $defaultFavicon
-                        ],
-                        'status' => CoreConstants::STATUS_CODE_SUCCESS
-                    ];
-                } else {
-                    return $result;
-                }
-            } else {
-                return [
-                    'message' => 'File could not be deleted',
-                    'payload' => null,
-                    'status' => CoreConstants::STATUS_CODE_ERROR
-                ];
+            if ($result['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $result;
             }
+
+            $this->mediaStorage->deleteByPath($oldPath);
+
+            return [
+                'message' => 'File is deleted successfully',
+                'payload' => [
+                    'file' => $defaultFavicon,
+                    'url' => $this->resolveMediaUrl($defaultFavicon),
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
+            ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return [
@@ -636,5 +610,40 @@ class SettingService implements SettingInterface
                 'status' => CoreConstants::STATUS_CODE_ERROR
             ];
         }
+    }
+
+    /**
+     * Resolve media URL from a stored path/key.
+     *
+     * @param string|null $path
+     * @return string|null
+     */
+    private function resolveMediaUrl(?string $path)
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (SupportStr::startsWith($path, 'http://') || SupportStr::startsWith($path, 'https://')) {
+            return $path;
+        }
+
+        return $this->mediaStorage->resolveUrl(config('filesystems.media_disk', 'minio'), $path);
+    }
+
+    /**
+     * Get current value for the given setting key.
+     *
+     * @param int $key
+     * @return string|null
+     */
+    private function getCurrentSettingValue(int $key)
+    {
+        $result = $this->getSettingByKey($key, ['setting_value']);
+        if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+            return $result['payload']->setting_value;
+        }
+
+        return null;
     }
 }

@@ -5,8 +5,8 @@ namespace App\Services;
 use CoreConstants;
 use App\Models\PortfolioConfig;
 use App\Services\Contracts\PortfolioConfigInterface;
+use Illuminate\Support\Str as SupportStr;
 use Log;
-use Str;
 use Validator;
 
 class PortfolioConfigService implements PortfolioConfigInterface
@@ -19,13 +19,19 @@ class PortfolioConfigService implements PortfolioConfigInterface
     private $model;
 
     /**
+     * @var MediaStorageService
+     */
+    private $mediaStorage;
+
+    /**
      * Create a new service instance.
      *
      * @return void
      */
-    public function __construct(PortfolioConfig $portfolioConfig)
+    public function __construct(PortfolioConfig $portfolioConfig, MediaStorageService $mediaStorage)
     {
         $this->model = $portfolioConfig;
+        $this->mediaStorage = $mediaStorage;
     }
 
     /**
@@ -307,6 +313,7 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 } else {
                     $data['seo']['image'] = '';
                 }
+                $data['seo']['image_url'] = $this->resolveMediaUrl($data['seo']['image']);
             }
 
             return [
@@ -424,54 +431,45 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 } elseif ($key === 'image') {
                     $file = $data['image'];
                     if ($file) {
-                        $extension = $file->extension() ? $file->extension() : 'png';
-                        $fileName = Str::random(10). '_'. time() .'.'. $extension;
-                        $pathName = 'assets/common/img/meta-image/';
-                        
-                        if (!file_exists($pathName)) {
-                            mkdir($pathName, 0777, true);
-                        }
+                        $oldImagePath = $this->getCurrentConfigValue(CoreConstants::PORTFOLIO_CONFIG__META_IMAGE);
+                        $upload = $this->mediaStorage->upload($file, 'portfolio/meta-image', [
+                            'collection' => 'seo_image',
+                            'metadata' => ['setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_IMAGE],
+                        ]);
 
-                        if ($file->move($pathName, $fileName)) {
-                            //delete previous image
-                            try {
-                                $oldImageResponse = $this->getConfigByKey(CoreConstants::PORTFOLIO_CONFIG__META_IMAGE);
-                                if ($oldImageResponse['status'] === CoreConstants::STATUS_CODE_SUCCESS && file_exists($oldImageResponse['payload']->setting_value)) {
-                                    unlink($oldImageResponse['payload']->setting_value);
-                                }
-                            } catch (\Throwable $th) {
-                                Log::error($th->getMessage());
-                            }
-
+                        if ($upload['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+                            $path = $upload['payload']['path'];
+                            $url = $upload['payload']['url'];
                             $newData = [
                                 'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_IMAGE,
-                                'setting_value' => $pathName.$fileName,
+                                'setting_value' => $path,
                             ];
                             $result = $this->insertOrUpdate($newData);
 
                             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
                                 $count++;
-                                $inserted['image'] = $result['payload']->setting_value;
+                                $inserted['image'] = $path;
+                                $inserted['image_url'] = $url;
+                                $this->mediaStorage->attachToOwner($path, $result['payload'], 'seo_image');
+                                $this->mediaStorage->deleteByPath($oldImagePath);
                             } else {
+                                $this->mediaStorage->deleteByPath($path);
                                 Log::error($result['payload']);
                             }
                         }
                     } else {
-                        //delete previous image
-                        try {
-                            $oldImageResponse = $this->getConfigByKey(CoreConstants::PORTFOLIO_CONFIG__META_IMAGE);
-                            if ($oldImageResponse['status'] === CoreConstants::STATUS_CODE_SUCCESS && file_exists($oldImageResponse['payload']->setting_value)) {
-                                unlink($oldImageResponse['payload']->setting_value);
-                            }
-                        } catch (\Throwable $th) {
-                            Log::error($th->getMessage());
-                        }
+                        $oldImagePath = $this->getCurrentConfigValue(CoreConstants::PORTFOLIO_CONFIG__META_IMAGE);
+                        $this->mediaStorage->deleteByPath($oldImagePath);
 
                         $newData = [
                             'setting_key' => CoreConstants::PORTFOLIO_CONFIG__META_IMAGE,
                             'setting_value' => '',
                         ];
                         $result = $this->insertOrUpdate($newData);
+                        if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+                            $inserted['image'] = '';
+                            $inserted['image_url'] = '';
+                        }
                     }
                 }
             }
@@ -499,5 +497,40 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 'status'  => CoreConstants::STATUS_CODE_ERROR
             ];
         }
+    }
+
+    /**
+     * Resolve media URL from a stored path/key.
+     *
+     * @param string|null $path
+     * @return string
+     */
+    private function resolveMediaUrl(?string $path)
+    {
+        if (!$path) {
+            return '';
+        }
+
+        if (SupportStr::startsWith($path, 'http://') || SupportStr::startsWith($path, 'https://')) {
+            return $path;
+        }
+
+        return $this->mediaStorage->resolveUrl(config('filesystems.media_disk', 'minio'), $path);
+    }
+
+    /**
+     * Get stored config value by key.
+     *
+     * @param int $key
+     * @return string|null
+     */
+    private function getCurrentConfigValue(int $key)
+    {
+        $result = $this->getConfigByKey($key, ['setting_value']);
+        if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
+            return $result['payload']->setting_value;
+        }
+
+        return null;
     }
 }

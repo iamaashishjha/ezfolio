@@ -102,7 +102,7 @@ class BlogController extends Controller
         $data['comments'] = $this->buildCommentTree($comments);
         $data['pageTitle'] = $post->meta_title ?: $post->title;
         $data['pageDescription'] = $post->meta_description ?: ($post->excerpt ?: Str::limit(strip_tags($post->body), 160));
-        $data['pageImage'] = $post->cover_image ?: $data['portfolioConfig']['seo']['image'];
+        $data['pageImage'] = $post->cover_image_url ?: ($data['portfolioConfig']['seo']['image_url'] ?? $data['portfolioConfig']['seo']['image']);
         $data['canonicalUrl'] = $post->canonical_url ?: url()->current();
         $data['relatedPosts'] = BlogPost::where('status', 'published')
             ->where('id', '<>', $post->id)

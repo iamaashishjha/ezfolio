@@ -17,9 +17,17 @@
 @php
     $accentColor = $portfolioConfig['accentColor'];;
     $accentColorRGB = Utils::getRgbValue($accentColor);
-    $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
-    $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
-    $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $resumePdfPath = $about->cv ?: 'assets/common/cv/default.pdf';
+    $resumePdf = $about->cv_url ?: asset('assets/common/cv/default.pdf');
+    $resumeDocx = null;
+    $hasResumeDocx = false;
+    if (!empty($resumePdfPath) && str_starts_with($resumePdfPath, 'assets/')) {
+        $resumeDocxPath = preg_replace('/\\.pdf$/i', '.docx', $resumePdfPath);
+        if (!empty($resumeDocxPath) && file_exists(public_path($resumeDocxPath))) {
+            $hasResumeDocx = true;
+            $resumeDocx = asset($resumeDocxPath);
+        }
+    }
     $jobTitle = $about->job_title ?: 'Backend Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $recaptchaSiteKey = config('services.recaptcha.site_key');
@@ -41,7 +49,7 @@
         'name' => $about->name,
         'jobTitle' => $jobTitle,
         'url' => $baseUrl,
-        'image' => asset($about->avatar),
+        'image' => $about->avatar_url,
     ];
     if (!empty($about->email)) {
         $personSchema['email'] = 'mailto:' . $about->email;
@@ -76,18 +84,18 @@
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
+    <meta property="og:image:secure_url" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{$portfolioConfig['seo']['title']}}" />
     <meta name="twitter:description" content="{{$portfolioConfig['seo']['description']}}" />
-    <meta name="twitter:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta name="twitter:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <link rel="canonical" href="{{ url()->current() }}" />
     <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="{{ asset($about->avatar) }}">
+    <link rel="preload" as="image" href="{{ $about->avatar_url }}">
     <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
@@ -142,7 +150,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">{{ $about->name }}</span>
-            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async" /></span>
+            <span class="d-none d-lg-block"><img class="lazy img-fluid img-profile rounded-circle mx-auto mb-2" data-src="{{ $about->avatar_url }}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async" /></span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

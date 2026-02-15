@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Helpers\MediaUrl;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BlogPost extends Model
@@ -68,7 +68,7 @@ class BlogPost extends Model
         }
 
         try {
-            return Storage::disk(config('filesystems.media_disk', 'minio'))->url($this->cover_image);
+            return MediaUrl::forPath($this->cover_image);
         } catch (\Throwable $th) {
             return asset($this->cover_image);
         }

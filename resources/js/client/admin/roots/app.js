@@ -87,10 +87,14 @@ const App = () => {
         navColor: mySettings.navColor,
         siteName: mySettings.siteName,
         logo: mySettings.logo,
+        logoUrl: mySettings.logo_url ? mySettings.logo_url : (mySettings.logo ? `${Utils.backend}/${mySettings.logo}` : null),
         favicon: mySettings.favicon,
+        faviconUrl: mySettings.favicon_url ? mySettings.favicon_url : (mySettings.favicon ? `${Utils.backend}/${mySettings.favicon}` : null),
         avatar: mySettings.avatar,
+        avatarUrl: mySettings.avatar_url ? mySettings.avatar_url : (mySettings.avatar ? `${Utils.backend}/${mySettings.avatar}` : null),
         demoMode: mySettings.demoMode,
         cover: mySettings.cover,
+        coverUrl: mySettings.cover_url ? mySettings.cover_url : (mySettings.cover ? `${Utils.backend}/${mySettings.cover}` : null),
     }));
 
     useEffect(()=> {

@@ -44,6 +44,7 @@ const Wrapper = styled.div`
 
 const AuthLayout = ({ children, title }) => {
     const logo = useSelector(state => state.globalState.logo);
+    const logoUrl = useSelector(state => state.globalState.logoUrl);
 
     return (
         <React.Fragment>
@@ -65,7 +66,7 @@ const AuthLayout = ({ children, title }) => {
                                     <Row>
                                         <Col span={24}>
                                             <StyledTitle level={3} style={{textAlign: 'center'}}>
-                                                <img src={Utils.backend + '/' + logo} alt='logo'/>
+                                                <img src={logoUrl ? logoUrl : (Utils.backend + '/' + logo)} alt='logo'/>
                                             </StyledTitle>
                                         </Col>
                                         <Col span={24}><Title>{title}</Title></Col>

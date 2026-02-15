@@ -6352,25 +6352,33 @@ var General = function General(props) {
   });
 
   var logoUploadCallback = function logoUploadCallback(file) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     setTimeout(function () {
       props.setGlobalState({
-        logo: file
+        logo: file,
+        logoUrl: payload && payload.url ? payload.url : file ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + file : null
       });
     }, 2000);
   };
 
   var faviconUploadCallback = function faviconUploadCallback(file) {
+    var payload = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var faviconUrl = payload && payload.url ? payload.url : file ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + file : null;
     setTimeout(function () {
       props.setGlobalState({
-        favicon: file
+        favicon: file,
+        faviconUrl: faviconUrl
       });
     }, 2000);
-    document.getElementById("favicon").href = _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + file;
+
+    if (faviconUrl) {
+      document.getElementById("favicon").href = faviconUrl;
+    }
   };
 
   var changeLogo = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
     allowRevert: false,
-    previewFile: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.globalState.logo,
+    previewFile: props.globalState.logoUrl ? props.globalState.logoUrl : props.globalState.logo ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.globalState.logo : null,
     acceptedFileTypes: "image/*",
     allowMultiple: false,
     name: 'file',
@@ -6382,7 +6390,7 @@ var General = function General(props) {
 
   var changeFavicon = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_uploader_FileUploader__WEBPACK_IMPORTED_MODULE_4__["default"], {
     allowRevert: false,
-    previewFile: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.globalState.favicon,
+    previewFile: props.globalState.faviconUrl ? props.globalState.faviconUrl : props.globalState.favicon ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.globalState.favicon : null,
     acceptedFileTypes: "image/*",
     allowMultiple: false,
     name: 'file',
@@ -7565,7 +7573,7 @@ var FileUploader = function FileUploader(props) {
           _common_helpers_HTTP__WEBPACK_IMPORTED_MODULE_8__["default"].post(props.serverUrl, formData, config).then(function (response) {
             _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].handleSuccessResponse(response, function () {
               if (props.afterUploadCallback) {
-                props.afterUploadCallback(response.data.payload.file);
+                props.afterUploadCallback(response.data.payload.file, response.data.payload);
               }
 
               load(response.data.payload.file);
@@ -7592,7 +7600,7 @@ var FileUploader = function FileUploader(props) {
           }).then(function (response) {
             _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_7__["default"].handleSuccessResponse(response, function () {
               if (props.afterRevertCallback) {
-                props.afterRevertCallback(response.data.payload.file);
+                props.afterRevertCallback(response.data.payload.file, response.data.payload);
               }
 
               load();

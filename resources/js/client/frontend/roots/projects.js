@@ -193,7 +193,7 @@ function App() {
                                                         <div style={{opacity: '0.7'}}>
                                                         <Image
                                                             width='100%'
-                                                            src={Utils.backend + '/' + item.thumbnail}
+                                                            src={item.thumbnail_url ? item.thumbnail_url : (Utils.backend + '/' + item.thumbnail)}
                                                             style={thumbnailStyle}
                                                             preview={false}
                                                             placeholder={true}

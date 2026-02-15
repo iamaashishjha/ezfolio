@@ -33,12 +33,14 @@ const Project = (props) => {
     useEffect(() => {
         if (props.itemToEdit) {
             var newImageArray = [];
-            JSON.parse(props.itemToEdit.images).forEach((element, index) => {
+            const imagePaths = JSON.parse(props.itemToEdit.images);
+            const imageUrls = props.itemToEdit.images_urls || [];
+            imagePaths.forEach((element, index) => {
                 newImageArray.push({
                     uid: index,
                     name: 'image.png',
                     status: 'done',
-                    url: Utils.backend + '/' + element
+                    url: imageUrls[index] ? imageUrls[index] : Utils.backend + '/' + element
                 })
             });
             setImageFileList(newImageArray);
@@ -282,7 +284,7 @@ const Project = (props) => {
                         <FileUploaderFormInput
                             onChangeCallback={thumbnailUploadOnChangeCallback}
                             acceptedFileTypes={"image/*"}
-                            previewFile={props.itemToEdit ? Utils.backend + '/' + props.itemToEdit.thumbnail : null}
+                            previewFile={props.itemToEdit ? (props.itemToEdit.thumbnail_url ? props.itemToEdit.thumbnail_url : Utils.backend + '/' + props.itemToEdit.thumbnail) : null}
                         />
                     </Form.Item>
                     <Form.Item

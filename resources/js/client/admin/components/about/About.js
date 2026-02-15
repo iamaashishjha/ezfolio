@@ -76,6 +76,7 @@ i, svg {
 
 const About = () => {
     const [avatar, setAvatar] = useState(null);
+    const [avatarUrl, setAvatarUrl] = useState(null);
     const [name, setName] = useState('');
     const [jobTitle, setJobTitle] = useState('');
     const [email, setEmail] = useState('');
@@ -84,7 +85,9 @@ const About = () => {
     const [description, setDescription] = useState('');
     const [heroSubtitle, setHeroSubtitle] = useState('');
     const [cv, setCv] = useState(null);
+    const [cvUrl, setCvUrl] = useState(null);
     const [cover, setCover] = useState(null);
+    const [coverUrl, setCoverUrl] = useState(null);
     const [taglines, setTagLines] = useState([]);
     const [aboutHighlights, setAboutHighlights] = useState([]);
     const [socialLinks, setSocialLinks] = useState([]);
@@ -163,8 +166,9 @@ const About = () => {
         }
     }, [focusSocialLinks]);
 
-    const avatarUploadCallback = (file) => {
+    const avatarUploadCallback = (file, payload = null) => {
         setAvatar(file);
+        setAvatarUrl(payload && payload.url ? payload.url : (file ? Utils.backend + '/' + file : null));
     }
 
     const loadData = () => {
@@ -180,7 +184,10 @@ const About = () => {
                 setDescription(response.data.payload.description);
                 setHeroSubtitle(response.data.payload.hero_subtitle);
                 setCv(response.data.payload.cv);
+                setCvUrl(response.data.payload.cv_url ? response.data.payload.cv_url : (response.data.payload.cv ? Utils.backend + '/' + response.data.payload.cv : null));
                 setCover(response.data.payload.cover);
+                setCoverUrl(response.data.payload.cover_url ? response.data.payload.cover_url : (response.data.payload.cover ? Utils.backend + '/' + response.data.payload.cover : null));
+                setAvatarUrl(response.data.payload.avatar_url ? response.data.payload.avatar_url : (response.data.payload.avatar ? Utils.backend + '/' + response.data.payload.avatar : null));
                 setTagLines(response.data.payload.taglines ? JSON.parse(response.data.payload.taglines) : []);
                 setAboutHighlights(response.data.payload.about_highlights ? JSON.parse(response.data.payload.about_highlights) : []);
                 setSocialLinks(response.data.payload.social_links ? JSON.parse(response.data.payload.social_links) : []);
@@ -342,15 +349,17 @@ const About = () => {
         }
     }
 
-    const cvUploadCallback = (file) => {
+    const cvUploadCallback = (file, payload = null) => {
         setTimeout(() => {
             setCv(file);
+            setCvUrl(payload && payload.url ? payload.url : (file ? Utils.backend + '/' + file : null));
         }, 2000);
     }
     
-    const coverUploadCallback = (file) => {
+    const coverUploadCallback = (file, payload = null) => {
         setTimeout(() => {
             setCover(file);
+            setCoverUrl(payload && payload.url ? payload.url : (file ? Utils.backend + '/' + file : null));
         }, 2000);
     }
 
@@ -382,10 +391,10 @@ const About = () => {
                         >
                             <Item>
                                 <Space direction="vertical" align="center" style={{width: '100%'}}>
-                                    <FileUploader
-                                        allowRevert={true}
-                                        isAvatar={true}
-                                        previewAvatar={avatar && Utils.backend + '/' + avatar}
+                                        <FileUploader
+                                            allowRevert={true}
+                                            isAvatar={true}
+                                            previewAvatar={avatarUrl}
                                         acceptedFileTypes={"image/*"}
                                         allowMultiple={false}
                                         name={'file'}
@@ -533,7 +542,7 @@ const About = () => {
                                 } description={
                                     <FileUploader
                                         allowRevert={false}
-                                        previewFile={cv !== null ? Utils.backend + '/' + cv : null}
+                                        previewFile={cvUrl}
                                         acceptedFileTypes={['text/plain', 'application/pdf', 'application/doc', 'application/rtf']}
                                         allowMultiple={false}
                                         name={'file'}
@@ -552,7 +561,7 @@ const About = () => {
                                 } description={
                                     <FileUploader
                                         allowRevert={false}
-                                        previewFile={cover !== null ? Utils.backend + '/' + cover : null}
+                                        previewFile={coverUrl}
                                         acceptedFileTypes={"image/*"}
                                         allowMultiple={false}
                                         name={'file'}
@@ -806,7 +815,7 @@ const About = () => {
                             >
                                 {
                                     cv ? (
-                                        <a href={Utils.backend + '/' + cv} download target="_blank" rel="noreferrer">
+                                        <a href={cvUrl} download target="_blank" rel="noreferrer">
                                             <Button type="default" icon={<DownloadOutlined />}>
                                                 Download
                                             </Button>

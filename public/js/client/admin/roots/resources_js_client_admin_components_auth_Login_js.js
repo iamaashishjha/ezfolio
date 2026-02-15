@@ -4542,6 +4542,9 @@ var AuthLayout = function AuthLayout(_ref) {
   var logo = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.globalState.logo;
   });
+  var logoUrl = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return state.globalState.logoUrl;
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(antd__WEBPACK_IMPORTED_MODULE_5__["default"], {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(StyledContent, {
@@ -4570,7 +4573,7 @@ var AuthLayout = function AuthLayout(_ref) {
                         textAlign: 'center'
                       },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-                        src: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].backend + '/' + logo,
+                        src: logoUrl ? logoUrl : _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_1__["default"].backend + '/' + logo,
                         alt: "logo"
                       })
                     })

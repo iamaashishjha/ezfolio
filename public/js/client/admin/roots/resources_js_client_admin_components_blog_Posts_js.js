@@ -35899,7 +35899,7 @@ var Post = function Post(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
             onChangeCallback: coverOnChange,
             acceptedFileTypes: "image/*",
-            previewFile: props.itemToEdit && props.itemToEdit.cover_image ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_2__["default"].backend + '/' + props.itemToEdit.cover_image : null
+            previewFile: props.itemToEdit && props.itemToEdit.cover_image_url ? props.itemToEdit.cover_image_url : null
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__["default"].Item, {
           name: "body",
@@ -36091,10 +36091,10 @@ var Posts = function Posts() {
     width: 90,
     search: false,
     render: function render(_, row) {
-      return row.cover_image ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      return row.cover_image_url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"], {
         shape: "square",
         size: 48,
-        src: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_5__["default"].backend + '/' + row.cover_image
+        src: row.cover_image_url
       }) : '-';
     }
   }, {

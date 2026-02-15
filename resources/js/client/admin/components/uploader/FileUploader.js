@@ -191,7 +191,7 @@ const FileUploader = (props) => {
                             .then((response) => {
                                 Utils.handleSuccessResponse(response, () => {
                                     if (props.afterUploadCallback) {
-                                        props.afterUploadCallback(response.data.payload.file);
+                                        props.afterUploadCallback(response.data.payload.file, response.data.payload);
                                     }
                                     load(response.data.payload.file);
                                 });
@@ -220,7 +220,7 @@ const FileUploader = (props) => {
                             .then((response) => {
                                 Utils.handleSuccessResponse(response, () => {
                                     if (props.afterRevertCallback) {
-                                        props.afterRevertCallback(response.data.payload.file);
+                                        props.afterRevertCallback(response.data.payload.file, response.data.payload);
                                     }
                                     load();
                                 });

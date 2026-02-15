@@ -11,9 +11,17 @@
 @php
     $accentColor = $portfolioConfig['accentColor'];
     $accentColorRGB = Utils::getRgbValue($accentColor);
-    $resumePdf = $about->cv ?: 'assets/common/cv/default.pdf';
-    $resumeDocx = preg_replace('/\\.pdf$/i', '.docx', $resumePdf);
-    $hasResumeDocx = $resumeDocx && file_exists(public_path($resumeDocx));
+    $resumePdfPath = $about->cv ?: 'assets/common/cv/default.pdf';
+    $resumePdf = $about->cv_url ?: asset('assets/common/cv/default.pdf');
+    $resumeDocx = null;
+    $hasResumeDocx = false;
+    if (!empty($resumePdfPath) && str_starts_with($resumePdfPath, 'assets/')) {
+        $resumeDocxPath = preg_replace('/\\.pdf$/i', '.docx', $resumePdfPath);
+        if (!empty($resumeDocxPath) && file_exists(public_path($resumeDocxPath))) {
+            $hasResumeDocx = true;
+            $resumeDocx = asset($resumeDocxPath);
+        }
+    }
     $jobTitle = $about->job_title ?: 'Software Engineer';
     $heroSubtitle = $about->hero_subtitle ?: 'Building scalable backend systems and microservices using Laravel, Lumen, Node.js, and modern databases.';
     $recaptchaSiteKey = config('services.recaptcha.site_key');
@@ -35,7 +43,7 @@
         'name' => $about->name,
         'jobTitle' => $jobTitle,
         'url' => $baseUrl,
-        'image' => asset($about->avatar),
+        'image' => $about->avatar_url,
     ];
     if (!empty($about->email)) {
         $personSchema['email'] = 'mailto:' . $about->email;
@@ -72,16 +80,16 @@
     <meta name="author" content="{{$portfolioConfig['seo']['author']}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
-    <meta property="og:image:secure_url" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta property="og:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
+    <meta property="og:image:secure_url" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{$portfolioConfig['seo']['title']}}" />
     <meta name="twitter:description" content="{{$portfolioConfig['seo']['description']}}" />
-    <meta name="twitter:image" content="{{asset($portfolioConfig['seo']['image'])}}" />
+    <meta name="twitter:image" content="{{ $portfolioConfig['seo']['image_url'] ?? asset($portfolioConfig['seo']['image']) }}" />
     <link rel="canonical" href="{{ url()->current() }}" />
     <title>{{$portfolioConfig['seo']['title'] ?: $about->name}}</title>
     <link rel="shortcut icon" type="image/x-icon"  href="{{ Utils::getFavicon() }}">
-    <link rel="preload" as="image" href="{{ asset($about->cover) }}">
+    <link rel="preload" as="image" href="{{ $about->cover_url }}">
 
     <link href="{{ asset('assets/common/lib/mdi-icon/css/materialdesignicons.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/common/lib/fontawesome/css/all.min.css') }}" rel="stylesheet" />
@@ -208,7 +216,7 @@
         </div>
     </nav>
     <main id="main-content">
-    <section class="hero-wrap js-fullheight" id="hero" style="background-image: url('{{asset($about->cover)}}');">
+    <section class="hero-wrap js-fullheight" id="hero" style="background-image: url('{{ $about->cover_url }}');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight justify-content-center align-items-center">
@@ -257,7 +265,7 @@
                 <div class="col-md-6 col-lg-6 d-flex mt-5 mt-lg-0">
                     <div class="img-about img d-flex align-items-stretch">
                         <div class="overlay"></div>
-                        <img class="img d-flex align-self-stretch align-items-center mx-auto my-auto lazy rounded-circle" data-src="{{asset($about->avatar)}}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async"/>
+                        <img class="img d-flex align-self-stretch align-items-center mx-auto my-auto lazy rounded-circle" data-src="{{ $about->avatar_url }}" src="{{asset('assets/common/img/lazyloader.gif')}}" alt="Portrait of {{$about->name}}" loading="lazy" decoding="async"/>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 pl-md-5 py-5">

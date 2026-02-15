@@ -35624,12 +35624,14 @@ var Project = function Project(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     if (props.itemToEdit) {
       var newImageArray = [];
-      JSON.parse(props.itemToEdit.images).forEach(function (element, index) {
+      var imagePaths = JSON.parse(props.itemToEdit.images);
+      var imageUrls = props.itemToEdit.images_urls || [];
+      imagePaths.forEach(function (element, index) {
         newImageArray.push({
           uid: index,
           name: 'image.png',
           status: 'done',
-          url: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + element
+          url: imageUrls[index] ? imageUrls[index] : _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + element
         });
       });
       setImageFileList(newImageArray);
@@ -35987,7 +35989,7 @@ var Project = function Project(props) {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_uploader_FileUploaderFormInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
             onChangeCallback: thumbnailUploadOnChangeCallback,
             acceptedFileTypes: "image/*",
-            previewFile: props.itemToEdit ? _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + props.itemToEdit.thumbnail : null
+            previewFile: props.itemToEdit ? props.itemToEdit.thumbnail_url ? props.itemToEdit.thumbnail_url : _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_3__["default"].backend + '/' + props.itemToEdit.thumbnail : null
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_11__["default"].Item, {
           name: "images",
@@ -36182,7 +36184,7 @@ var Projects = function Projects() {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__["default"], {
           shape: "circle",
           size: "large",
-          src: _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_5__["default"].backend + '/' + row.thumbnail
+          src: row.thumbnail_url ? row.thumbnail_url : _common_helpers_Utils__WEBPACK_IMPORTED_MODULE_5__["default"].backend + '/' + row.thumbnail
         })
       }) : '-';
     }

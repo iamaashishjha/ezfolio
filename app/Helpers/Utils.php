@@ -6,6 +6,7 @@ use CoreConstants;
 use App\Models\Setting;
 use App\Services\Contracts\AboutInterface;
 use App\Services\Contracts\SettingInterface;
+use Illuminate\Support\Str;
 
 class Utils
 {
@@ -21,7 +22,7 @@ class Utils
             $result = $settingService->getSettingByKey(CoreConstants::SETTING__FAVICON, ['setting_value']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return asset($result['payload']->setting_value);
+                return self::resolveMediaUrl($result['payload']->setting_value);
             } else {
                 return asset('assets/common/img/favicon/default.png');
             }
@@ -56,10 +57,10 @@ class Utils
     {
         try {
             $setting = resolve(SettingInterface::class);
-            $result = $setting->getSettingByKey(CoreConstants::SETTING__LOGO, ['value']);
+            $result = $setting->getSettingByKey(CoreConstants::SETTING__LOGO, ['setting_value']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return asset($result['payload']->value);
+                return self::resolveMediaUrl($result['payload']->setting_value);
             } else {
                 return asset('assets/common/img/logo/default.png');
             }
@@ -80,7 +81,7 @@ class Utils
             $result = $about->getAll(['avatar']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return asset($result['payload']->avatar);
+                return self::resolveMediaUrl($result['payload']->avatar);
             }
 
             return asset('assets/common/img/avatar/default.png');
@@ -97,16 +98,43 @@ class Utils
     public static function getCover()
     {
         try {
-            $about = resolve(AboutContract::class);
+            $about = resolve(AboutInterface::class);
             $result = $about->getAll(['cover']);
 
             if ($result['status'] === CoreConstants::STATUS_CODE_SUCCESS) {
-                return asset($result['payload']->cover);
+                return self::resolveMediaUrl($result['payload']->cover);
             }
 
             return asset('assets/common/img/cover/default.png');
         } catch (\Throwable $th) {
             return asset('assets/common/img/cover/default.png');
+        }
+    }
+
+    /**
+     * Resolve a storage path/key into a URL.
+     *
+     * @param string|null $path
+     * @return string|null
+     */
+    private static function resolveMediaUrl(?string $path)
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (Str::startsWith($path, 'http://') || Str::startsWith($path, 'https://')) {
+            return $path;
+        }
+
+        if (Str::startsWith($path, 'assets/')) {
+            return asset($path);
+        }
+
+        try {
+            return MediaUrl::forPath($path);
+        } catch (\Throwable $th) {
+            return asset($path);
         }
     }
 }
