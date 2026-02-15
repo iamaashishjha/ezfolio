@@ -296,7 +296,7 @@ const Post = (props) => {
                         <FileUploaderFormInput
                             onChangeCallback={coverOnChange}
                             acceptedFileTypes={"image/*"}
-                            previewFile={props.itemToEdit && props.itemToEdit.cover_image ? Utils.backend + '/' + props.itemToEdit.cover_image : null}
+                            previewFile={props.itemToEdit && props.itemToEdit.cover_image_url ? props.itemToEdit.cover_image_url : null}
                         />
                     </Form.Item>
                     <Form.Item

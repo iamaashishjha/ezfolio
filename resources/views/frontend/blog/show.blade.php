@@ -28,9 +28,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    @if ($post->cover_image)
+                    @if ($post->cover_image_url)
                         <div class="blog-post-cover">
-                            <img src="{{ asset($post->cover_image) }}" alt="{{ $post->title }}" class="img-fluid">
+                            <img src="{{ $post->cover_image_url }}" alt="{{ $post->title }}" class="img-fluid">
                         </div>
                     @endif
                     <div class="blog-post-body">

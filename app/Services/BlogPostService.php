@@ -21,14 +21,20 @@ class BlogPostService implements BlogPostInterface
     private $model;
 
     /**
+     * @var MediaStorageService
+     */
+    private $mediaStorage;
+
+    /**
      * Create a new service instance
      *
      * @param BlogPost $post
      * @return void
      */
-    public function __construct(BlogPost $post)
+    public function __construct(BlogPost $post, MediaStorageService $mediaStorage)
     {
         $this->model = $post;
+        $this->mediaStorage = $mediaStorage;
     }
 
     /**
@@ -152,6 +158,10 @@ class BlogPostService implements BlogPostInterface
             }
 
             if ($result) {
+                if (!empty($newData['cover_image'])) {
+                    $this->mediaStorage->attachToOwner($newData['cover_image'], $post, 'cover_image');
+                }
+
                 $tagIds = $this->normalizeTagIds($data);
                 $post->tags()->sync($tagIds);
 
@@ -454,9 +464,7 @@ class BlogPostService implements BlogPostInterface
         try {
             $posts = $this->model->whereIn('id', $ids)->get(['id', 'cover_image']);
             foreach ($posts as $post) {
-                if (!empty($post->cover_image) && file_exists($post->cover_image)) {
-                    unlink($post->cover_image);
-                }
+                $this->mediaStorage->deleteByPath($post->cover_image);
             }
 
             $data = $this->model->whereIn('id', $ids)->delete();
@@ -487,38 +495,25 @@ class BlogPostService implements BlogPostInterface
     private function processCoverImage(UploadedFile $file, $post = null)
     {
         if ($post && !empty($post->cover_image)) {
-            try {
-                if (file_exists($post->cover_image)) {
-                    unlink($post->cover_image);
-                }
-            } catch (\Throwable $th) {
-                Log::error($th->getMessage());
-            }
+            $this->mediaStorage->deleteByPath($post->cover_image);
         }
 
         try {
-            $extension = $file->extension() ? $file->extension() : 'png';
-            $fileName = time() . '_' . Str::random(10) . '.' . $extension;
-            $pathName = 'assets/common/img/blog/';
+            $response = $this->mediaStorage->upload($file, 'blog/covers', [
+                'owner' => $post,
+                'collection' => 'cover_image',
+            ]);
 
-            if (!file_exists($pathName)) {
-                mkdir($pathName, 0777, true);
-            }
-
-            if ($file->move($pathName, $fileName)) {
-                return [
-                    'message' => 'File is successfully saved',
-                    'payload' => [
-                        'file' => $pathName . $fileName
-                    ],
-                    'status' => CoreConstants::STATUS_CODE_SUCCESS
-                ];
+            if ($response['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
+                return $response;
             }
 
             return [
-                'message' => 'File could not be saved',
-                'payload' => null,
-                'status' => CoreConstants::STATUS_CODE_ERROR
+                'message' => 'File is successfully saved',
+                'payload' => [
+                    'file' => $response['payload']['path']
+                ],
+                'status' => CoreConstants::STATUS_CODE_SUCCESS
             ];
         } catch (\Throwable $th) {
             Log::error($th->getMessage());

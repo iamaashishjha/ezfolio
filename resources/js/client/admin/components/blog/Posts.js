@@ -44,11 +44,11 @@ const Posts = () => {
             width: 90,
             search: false,
             render: (_, row) => (
-                row.cover_image ? (
+                row.cover_image_url ? (
                     <Avatar
                         shape="square"
                         size={48}
-                        src={Utils.backend + '/' + row.cover_image}
+                        src={row.cover_image_url}
                     />
                 ) : '-'
             ),

@@ -82,6 +82,38 @@ Checkout the <a href="http://arifszn.github.io/ezfolio">docs</a>.
 - Run ```npm run prod``` or ```npm run watch```
 - Run ```php aritsan serve```
 
+### MinIO File Storage (DB + Object Storage)
+
+This project now supports storing uploaded blog cover images in MinIO using `Storage::disk('minio')`, while storing file references in the `media_files` table.
+
+1. Start MinIO (example):
+   ```sh
+   docker run -d --name ezfolio-minio \
+     -p 9000:9000 -p 9001:9001 \
+     -e MINIO_ROOT_USER=minioadmin \
+     -e MINIO_ROOT_PASSWORD=minioadmin \
+     -v minio_data:/data \
+     quay.io/minio/minio server /data --console-address ":9001"
+   ```
+2. Create a bucket (default: `ezfolio`) from the MinIO console at `http://localhost:9001`.
+3. Set `.env`:
+   ```env
+   MEDIA_DISK=minio
+   MINIO_ACCESS_KEY=minioadmin
+   MINIO_SECRET_KEY=minioadmin
+   MINIO_REGION=us-east-1
+   MINIO_BUCKET=ezfolio
+   MINIO_ENDPOINT=http://localhost:9000
+   MINIO_URL=http://localhost:9000/ezfolio
+   MINIO_USE_PATH_STYLE_ENDPOINT=true
+   ```
+4. Run migrations:
+   ```sh
+   php artisan migrate
+   ```
+
+`media_files` keeps disk/path/url/mime/size and owner references (`owner_type`, `owner_id`, `collection`) so DB rows point to MinIO objects.
+
 Admin credentials:
 
 ```

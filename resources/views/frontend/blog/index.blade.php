@@ -24,8 +24,8 @@
                     @if ($posts && $posts->count())
                         @foreach ($posts as $post)
                             <article class="blog-card">
-                                @if ($post->cover_image)
-                                    <img src="{{ asset($post->cover_image) }}" alt="{{ $post->title }}" class="img-fluid">
+                                @if ($post->cover_image_url)
+                                    <img src="{{ $post->cover_image_url }}" alt="{{ $post->title }}" class="img-fluid">
                                 @endif
                                 <div class="card-body">
                                     <div class="blog-meta mb-2">
