@@ -75,7 +75,7 @@ i, svg {
 `;
 
 const About = () => {
-    const [avatar, setAvatar] = useState(null);
+    const [, setAvatar] = useState(null);
     const [avatarUrl, setAvatarUrl] = useState(null);
     const [name, setName] = useState('');
     const [jobTitle, setJobTitle] = useState('');
@@ -86,7 +86,7 @@ const About = () => {
     const [heroSubtitle, setHeroSubtitle] = useState('');
     const [cv, setCv] = useState(null);
     const [cvUrl, setCvUrl] = useState(null);
-    const [cover, setCover] = useState(null);
+    const [, setCover] = useState(null);
     const [coverUrl, setCoverUrl] = useState(null);
     const [taglines, setTagLines] = useState([]);
     const [aboutHighlights, setAboutHighlights] = useState([]);
