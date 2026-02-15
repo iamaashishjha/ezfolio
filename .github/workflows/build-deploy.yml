@@ -108,3 +108,18 @@ jobs:
           command_timeout: 45m
           script: |
             ${{ vars.DEPLOY_SCRIPT_PATH }}/infra-auto-deploy ezfolio up
+
+      - name: SSH app cache refresh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.DEPLOY_HOST }}
+          username: ${{ vars.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          timeout: 60s
+          command_timeout: 15m
+          script: |
+            APP_CONTAINER="${{ vars.EZFOLIO_PHP_CONTAINER || 'ezfolio_php' }}"
+            docker exec "$APP_CONTAINER" php artisan optimize:clear
+            docker exec "$APP_CONTAINER" php artisan config:cache
+            docker exec "$APP_CONTAINER" php artisan route:cache
+            docker exec "$APP_CONTAINER" php artisan view:cache
