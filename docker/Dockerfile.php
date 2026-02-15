@@ -72,9 +72,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ENV NODE_OPTIONS=--max_old_space_size=4096
 ENV CI=true
 
-# Install deps with cache-friendly layering
-COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
+# Install deps with cache-friendly layering.
+# Prefer reproducible installs via npm ci when lockfile exists.
+COPY package*.json ./
+RUN if [ -f package-lock.json ]; then \
+      npm ci --no-audit --no-fund; \
+    else \
+      npm install --no-audit --no-fund; \
+    fi
 
 # Copy only what's needed for build
 COPY webpack.mix.js ./
