@@ -76,9 +76,10 @@ ENV CI=true
 # Prefer reproducible installs via npm ci when lockfile exists.
 COPY package*.json ./
 RUN if [ -f package-lock.json ]; then \
-      npm ci --no-audit --no-fund; \
+      npm ci --no-audit --no-fund --legacy-peer-deps \
+      || npm install --no-audit --no-fund --legacy-peer-deps; \
     else \
-      npm install --no-audit --no-fund; \
+      npm install --no-audit --no-fund --legacy-peer-deps; \
     fi
 
 # Copy only what's needed for build
