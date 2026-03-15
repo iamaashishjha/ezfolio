@@ -97,7 +97,7 @@ class VisitorService implements VisitorInterface
                 $isNew = false;
             }
 
-            $ip = request()->getClientIp();
+            $ip = $this->resolveClientIp() ?? request()->getClientIp();
             $isDesktop = $agent->isDesktop();
             $browser = $agent->browser();
             $platform = $agent->platform();
@@ -571,5 +571,65 @@ class VisitorService implements VisitorInterface
                 'status'  => CoreConstants::STATUS_CODE_ERROR
             ];
         }
+    }
+
+    /**
+     * Resolve the best-effort real client IP when behind reverse proxies.
+     *
+     * @return string|null
+     */
+    private function resolveClientIp()
+    {
+        $request = request();
+
+        $candidates = [
+            $request->header('CF-Connecting-IP'),
+            $request->header('True-Client-IP'),
+            $this->firstIpFromList($request->header('X-Forwarded-For')),
+            $request->ip(),
+        ];
+
+        foreach ($candidates as $candidate) {
+            $ip = $this->normalizeIp($candidate);
+            if ($ip !== null) {
+                return $ip;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the first IP from a comma-separated header value.
+     *
+     * @param string|null $value
+     * @return string|null
+     */
+    private function firstIpFromList($value)
+    {
+        if (!is_string($value) || trim($value) === '') {
+            return null;
+        }
+
+        $parts = explode(',', $value);
+
+        return isset($parts[0]) ? trim($parts[0]) : null;
+    }
+
+    /**
+     * Normalize and validate an IP address string.
+     *
+     * @param mixed $value
+     * @return string|null
+     */
+    private function normalizeIp($value)
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $value = trim($value);
+
+        return filter_var($value, FILTER_VALIDATE_IP) ? $value : null;
     }
 }
