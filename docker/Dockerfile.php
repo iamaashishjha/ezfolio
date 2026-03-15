@@ -1,7 +1,7 @@
 # ------------------------------
 # Build PHP extensions
 # ------------------------------
-FROM php:8.1-fpm-alpine AS php-ext
+FROM php:8.3-fpm-alpine AS php-ext
 
 RUN apk add --no-cache --virtual .build-deps \
       $PHPIZE_DEPS \
@@ -20,7 +20,7 @@ RUN apk add --no-cache --virtual .build-deps \
 # ------------------------------
 # Base PHP runtime image
 # ------------------------------
-FROM php:8.1-fpm-alpine AS base
+FROM php:8.3-fpm-alpine AS base
 
 RUN apk add --no-cache \
       icu-libs oniguruma libzip \

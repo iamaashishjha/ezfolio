@@ -6,10 +6,10 @@ use CoreConstants;
 use App\Models\Setting;
 use App\Services\Contracts\AboutInterface;
 use App\Services\Contracts\SettingInterface;
+use App\Support\EnvEditor;
 use Config;
 use Illuminate\Support\Str as SupportStr;
 use Log;
-use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Validator;
 
 class SettingService implements SettingInterface
@@ -191,7 +191,7 @@ class SettingService implements SettingInterface
             }
 
             //get site name
-            $data['siteName'] = DotenvEditor::getValue('APP_NAME');
+            $data['siteName'] = EnvEditor::get('APP_NAME');
 
             //get logo
             $result = $this->getSettingByKey(CoreConstants::SETTING__LOGO, ['setting_value']);
@@ -316,8 +316,7 @@ class SettingService implements SettingInterface
     public function updateSiteName(string $newName)
     {
         try {
-            $file = DotenvEditor::setKey('APP_NAME', $newName);
-            $file = DotenvEditor::save();
+            $file = EnvEditor::set('APP_NAME', $newName);
             if ($file) {
                 return [
                     'message' => 'Site name is successfully updated',
@@ -579,15 +578,16 @@ class SettingService implements SettingInterface
                 ];
             }
             
-            $file = DotenvEditor::setKey('MAIL_MAILER', $data['MAIL_MAILER']);
-            $file = DotenvEditor::setKey('MAIL_HOST', $data['MAIL_HOST']);
-            $file = DotenvEditor::setKey('MAIL_PORT', $data['MAIL_PORT']);
-            $file = DotenvEditor::setKey('MAIL_USERNAME', $data['MAIL_USERNAME']);
-            $file = DotenvEditor::setKey('MAIL_PASSWORD', $data['MAIL_PASSWORD']);
-            $file = DotenvEditor::setKey('MAIL_ENCRYPTION', $data['MAIL_ENCRYPTION']);
-            $file = DotenvEditor::setKey('MAIL_FROM_ADDRESS', !empty($data['MAIL_FROM_ADDRESS']) ? $data['MAIL_FROM_ADDRESS'] : '');
-            $file = DotenvEditor::setKey('MAIL_FROM_NAME', !empty($data['MAIL_FROM_NAME']) ? $data['MAIL_FROM_NAME'] : '');
-            $file = DotenvEditor::save();
+            $file = EnvEditor::setMany([
+                'MAIL_MAILER' => $data['MAIL_MAILER'],
+                'MAIL_HOST' => $data['MAIL_HOST'],
+                'MAIL_PORT' => $data['MAIL_PORT'],
+                'MAIL_USERNAME' => $data['MAIL_USERNAME'],
+                'MAIL_PASSWORD' => $data['MAIL_PASSWORD'],
+                'MAIL_ENCRYPTION' => $data['MAIL_ENCRYPTION'],
+                'MAIL_FROM_ADDRESS' => !empty($data['MAIL_FROM_ADDRESS']) ? $data['MAIL_FROM_ADDRESS'] : '',
+                'MAIL_FROM_NAME' => !empty($data['MAIL_FROM_NAME']) ? $data['MAIL_FROM_NAME'] : '',
+            ]);
 
             if ($file) {
                 return [

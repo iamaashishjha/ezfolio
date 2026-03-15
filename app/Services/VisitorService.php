@@ -10,7 +10,6 @@ use DB;
 use Log;
 use Validator;
 use Jenssegers\Agent\Agent;
-use Stevebauman\Location\Facades\Location;
 
 class VisitorService implements VisitorInterface
 {
@@ -101,7 +100,7 @@ class VisitorService implements VisitorInterface
             $isDesktop = $agent->isDesktop();
             $browser = $agent->browser();
             $platform = $agent->platform();
-            $locationJson = Location::get($ip);
+            $locationData = $this->resolveLocationData($ip);
 
             $newData['tracking_id'] = $trackingId;
             $newData['is_new'] = $isNew;
@@ -109,15 +108,15 @@ class VisitorService implements VisitorInterface
             $newData['is_desktop'] = $isDesktop;
             $newData['browser'] = $browser;
             $newData['platform'] = $platform;
-            $newData['location'] = $locationJson && $locationJson->countryName ? $locationJson->countryName : 'Unknown';
-            $newData['country_code'] = $locationJson ? $locationJson->countryCode : null;
-            $newData['region'] = $locationJson ? $locationJson->regionName : null;
-            $newData['region_code'] = $locationJson ? $locationJson->regionCode : null;
-            $newData['city'] = $locationJson ? $locationJson->cityName : null;
-            $newData['zip'] = $locationJson ? $locationJson->zipCode : null;
-            $newData['latitude'] = $locationJson ? $locationJson->latitude : null;
-            $newData['longitude'] = $locationJson ? $locationJson->longitude : null;
-            $newData['timezone'] = $locationJson ? $locationJson->timezone : null;
+            $newData['location'] = $locationData['location'];
+            $newData['country_code'] = $locationData['country_code'];
+            $newData['region'] = $locationData['region'];
+            $newData['region_code'] = $locationData['region_code'];
+            $newData['city'] = $locationData['city'];
+            $newData['zip'] = $locationData['zip'];
+            $newData['latitude'] = $locationData['latitude'];
+            $newData['longitude'] = $locationData['longitude'];
+            $newData['timezone'] = $locationData['timezone'];
             
             if (isset($data['id'])) {
                 $result = $this->getById($data['id'], ['id']);
@@ -570,5 +569,26 @@ class VisitorService implements VisitorInterface
                 'status'  => CoreConstants::STATUS_CODE_ERROR
             ];
         }
+    }
+
+    /**
+     * Resolve location fields safely without external package coupling.
+     *
+     * @param string|null $ip
+     * @return array
+     */
+    private function resolveLocationData(?string $ip): array
+    {
+        return [
+            'location' => 'Unknown',
+            'country_code' => null,
+            'region' => null,
+            'region_code' => null,
+            'city' => null,
+            'zip' => null,
+            'latitude' => null,
+            'longitude' => null,
+            'timezone' => null,
+        ];
     }
 }

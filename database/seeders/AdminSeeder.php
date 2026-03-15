@@ -6,7 +6,7 @@ use CoreConstants;
 use App\Models\Setting;
 use App\Services\Contracts\AdminInterface;
 use App\Services\Contracts\SettingInterface;
-use DotenvEditor;
+use App\Support\EnvEditor;
 use Exception;
 use Illuminate\Database\Seeder;
 use Log;
@@ -39,8 +39,7 @@ class AdminSeeder extends Seeder
                     try {
                         $settingService = resolve(SettingInterface::class);
                         //site name
-                        $file = DotenvEditor::setKey('APP_NAME', 'Ezfolio');
-                        $file = DotenvEditor::save();
+                        $file = EnvEditor::set('APP_NAME', 'Ezfolio');
 
                         //accent color
                         $data = [

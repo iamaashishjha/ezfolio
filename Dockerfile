@@ -1,4 +1,4 @@
-FROM laravelsail/php81-composer:latest AS vendor
+FROM laravelsail/php83-composer:latest AS vendor
 
 WORKDIR /var/www/html
 
@@ -18,7 +18,7 @@ COPY public public
 RUN NODE_ENV=development npm ci
 RUN npm run prod
 
-FROM php:8.1-fpm-alpine AS app
+FROM php:8.3-fpm-alpine AS app
 
 WORKDIR /var/www/html
 

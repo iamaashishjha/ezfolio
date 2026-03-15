@@ -38,8 +38,6 @@ Route::group(['prefix' => 'v1'], function () {
 
             Route::match(['get', 'post'], '/portfolio-configs', ['App\Http\Controllers\Admin\Api\PortfolioController', 'index']);
             
-            Route::match(['get', 'post'], '/about', ['App\Http\Controllers\Admin\Api\PortfolioController', 'about']);
-
             Route::post('/seo', ['App\Http\Controllers\Admin\Api\PortfolioController', 'seo']);
 
             Route::match(['post', 'delete'], '/avatar', ['App\Http\Controllers\Admin\Api\PortfolioController', 'avatar']);

@@ -61,7 +61,7 @@ Checkout the <a href="http://arifszn.github.io/ezfolio">docs</a>.
         -u "$(id -u):$(id -g)" \
         -v $(pwd):/var/www/html \
         -w /var/www/html \
-        laravelsail/php81-composer:latest \
+        laravelsail/php83-composer:latest \
         composer install --ignore-platform-reqs
     ```
 - Run ```./vendor/bin/sail up -d```.
@@ -69,7 +69,7 @@ Checkout the <a href="http://arifszn.github.io/ezfolio">docs</a>.
 - Run ```./vendor/bin/sail npm install```.
 - Run ```./vendor/bin/sail npm run prod``` or ```./vendor/bin/sail npm run watch```.
 
-`sail` is equivalent of `docker-compose`, read [`laravel/sail`](https://laravel.com/docs/8.x/sail) doc.
+`sail` is equivalent of `docker-compose`, read [`laravel/sail`](https://laravel.com/docs/12.x/sail) doc.
 
 
 ### Without Docker

@@ -166,14 +166,13 @@ return [
          * Package Service Providers...
          */
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-        Jackiedo\DotenvEditor\DotenvEditorServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
+        Src\Providers\ModuleServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
