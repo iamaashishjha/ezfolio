@@ -582,38 +582,49 @@ class VisitorService implements VisitorInterface
     {
         $request = request();
 
+        $forwardedIps = $this->ipListFromHeader($request->header('X-Forwarded-For'));
         $candidates = [
+            $request->header('CF-Pseudo-IPv4'),
             $request->header('CF-Connecting-IP'),
             $request->header('True-Client-IP'),
-            $this->firstIpFromList($request->header('X-Forwarded-For')),
+            $request->header('X-Real-IP'),
             $request->ip(),
         ];
+        $candidates = array_merge($candidates, $forwardedIps);
+
+        $ipv6Fallback = null;
 
         foreach ($candidates as $candidate) {
             $ip = $this->normalizeIp($candidate);
             if ($ip !== null) {
-                return $ip;
+                if ($this->isIpv4($ip)) {
+                    return $ip;
+                }
+
+                if ($ipv6Fallback === null) {
+                    $ipv6Fallback = $ip;
+                }
             }
         }
 
-        return null;
+        return $ipv6Fallback;
     }
 
     /**
-     * Get the first IP from a comma-separated header value.
+     * Get all IP candidates from a comma-separated header value.
      *
      * @param string|null $value
-     * @return string|null
+     * @return array
      */
-    private function firstIpFromList($value)
+    private function ipListFromHeader($value)
     {
         if (!is_string($value) || trim($value) === '') {
-            return null;
+            return [];
         }
 
         $parts = explode(',', $value);
 
-        return isset($parts[0]) ? trim($parts[0]) : null;
+        return array_map('trim', $parts);
     }
 
     /**
@@ -631,5 +642,16 @@ class VisitorService implements VisitorInterface
         $value = trim($value);
 
         return filter_var($value, FILTER_VALIDATE_IP) ? $value : null;
+    }
+
+    /**
+     * Determine if the given IP address is IPv4.
+     *
+     * @param string $ip
+     * @return bool
+     */
+    private function isIpv4($ip)
+    {
+        return (bool) filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
     }
 }
