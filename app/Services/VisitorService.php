@@ -117,7 +117,8 @@ class VisitorService implements VisitorInterface
             $newData['zip'] = $locationJson ? $locationJson->zipCode : null;
             $newData['latitude'] = $locationJson ? $locationJson->latitude : null;
             $newData['longitude'] = $locationJson ? $locationJson->longitude : null;
-            $newData['timezone'] = $locationJson ? $locationJson->timezone : null;
+            $locationData = $locationJson ? $locationJson->toArray() : [];
+            $newData['timezone'] = $locationData['timezone'] ?? $locationData['time_zone'] ?? null;
             
             if (isset($data['id'])) {
                 $result = $this->getById($data['id'], ['id']);
