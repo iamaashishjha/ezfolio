@@ -587,27 +587,39 @@ class VisitorService implements VisitorInterface
             $request->header('CF-Pseudo-IPv4'),
             $request->header('CF-Connecting-IP'),
             $request->header('True-Client-IP'),
+        ];
+        $candidates = array_merge($candidates, $forwardedIps, [
             $request->header('X-Real-IP'),
             $request->ip(),
-        ];
-        $candidates = array_merge($candidates, $forwardedIps);
+        ]);
 
-        $ipv6Fallback = null;
+        $publicIpv6Fallback = null;
+        $privateIpv4Fallback = null;
+        $privateIpFallback = null;
 
         foreach ($candidates as $candidate) {
             $ip = $this->normalizeIp($candidate);
             if ($ip !== null) {
-                if ($this->isIpv4($ip)) {
+                if ($this->isPublicIp($ip) && $this->isIpv4($ip)) {
                     return $ip;
                 }
 
-                if ($ipv6Fallback === null) {
-                    $ipv6Fallback = $ip;
+                if ($this->isPublicIp($ip) && $publicIpv6Fallback === null) {
+                    $publicIpv6Fallback = $ip;
+                    continue;
+                }
+
+                if ($this->isIpv4($ip) && $privateIpv4Fallback === null) {
+                    $privateIpv4Fallback = $ip;
+                }
+
+                if ($privateIpFallback === null) {
+                    $privateIpFallback = $ip;
                 }
             }
         }
 
-        return $ipv6Fallback;
+        return $publicIpv6Fallback ?? $privateIpv4Fallback ?? $privateIpFallback;
     }
 
     /**
@@ -653,5 +665,16 @@ class VisitorService implements VisitorInterface
     private function isIpv4($ip)
     {
         return (bool) filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
+    }
+
+    /**
+     * Determine whether the IP is publicly routable.
+     *
+     * @param string $ip
+     * @return bool
+     */
+    private function isPublicIp($ip)
+    {
+        return (bool) filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     }
 }
