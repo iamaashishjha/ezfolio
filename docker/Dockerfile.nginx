@@ -7,4 +7,7 @@ COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 # Only what nginx needs
 COPY public ./public
 
+RUN rm -rf public/storage \
+  && ln -s ../storage/app/public public/storage
+
 EXPOSE 80

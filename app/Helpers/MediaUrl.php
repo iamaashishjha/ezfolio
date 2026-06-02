@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Storage;
+
 class MediaUrl
 {
     /**
@@ -21,6 +23,11 @@ class MediaUrl
             return null;
         }
 
+        $disk = config('filesystems.media_disk', 'minio');
+        if ($disk === 'public') {
+            return Storage::disk('public')->url($normalized);
+        }
+
         $segments = explode('/', $normalized);
         $encodedSegments = array_map(function ($segment) {
             return rawurlencode($segment);
@@ -29,4 +36,3 @@ class MediaUrl
         return url('media/' . implode('/', $encodedSegments));
     }
 }
-

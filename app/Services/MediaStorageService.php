@@ -119,8 +119,9 @@ class MediaStorageService
 
         if (Str::startsWith($path, 'assets/')) {
             try {
-                if (file_exists($path)) {
-                    unlink($path);
+                $publicPath = public_path($path);
+                if (file_exists($publicPath)) {
+                    unlink($publicPath);
                 }
             } catch (\Throwable $th) {
                 Log::warning($th->getMessage());
@@ -160,6 +161,10 @@ class MediaStorageService
 
         if (Str::startsWith($path, 'assets/')) {
             return asset($path);
+        }
+
+        if ($disk === 'public') {
+            return Storage::disk('public')->url($path);
         }
 
         try {
