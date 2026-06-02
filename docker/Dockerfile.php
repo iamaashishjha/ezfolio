@@ -7,6 +7,7 @@ RUN apk add --no-cache --virtual .build-deps \
       $PHPIZE_DEPS \
       icu-dev oniguruma-dev libzip-dev \
       freetype-dev libjpeg-turbo-dev libpng-dev \
+      linux-headers \
       postgresql-dev \
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install \
