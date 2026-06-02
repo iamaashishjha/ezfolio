@@ -114,10 +114,13 @@ COPY --from=assets --chown=app:app /var/www/html/public ./public
 
 # Laravel required dirs + perms
 RUN mkdir -p \
+      storage/app/public \
       storage/framework/cache \
       storage/framework/sessions \
       storage/framework/views \
       bootstrap/cache \
+  && rm -rf public/storage \
+  && ln -s ../storage/app/public public/storage \
   && chmod -R 775 storage bootstrap/cache
 
 USER app
