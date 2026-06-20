@@ -191,7 +191,7 @@ class SettingService implements SettingInterface
             }
 
             //get site name
-            $data['siteName'] = DotenvEditor::getValue('APP_NAME');
+            $data['siteName'] = DotenvEditor::getValue('SITE_NAME') ?: Config::get('custom.site_name');
 
             //get logo
             $result = $this->getSettingByKey(CoreConstants::SETTING__LOGO, ['setting_value']);
@@ -308,7 +308,7 @@ class SettingService implements SettingInterface
     }
 
     /**
-     * Update Site name related env variables
+     * Update the UI site name environment variable.
      *
      * @param string $newName
      * @return array
@@ -316,7 +316,7 @@ class SettingService implements SettingInterface
     public function updateSiteName(string $newName)
     {
         try {
-            $file = DotenvEditor::setKey('APP_NAME', $newName);
+            $file = DotenvEditor::setKey('SITE_NAME', $newName);
             $file = DotenvEditor::save();
             if ($file) {
                 return [

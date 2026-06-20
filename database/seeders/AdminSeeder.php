@@ -39,7 +39,7 @@ class AdminSeeder extends Seeder
                     try {
                         $settingService = resolve(SettingInterface::class);
                         //site name
-                        $file = DotenvEditor::setKey('APP_NAME', 'Ezfolio');
+                        $file = DotenvEditor::setKey('SITE_NAME', 'Ezfolio');
                         $file = DotenvEditor::save();
 
                         //accent color
