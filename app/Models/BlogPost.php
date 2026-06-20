@@ -31,6 +31,7 @@ class BlogPost extends Model
 
     protected $casts = [
         'allow_comments' => 'boolean',
+        'views_count' => 'integer',
         'published_at' => 'datetime',
     ];
 

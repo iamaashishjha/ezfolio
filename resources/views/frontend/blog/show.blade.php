@@ -12,7 +12,8 @@
                 @if ($post->category)
                     <span> · {{ $post->category->name }}</span>
                 @endif
-                <span> · {{ $commentCount }} comments</span>
+                <span> · <i class="far fa-eye"></i> {{ number_format($post->views_count) }} views</span>
+                <span> · <i class="far fa-comment"></i> {{ number_format($commentCount) }} comments</span>
             </div>
             @if ($post->tags && $post->tags->count())
                 <div class="mt-2">
@@ -38,7 +39,13 @@
                     </div>
 
                     <div class="mt-5" id="comments">
-                        <h4 class="mb-3">Comments</h4>
+                        <div class="discussion-heading d-flex align-items-center justify-content-between mb-3">
+                            <div>
+                                <h4 class="mb-1">Discussion</h4>
+                                <p class="text-muted small mb-0">{{ number_format($commentCount) }} {{ Str::plural('comment', $commentCount) }}</p>
+                            </div>
+                            <i class="far fa-comments" aria-hidden="true"></i>
+                        </div>
 
                         @if (session('comment_status'))
                             <div class="alert alert-info">
@@ -57,29 +64,37 @@
                         @endif
 
                         @if ($post->allow_comments)
-                            <div class="blog-card mb-4">
+                            <div class="blog-card comment-composer mb-4">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Leave a Comment</h5>
-                                    <div id="replying-to" class="text-muted small mb-3" style="display: none;">
-                                        Replying to <strong id="replying-to-name"></strong>
-                                        <button type="button" class="btn btn-link p-0 ml-2" id="cancel-reply">Cancel</button>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="comment-avatar comment-avatar-accent mr-3"><i class="far fa-user"></i></div>
+                                        <div>
+                                            <h5 class="mb-0">Join the discussion</h5>
+                                            <small class="text-muted">Share a thought or ask a question.</small>
+                                        </div>
                                     </div>
                                     <form method="post" action="{{ route('blog.comment', $post->slug) }}">
                                         @csrf
-                                        <input type="hidden" name="parent_id" id="comment-parent-id" value="">
-                                        <div class="form-group">
-                                            <label for="comment-name">Name</label>
-                                            <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('name') }}" required>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="comment-name">Name</label>
+                                                <input type="text" name="name" id="comment-name" class="form-control" value="{{ old('parent_id') ? '' : old('name') }}" maxlength="100" autocomplete="name" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="comment-email">Email <span class="text-muted font-weight-normal">(not published)</span></label>
+                                                <input type="email" name="email" id="comment-email" class="form-control" value="{{ old('parent_id') ? '' : old('email') }}" autocomplete="email">
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="comment-email">Email (optional)</label>
-                                            <input type="email" name="email" id="comment-email" class="form-control" value="{{ old('email') }}">
+                                            <label for="comment-body" class="sr-only">Comment</label>
+                                            <textarea name="body" id="comment-body" class="form-control" rows="4" maxlength="5000" placeholder="Write a comment…" required>{{ old('parent_id') ? '' : old('body') }}</textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="comment-body">Comment</label>
-                                            <textarea name="body" id="comment-body" class="form-control" rows="4" required>{{ old('body') }}</textarea>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <small class="text-muted">Comments are reviewed before appearing.</small>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="far fa-paper-plane mr-1"></i> Post comment
+                                            </button>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Submit Comment</button>
                                     </form>
                                 </div>
                             </div>
@@ -107,6 +122,8 @@
                         <div class="mb-3">{{ $post->category ? $post->category->name : 'Uncategorized' }}</div>
                         <div class="mb-2 text-muted">Published</div>
                         <div class="mb-3">{{ $post->published_at ? $post->published_at->format('M d, Y') : $post->created_at->format('M d, Y') }}</div>
+                        <div class="mb-2 text-muted">Total views</div>
+                        <div class="mb-3"><i class="far fa-eye mr-1"></i> {{ number_format($post->views_count) }}</div>
                         @if ($post->tags && $post->tags->count())
                             <div class="mb-2 text-muted">Tags</div>
                             <div>
@@ -142,24 +159,24 @@
 @push('scripts')
 <script>
     $(function() {
-        const replyButtons = $('.comment-reply-button');
-        const parentIdInput = $('#comment-parent-id');
-        const replyingTo = $('#replying-to');
-        const replyingToName = $('#replying-to-name');
-        const cancelReply = $('#cancel-reply');
+        $('.comment-reply-button').on('click', function() {
+            const button = $(this);
+            const composer = $('#reply-form-' + button.data('reply-id'));
 
-        replyButtons.on('click', function() {
-            const commentId = $(this).data('reply-id');
-            const commentName = $(this).data('reply-name');
-            parentIdInput.val(commentId);
-            replyingToName.text(commentName);
-            replyingTo.show();
-            $('html, body').animate({ scrollTop: $('#comments').offset().top - 80 }, 400);
+            $('.inline-reply-form').not(composer).addClass('d-none');
+            $('.comment-reply-button').not(button).attr('aria-expanded', 'false');
+            composer.toggleClass('d-none');
+            button.attr('aria-expanded', composer.hasClass('d-none') ? 'false' : 'true');
+
+            if (!composer.hasClass('d-none')) {
+                composer.find('textarea').trigger('focus');
+            }
         });
 
-        cancelReply.on('click', function() {
-            parentIdInput.val('');
-            replyingTo.hide();
+        $('.cancel-inline-reply').on('click', function() {
+            const composer = $(this).closest('.inline-reply-form');
+            composer.addClass('d-none');
+            composer.closest('.comment-card').children('.comment-content').find('.comment-reply-button').attr('aria-expanded', 'false').trigger('focus');
         });
     });
 </script>

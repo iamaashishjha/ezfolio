@@ -34,8 +34,9 @@
                                             <span> · {{ $post->category->name }}</span>
                                         @endif
                                         @if (isset($post->comments_count))
-                                            <span> · {{ $post->comments_count }} comments</span>
+                                            <span> · <i class="far fa-comment"></i> {{ number_format($post->comments_count) }}</span>
                                         @endif
+                                        <span> · <i class="far fa-eye"></i> {{ number_format($post->views_count) }} views</span>
                                     </div>
                                     <h3 class="mb-2">
                                         <a href="{{ route('blog.show', $post->slug) }}">{{ $post->title }}</a>

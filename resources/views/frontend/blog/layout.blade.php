@@ -115,15 +115,97 @@
             padding: 1.25rem 1.5rem;
             box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
             margin-bottom: 1rem;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+        }
+        .discussion-heading > i {
+            color: {{ $accentColor }};
+            font-size: 1.5rem;
+        }
+        .comment-composer {
+            overflow: visible;
+        }
+        .comment-composer .form-control,
+        .inline-reply-form .form-control {
+            border-radius: 10px;
+            border-color: #dbe1ea;
+            background: #f8fafc;
+        }
+        .comment-composer textarea.form-control,
+        .inline-reply-form textarea.form-control {
+            resize: vertical;
+        }
+        .comment-composer .form-control:focus,
+        .inline-reply-form .form-control:focus {
+            background: #fff;
+            border-color: {{ $accentColor }};
+            box-shadow: 0 0 0 .2rem rgba({{ $accentColorRGB }}, .12);
+        }
+        .comment-avatar {
+            align-items: center;
+            background: rgba({{ $accentColorRGB }}, .12);
+            border-radius: 50%;
+            color: {{ $accentColor }};
+            display: inline-flex;
+            flex: 0 0 42px;
+            font-size: .95rem;
+            font-weight: 700;
+            height: 42px;
+            justify-content: center;
+            text-transform: uppercase;
+            width: 42px;
+        }
+        .comment-avatar-accent {
+            background: {{ $accentColor }};
+            color: #fff;
+        }
+        .comment-body {
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            white-space: pre-line;
         }
         .comment-replies {
-            margin-left: 1.5rem;
+            border-left: 2px solid rgba({{ $accentColorRGB }}, .16);
+            margin-left: 1.25rem;
             margin-top: 1rem;
+            padding-left: 1.25rem;
+        }
+        .comment-replies .comment-card {
+            box-shadow: 0 5px 16px rgba(15, 23, 42, 0.045);
         }
         .comment-reply-button {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: #6b7280;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .comment-reply-button:hover,
+        .comment-reply-button:focus {
+            color: {{ $accentColor }};
+            text-decoration: none;
+        }
+        .inline-reply-form {
+            background: #f8fafc;
+            border-radius: 12px;
+            margin: 1rem 0 0 3.5rem;
+            padding: 1rem;
+        }
+        .reply-context {
+            color: #6b7280;
+        }
+        @media (max-width: 575.98px) {
+            .comment-card {
+                padding: 1rem;
+            }
+            .comment-replies,
+            .comment-replies .comment-replies {
+                margin-left: .5rem;
+                padding-left: .65rem;
+            }
+            .inline-reply-form {
+                margin-left: 0;
+            }
+            .comment-composer .card-body {
+                padding: 1.2rem;
+            }
         }
     </style>
 </head>

@@ -94,6 +94,7 @@ class BlogController extends Controller
         }
 
         $post = $postResult['payload'];
+        $post->increment('views_count');
         $commentsResult = resolve(BlogCommentInterface::class)->getApprovedByPostId($post->id);
         $comments = $commentsResult['status'] === CoreConstants::STATUS_CODE_SUCCESS ? $commentsResult['payload'] : collect();
 
@@ -141,19 +142,20 @@ class BlogController extends Controller
         }
 
         $post = $postResult['payload'];
+        $commentsUrl = route('blog.show', $post->slug) . '#comments';
         if (!$post->allow_comments) {
-            return redirect()->back()->with('comment_status', 'Comments are disabled for this post.');
+            return redirect()->to($commentsUrl)->with('comment_status', 'Comments are disabled for this post.');
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            'name' => 'required|string|max:100',
             'email' => 'nullable|email',
-            'body' => 'required|string',
+            'body' => 'required|string|max:5000',
             'parent_id' => 'nullable|integer',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
+            return redirect()->to($commentsUrl)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -169,10 +171,10 @@ class BlogController extends Controller
 
         $result = resolve(BlogCommentInterface::class)->store($payload);
         if ($result['status'] !== CoreConstants::STATUS_CODE_SUCCESS) {
-            return redirect()->back()->with('comment_status', $result['message']);
+            return redirect()->to($commentsUrl)->with('comment_status', $result['message']);
         }
 
-        return redirect()->back()->with('comment_status', 'Thanks! Your comment is awaiting approval.');
+        return redirect()->to($commentsUrl)->with('comment_status', 'Thanks! Your comment is awaiting approval.');
     }
 
     /**

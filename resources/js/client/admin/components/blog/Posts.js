@@ -90,6 +90,15 @@ const Posts = () => {
             render: (value) => value ? moment(value).format('YYYY-MM-DD') : '-',
         },
         {
+            title: 'Views',
+            dataIndex: 'views_count',
+            sorter: true,
+            align: 'right',
+            width: 100,
+            search: false,
+            render: (value) => Number(value || 0).toLocaleString(),
+        },
+        {
             title: 'Option',
             valueType: 'option',
             align: 'center',
