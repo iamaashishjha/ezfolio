@@ -36138,6 +36138,16 @@ var Posts = function Posts() {
       return value ? moment__WEBPACK_IMPORTED_MODULE_7___default()(value).format('YYYY-MM-DD') : '-';
     }
   }, {
+    title: 'Views',
+    dataIndex: 'views_count',
+    sorter: true,
+    align: 'right',
+    width: 100,
+    search: false,
+    render: function render(value) {
+      return Number(value || 0).toLocaleString();
+    }
+  }, {
     title: 'Option',
     valueType: 'option',
     align: 'center',

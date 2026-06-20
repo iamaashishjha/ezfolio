@@ -55,6 +55,15 @@ class PortfolioConfigService implements PortfolioConfigInterface
                 ];
             }
 
+            if ((int) $data['setting_key'] === CoreConstants::PORTFOLIO_CONFIG__TEMPLATE
+                && !in_array($data['setting_value'] ?? '', CoreConstants::PORTFOLIO_THEMES, true)) {
+                return [
+                    'message' => 'Validation Error',
+                    'payload' => ['setting_value' => ['The selected portfolio theme is invalid.']],
+                    'status' => CoreConstants::STATUS_CODE_BAD_REQUEST,
+                ];
+            }
+
             if (isset($data['default_value'])) {
                 $result = $this->model->updateOrCreate([
                     'setting_key' => $data['setting_key'],

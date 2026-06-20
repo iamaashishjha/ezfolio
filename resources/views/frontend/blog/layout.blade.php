@@ -2,10 +2,14 @@
     $accentColor = $portfolioConfig['accentColor'];
     $accentColorRGB = Utils::getRgbValue($accentColor);
     $template = $portfolioConfig['template'] ?? 'procyon';
+    if (!in_array($template, CoreConstants::PORTFOLIO_THEMES, true)) {
+        $template = 'procyon';
+    }
     $pageTitle = $pageTitle ?? ($portfolioConfig['seo']['title'] ?: $about->name);
     $pageDescription = $pageDescription ?? $portfolioConfig['seo']['description'];
     $pageImage = $pageImage ?? ($portfolioConfig['seo']['image_url'] ?? $portfolioConfig['seo']['image']);
     $canonicalUrl = $canonicalUrl ?? url()->current();
+    $themeScript = $template === 'vega' ? 'scripts.js' : 'main.js';
 @endphp
 
 <!DOCTYPE html>
@@ -213,7 +217,9 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     @include('common.preloader2')
 
-    @if ($template === 'rigel')
+    @if (in_array($template, ['kernel', 'blueprint', 'datastream', 'endpoint', 'mainframe', 'cluster', 'schema', 'uptime', 'pipeline', 'cloudline'], true))
+        @include('frontend.blog.partials.nav-backend')
+    @elseif ($template === 'rigel')
         @include('frontend.blog.partials.nav-rigel')
     @elseif ($template === 'vega')
         @include('frontend.blog.partials.nav-vega')
@@ -236,7 +242,7 @@
     <script src="{{ asset('assets/common/lib/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/iziToast/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('assets/common/lib/aos/aos.js') }}"></script>
-    <script src="{{ asset('assets/themes/' . $template . '/js/main.js') }}?v={{ filemtime(public_path('assets/themes/' . $template . '/js/main.js')) }}"></script>
+    <script src="{{ asset('assets/themes/' . $template . '/js/' . $themeScript) }}?v={{ filemtime(public_path('assets/themes/' . $template . '/js/' . $themeScript)) }}"></script>
     @include('common.pixelTracking')
     <script>
         $(function() {

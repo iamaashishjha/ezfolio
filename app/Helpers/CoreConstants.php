@@ -50,6 +50,12 @@ class CoreConstants
     const PORTFOLIO_CONFIG__VISIBILITY_SKILL_PROFICIENCY = 20;
     const PORTFOLIO_CONFIG__VISIBILITY_BLOG = 21;
 
+    const PORTFOLIO_THEMES = [
+        'procyon', 'rigel', 'vega',
+        'kernel', 'blueprint', 'datastream', 'endpoint', 'mainframe',
+        'cluster', 'schema', 'uptime', 'pipeline', 'cloudline',
+    ];
+
     #endregion
 
 

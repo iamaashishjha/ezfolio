@@ -4860,7 +4860,6 @@ var EditSpan = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].span(_
 var About = function About() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState2 = _slicedToArray(_useState, 2),
-      avatar = _useState2[0],
       setAvatar = _useState2[1];
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
@@ -4915,7 +4914,6 @@ var About = function About() {
 
   var _useState23 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
       _useState24 = _slicedToArray(_useState23, 2),
-      cover = _useState24[0],
       setCover = _useState24[1];
 
   var _useState25 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),

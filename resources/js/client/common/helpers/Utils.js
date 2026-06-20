@@ -169,6 +169,16 @@ const templates = [
         title: 'Vega',
         image: window.location.origin + '/' +'assets/common/img/templates/vega.png',
     },
+    { id: 'kernel', title: 'Kernel', image: window.location.origin + '/assets/common/img/templates/kernel.svg' },
+    { id: 'blueprint', title: 'Blueprint', image: window.location.origin + '/assets/common/img/templates/blueprint.svg' },
+    { id: 'datastream', title: 'Datastream', image: window.location.origin + '/assets/common/img/templates/datastream.svg' },
+    { id: 'endpoint', title: 'Endpoint', image: window.location.origin + '/assets/common/img/templates/endpoint.svg' },
+    { id: 'mainframe', title: 'Mainframe', image: window.location.origin + '/assets/common/img/templates/mainframe.svg' },
+    { id: 'cluster', title: 'Cluster', image: window.location.origin + '/assets/common/img/templates/cluster.svg' },
+    { id: 'schema', title: 'Schema', image: window.location.origin + '/assets/common/img/templates/schema.svg' },
+    { id: 'uptime', title: 'Uptime', image: window.location.origin + '/assets/common/img/templates/uptime.svg' },
+    { id: 'pipeline', title: 'Pipeline', image: window.location.origin + '/assets/common/img/templates/pipeline.svg' },
+    { id: 'cloudline', title: 'Cloudline', image: window.location.origin + '/assets/common/img/templates/cloudline.svg' },
 ];
 
 /**

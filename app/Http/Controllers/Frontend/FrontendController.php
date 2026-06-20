@@ -58,6 +58,10 @@ class FrontendController extends Controller
 
         $template = $data['portfolioConfig']['template'];
 
+        if (!in_array($template, CoreConstants::PORTFOLIO_THEMES, true)) {
+            $template = 'procyon';
+        }
+
         return view('frontend.theme.'.$template, $data);
     }
 
