@@ -1,0 +1,183 @@
+name: Build, Publish & Deploy
+
+run-name: >-
+  Pipeline for ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: >-
+    ${{ (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+        && 'ezfolio-production'
+        || format('ezfolio-{0}', github.ref) }}
+  cancel-in-progress: >-
+    ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  prepare:
+    name: Prepare image metadata
+    runs-on: ubuntu-latest
+    outputs:
+      image_namespace: ${{ steps.metadata.outputs.image_namespace }}
+      image_tag: ${{ steps.metadata.outputs.image_tag }}
+    steps:
+      - name: Generate image namespace and tag
+        id: metadata
+        shell: bash
+        run: |
+          namespace="${GITHUB_REPOSITORY_OWNER,,}"
+
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            tag="${GITHUB_REF#refs/tags/}"
+          else
+            tag="$GITHUB_REF_NAME"
+          fi
+
+          # Docker tags only support letters, numbers, underscores, periods and dashes.
+          tag="$(sed -E 's/[^a-zA-Z0-9_.-]+/-/g; s/^[.-]+//; s/[.-]+$//' <<< "$tag")"
+          [[ -n "$tag" ]] || tag="sha-${GITHUB_SHA::12}"
+
+          echo "image_namespace=$namespace" >> "$GITHUB_OUTPUT"
+          echo "image_tag=$tag" >> "$GITHUB_OUTPUT"
+
+  build_php:
+    name: Build and publish PHP image
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_GITHUB_TOKEN || github.token }}
+
+      - name: Build and publish ezfolio-php
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.php
+          push: true
+          provenance: false
+          tags: |
+            ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-php:${{ needs.prepare.outputs.image_tag }}
+            ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-php:${{ github.sha }}
+          cache-from: type=registry,ref=ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-php:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-php:buildcache,mode=max
+          build-args: |
+            BUILDKIT_PROGRESS=plain
+
+  build_nginx:
+    name: Build and publish Nginx image
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_GITHUB_TOKEN || github.token }}
+
+      - name: Build and publish ezfolio-nginx
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.nginx
+          push: true
+          provenance: false
+          tags: |
+            ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-nginx:${{ needs.prepare.outputs.image_tag }}
+            ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-nginx:${{ github.sha }}
+          cache-from: type=registry,ref=ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-nginx:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ needs.prepare.outputs.image_namespace }}/ezfolio-nginx:buildcache,mode=max
+          build-args: |
+            BUILDKIT_PROGRESS=plain
+
+  promote:
+    name: Promote images to latest
+    needs:
+      - prepare
+      - build_php
+      - build_nginx
+    if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+          - ezfolio-php
+          - ezfolio-nginx
+    steps:
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_GITHUB_TOKEN || github.token }}
+
+      - name: Promote ${{ matrix.image }}
+        shell: bash
+        run: |
+          IMAGE="ghcr.io/${{ needs.prepare.outputs.image_namespace }}/${{ matrix.image }}"
+          docker pull "$IMAGE:${{ github.sha }}"
+          docker tag "$IMAGE:${{ github.sha }}" "$IMAGE:latest"
+          docker push "$IMAGE:latest"
+
+  deploy:
+    name: Deploy application
+    needs: promote
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Pull images and start services
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.DEPLOY_HOST }}
+          username: ${{ vars.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          timeout: 60s
+          command_timeout: 45m
+          script: |
+            ${{ vars.DEPLOY_SCRIPT_PATH }}/infra-auto-deploy ezfolio up
+
+  refresh_cache:
+    name: Refresh application cache
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Rebuild Laravel caches
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.DEPLOY_HOST }}
+          username: ${{ vars.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          timeout: 60s
+          command_timeout: 15m
+          script: |
+            APP_CONTAINER="${{ vars.EZFOLIO_PHP_CONTAINER || 'ezfolio_php' }}"
+            docker exec "$APP_CONTAINER" php artisan optimize:clear
+            docker exec "$APP_CONTAINER" php artisan config:cache
+            docker exec "$APP_CONTAINER" php artisan route:cache
+            docker exec "$APP_CONTAINER" php artisan view:cache
